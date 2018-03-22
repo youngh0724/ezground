@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ezground.teamproject.team.TeamMapper">
+	<select id="teamSelectList"
+		    resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT
+			team_no,
+			category_no,
+			team_name,
+			team_region,
+			team_ages,
+			team_level,
+			team_win,
+			team_draw,
+			team_lose,
+			team_victory_point,
+			team_game_count,
+			team_created_date
+		FROM team	    
+	</select>
+
+	<select id="teamSelectPage"
+			parameterType="java.util.Map"
+			resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT 
+			team_id AS movieId,
+			movie_name AS movieName
+		FROM movie
+		<if test="searchWord != null">
+			WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
+		ORDER BY movieId
+		LIMIT #{startRow}, #{rowPerPage} 		
+	</select>
+
+</mapper>
