@@ -9,7 +9,7 @@
 		    resultType="com.ezground.teamproject.team.dto.Team">
 		SELECT
 			team_no,
-			category_no,
+			sport_entries_no,
 			team_name,
 			team_region,
 			team_ages,
@@ -20,21 +20,29 @@
 			team_victory_point,
 			team_game_count,
 			team_created_date
-		FROM team	    
+		FROM t_team	    
 	</select>
 
 	<select id="teamSelectPage"
 			parameterType="java.util.Map"
 			resultType="com.ezground.teamproject.team.dto.Team">
 		SELECT 
-			team_id AS movieId,
-			movie_name AS movieName
-		FROM movie
+			team_no AS teamNo
+			team_name AS teamName
+		FROM t_team
 		<if test="searchWord != null">
-			WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+			WHERE team_name LIKE CONCAT('%',#{searchWord},'%')
 		</if>
-		ORDER BY movieId
+		ORDER BY teamNo
 		LIMIT #{startRow}, #{rowPerPage} 		
 	</select>
-
+	
+	<select id="teamSelectCount"
+  			resultType="int">
+  		SELECT 
+  			count(*) 
+  		FROM t_team
+  	</select>
+	
+	
 </mapper>

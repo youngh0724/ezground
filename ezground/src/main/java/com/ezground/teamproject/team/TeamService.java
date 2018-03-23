@@ -23,7 +23,8 @@ public class TeamService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TeamService.class);
 	
-public Map<String, Object> teamSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+
+	public Map<String, Object> teamSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 		
 		logger.debug("movieSelectListByPage() currentPage = {}", currentPage);
 		logger.debug("movieSelectListByPage() rowPerPage = {}", rowPerPage);
@@ -46,5 +47,6 @@ public Map<String, Object> teamSelectListByPage(int currentPage, int rowPerPage,
 		
 		return returnMap;
 	}
+
 
 }

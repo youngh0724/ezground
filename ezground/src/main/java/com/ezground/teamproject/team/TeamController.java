@@ -36,7 +36,7 @@ public class TeamController {
 		logger.debug("teamSelectPage() searchWord = {}", searchWord);
 		Map map = teamService.teamSelectListByPage(currentPage, rowPerPage, searchWord);
 		//list에 들어있는 값을 확인해본다.
-		logger.debug("movieSelcetList() map = {}", map);
+		logger.debug("teamSelcetList() map = {}", map);
 		
 		List<Team> list = (List<Team>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
