@@ -69,6 +69,8 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:com/ezground/teamproject/reservation/ReservationMapper.xml
+				</value>
+				<value>classpath:com/ezground/teamproject/service/LoginMapper.xml
 				</value>			
 			</list>
 		</property>
