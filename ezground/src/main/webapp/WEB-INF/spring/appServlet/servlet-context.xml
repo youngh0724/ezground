@@ -30,14 +30,23 @@
 	<!-- multiPartFile config -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
 
-	<context:component-scan base-package="com/ezground/teamproject" />
+	<!-- 다운로드 처리 빈즈 시작 -->	
+	<bean id="fileDownloadView" class="com.ezground.teamproject.errortest.test"/>
+	
+	<bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+   		<property name="order" value="0"/>
+	</bean>
+	
+	<!-- 다운로드 처리빈즈 끝 -->
+	
+	<context:component-scan base-package="com.ezground.teamproject" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8" />
-		<property name="username" value="root" />
-		<property name="password" value="java0000" />
+			value="jdbc:mysql://localhost/fgwks25?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="fgwks25" />
+		<property name="password" value="qkrfhwls@2" />
 	</bean>
 	<!-- transaction -->
 	<bean id="transactionManager"
@@ -59,9 +68,8 @@
 		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:com/ezground/teamproject/team/TeamMapper.xml
-				</value>
-					
+				<value>classpath:com/ezground/teamproject/reservation/ReservationMapper.xml
+				</value>			
 			</list>
 		</property>
 	</bean>
