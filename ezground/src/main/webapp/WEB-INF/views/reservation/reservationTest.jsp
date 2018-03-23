@@ -18,6 +18,7 @@
             $( "#datepicker-3" ).datepicker({
                appendText:"(yy-mm-dd)",
                dateFormat:"yy-mm-dd",
+               minDate:"0",
                dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
                altField: "#datepicker-4",
                altFormat: "DD, d MM, yy"
