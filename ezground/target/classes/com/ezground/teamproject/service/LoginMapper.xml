@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.ezground.teamproject.service.LoginMapper">
+ 
+ 	<!-- 로그인 체크하는 쿼리문 -->
+ 	<select id="loginSelectOne" 
+ 			parameterType="com.ezground.teamproject.member.dto.MemberLogin"
+			resultType="com.ezground.teamproject.member.dto.MemberLogin">
+		SELECT
+			member_id as memberId,			
+			member_level as memberLevel
+		FROM t_member
+		WHERE member_id = #{memberId} AND member_pw = #{memberPw} AND member_level = #{memberLevel}	
+	</select>
+ </mapper>
+  
