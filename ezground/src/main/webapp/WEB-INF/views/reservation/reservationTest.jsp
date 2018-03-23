@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- jQuery UI CSSÆÄÀÏ --> 
+<!-- jQuery UI CSSíŒŒì¼ --> 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<!-- jQuery ±âº» jsÆÄÀÏ -->
+<!-- jQuery ê¸°ë³¸ jsíŒŒì¼ -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<!-- jQuery UI ¶óÀÌºê·¯¸® jsÆÄÀÏ -->
+<!-- jQuery UI ë¼ì´ë¸ŒëŸ¬ë¦¬ jsíŒŒì¼ -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-<h1>¿¹¾àÆäÀÌÁö Å×½ºÆ®</h1>
-<h3>ÀÔ·Â³¯Â¥Å¬¸¯ -> ³¯Â¥¼±ÅÃ -> ÀÔ·ÂµÈ ³¯Â¥ ¹ŞÀ½</h3>
+<h1>ì˜ˆì•½í˜ì´ì§€ í…ŒìŠ¤íŠ¸</h1>
+<h3>ì…ë ¥ë‚ ì§œí´ë¦­ -> ë‚ ì§œì„ íƒ -> ì…ë ¥ëœ ë‚ ì§œ ë°›ìŒ</h3>
 
    <!-- Javascript -->
       <script>
@@ -18,6 +18,7 @@
             $( "#datepicker-3" ).datepicker({
                appendText:"(yy-mm-dd)",
                dateFormat:"yy-mm-dd",
+               dayNamesMin: [ "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " ],
                altField: "#datepicker-4",
                altFormat: "DD, d MM, yy"
             });
@@ -27,7 +28,7 @@
    
    <body>
       <!-- HTML --> 
-      <p>ÀÔ·Â ³¯Â¥: <input type = "text" id = "datepicker-3"></p>
+      <p>ì…ë ¥ ë‚ ì§œ: <input type = "text" id = "datepicker-3"></p>
       <p>Alternate Date: <input type = "text" id = "datepicker-4"></p>
    </body>
 </html>
