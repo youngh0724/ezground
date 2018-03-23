@@ -13,9 +13,9 @@
  
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/project" />
-        <property name="username" value="root" />
-        <property name="password" value="1234" />
+        <property name="url" value="jdbc:mysql://yhpro724.cafe24.com/yhpro724?useUnicode=true&amp;characterEncoding=utf-8" />
+        <property name="username" value="yhpro724" />
+        <property name="password" value="etvmfhwprxm123" />
     </bean>
 
 </beans>

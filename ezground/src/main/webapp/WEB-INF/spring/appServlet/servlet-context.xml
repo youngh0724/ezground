@@ -44,9 +44,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost/fgwks25?useUnicode=true&amp;characterEncoding=utf-8" />
-		<property name="username" value="fgwks25" />
-		<property name="password" value="qkrfhwls@2" />
+			value="jdbc:mysql://yhpro724.cafe24.com/yhpro724?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="yhpro724" />
+		<property name="password" value="etvmfhwprxm123" />
 	</bean>
 	<!-- transaction -->
 	<bean id="transactionManager"
