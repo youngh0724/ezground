@@ -1,11 +1,14 @@
 package com.ezground.teamproject.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -26,5 +29,11 @@ public class LoginDao {
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"loginSelectOne", memberLogin);
 	}
+	
+	public List<SportEntries> sportEntriesNameSelectList() {
+		
+		return sqlSessionTemplate.selectList(mapperRoot+"sportEntriesNameSelectList");
+	}
+		
 
 }

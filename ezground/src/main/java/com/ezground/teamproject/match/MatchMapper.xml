@@ -6,14 +6,53 @@
 
  <mapper namespace="com.ezground.teamproject.match.MatchMapper">
  
- 	<!-- 로그인 체크하는 쿼리문 -->
- 	<select id="loginSelectOne" 
- 			parameterType="com.ezground.teamproject.member.dto.MemberLogin"
-			resultType="com.ezground.teamproject.member.dto.MemberLogin">
-		SELECT
-			member_id as memberId,			
-			member_level as memberLevel
-		FROM t_member
-		WHERE member_id = #{memberId} AND member_pw = #{memberPw} AND member_level = #{memberLevel}	
+ 	<!-- 종목번호와 맴버번호로 팀번호를 판별하는 쿼리문 -->
+ 	<select id="teamNoSelectOne"
+ 			parameterType="java.util.Map"
+ 			resultType="int">
+		SELECT 
+			m.team_no as teamNo		
+		FROM t_team_member m INNER JOIN t_team t
+		ON m.team_no = t.team_no
+		WHERE t.sport_entries_no = #{entryNo} and m.member_no = #{memberNo}
 	</select>
+	
+	<!-- 매치공고 정보를 생성하는 쿼리문 -->
+	<insert id="matchNoticeInsert"
+			parameterType="com.ezground.teamproject.match.dto.MatchNotice">
+		INSERT INTO t_match_notice(
+			calendar, 
+			time,
+			team_no, 
+			match_notice_region, 
+			match_member_count, 
+			match_notice_insert_date, 
+			match_notice_update_date)
+		VALUES (#{calendar}, 
+			#{time},
+			#{teamNo}, 
+			#{matchNoticeRegion}, 
+			#{matchMemberCount},
+			now(),
+			now())
+		<selectKey keyProperty="matchNoticeNo" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+		</selectKey>		
+	</insert>
+	
+	<!-- 매치 참가 맴버 정보에 홈팀 참가 맴버 정보 입력 쿼리문 -->
+	<insert id="matchJoinMemberInsertHomeTeam"
+			parameterType="java.util.Map">
+		INSERT INTO t_match_join_member(
+			match_notice_no,
+			team_no,
+			member_no,
+			home_away)
+		VALUES (#{generatedMatchNoticeNo},
+				#{teamNo},
+				#{memberNo},
+				#{homeAway})
+	</insert>
+	
+	
  </mapper>

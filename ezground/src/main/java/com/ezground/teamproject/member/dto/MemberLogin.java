@@ -2,23 +2,31 @@ package com.ezground.teamproject.member.dto;
 
 public class MemberLogin {
 	
+	private int memberNo;
 	private String memberId;
 	private String memberPw;
 	private String memberLevel;
 		
-	
 	public MemberLogin() {
 		super();
 	}
-	public MemberLogin(String memberId, String memberPw, String memberLevel) {
+	public MemberLogin(int memberNo, String memberId, String memberPw, String memberLevel) {
 		super();
+		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberLevel = memberLevel;
 	}
 	@Override
 	public String toString() {
-		return "MemberLogin [memberId=" + memberId + ", memberPw=" + memberPw + ", memberLevel=" + memberLevel + "]";
+		return "MemberLogin [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw
+				+ ", memberLevel=" + memberLevel + "]";
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -37,7 +45,5 @@ public class MemberLogin {
 	}
 	public void setMemberLevel(String memberLevel) {
 		this.memberLevel = memberLevel;
-	}
-	
-	
+	}	
 }

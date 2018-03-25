@@ -1,6 +1,7 @@
 package com.ezground.teamproject.match.dto;
 
 public class MatchNotice {
+	private int matchNoticeNo;
 	private String calendar;
 	private String time;
 	private int teamNo;
@@ -9,14 +10,15 @@ public class MatchNotice {
 	private int matchMemberCount;
 	private String matchNoticeInsertDate;
 	private String matchNoticeUpdateDate;
-	
-	
+		
 	public MatchNotice() {
 		super();
 	}
-	public MatchNotice(String calendar, String time, int teamNo, String matchNoticeRegion, String matchNoticeStatus,
-			int matchMemberCount, String matchNoticeInsertDate, String matchNoticeUpdateDate) {
+	public MatchNotice(int matchNoticeNo, String calendar, String time, int teamNo, String matchNoticeRegion,
+			String matchNoticeStatus, int matchMemberCount, String matchNoticeInsertDate,
+			String matchNoticeUpdateDate) {
 		super();
+		this.matchNoticeNo = matchNoticeNo;
 		this.calendar = calendar;
 		this.time = time;
 		this.teamNo = teamNo;
@@ -28,10 +30,16 @@ public class MatchNotice {
 	}
 	@Override
 	public String toString() {
-		return "MatchNotice [calendar=" + calendar + ", time=" + time + ", teamNo=" + teamNo + ", matchNoticeRegion="
-				+ matchNoticeRegion + ", matchNoticeStatus=" + matchNoticeStatus + ", matchMemberCount="
-				+ matchMemberCount + ", matchNoticeInsertDate=" + matchNoticeInsertDate + ", matchNoticeUpdateDate="
-				+ matchNoticeUpdateDate + "]";
+		return "MatchNotice [matchNoticeNo=" + matchNoticeNo + ", calendar=" + calendar + ", time=" + time + ", teamNo="
+				+ teamNo + ", matchNoticeRegion=" + matchNoticeRegion + ", matchNoticeStatus=" + matchNoticeStatus
+				+ ", matchMemberCount=" + matchMemberCount + ", matchNoticeInsertDate=" + matchNoticeInsertDate
+				+ ", matchNoticeUpdateDate=" + matchNoticeUpdateDate + "]";
+	}
+	public int getMatchNoticeNo() {
+		return matchNoticeNo;
+	}
+	public void setMatchNoticeNo(int matchNoticeNo) {
+		this.matchNoticeNo = matchNoticeNo;
 	}
 	public String getCalendar() {
 		return calendar;
@@ -80,5 +88,5 @@ public class MatchNotice {
 	}
 	public void setMatchNoticeUpdateDate(String matchNoticeUpdateDate) {
 		this.matchNoticeUpdateDate = matchNoticeUpdateDate;
-	}	
+	}		
 }

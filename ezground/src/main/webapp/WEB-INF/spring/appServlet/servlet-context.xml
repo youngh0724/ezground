@@ -71,6 +71,8 @@
 				<value>classpath:com/ezground/teamproject/reservation/ReservationMapper.xml
 				</value>
 				<value>classpath:com/ezground/teamproject/service/LoginMapper.xml
+				</value>
+				<value>classpath:com/ezground/teamproject/match/MatchMapper.xml
 				</value>			
 			</list>
 		</property>
