@@ -21,16 +21,21 @@
 	<insert id="matchNoticeInsert"
 			parameterType="com.ezground.teamproject.match.dto.MatchNotice">
 		INSERT INTO t_match_notice(
-			calendar, 
-			time,
+			match_expected_day, 
+			match_expected_start_time,
+			match_expected_end_time,
 			team_no, 
+			match_kinds,
 			match_notice_region, 
 			match_member_count, 
 			match_notice_insert_date, 
 			match_notice_update_date)
-		VALUES (#{calendar}, 
-			#{time},
+		VALUES (
+			#{matchExpectedDay},
+			#{matchExpectedStartTime},
+			#{matchExpectedEndTime},
 			#{teamNo}, 
+			#{matchKinds},
 			#{matchNoticeRegion}, 
 			#{matchMemberCount},
 			now(),
@@ -42,17 +47,75 @@
 	
 	<!-- 매치 참가 맴버 정보에 홈팀 참가 맴버 정보 입력 쿼리문 -->
 	<insert id="matchJoinMemberInsertHomeTeam"
-			parameterType="java.util.Map">
+			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember">
 		INSERT INTO t_match_join_member(
 			match_notice_no,
 			team_no,
 			member_no,
 			home_away)
-		VALUES (#{generatedMatchNoticeNo},
+		VALUES (#{matchNoticeNo},
 				#{teamNo},
 				#{memberNo},
 				#{homeAway})
 	</insert>
 	
+	<!-- 매치공고 정보를 조회하는 쿼리문 -->
+ 	<select id="matchSelectList" 			
+ 			resultType="com.ezground.teamproject.match.dto.MatchNotice">
+		SELECT 
+			match_notice_no AS matchNoticeNo,
+			match_expected_day AS matchExpectedDay, 
+			match_expected_start_time AS matchExpectedStartTime,
+			match_expected_end_time AS matchExpectedEndTime,
+			team_no AS teamNo, 
+			match_notice_status AS matchNoticeStatus,
+			match_kinds AS matchKinds,
+			match_notice_region AS matchNoticeRegion, 
+			match_member_count AS matchMemberCount, 
+			match_notice_insert_date AS matchNoticeInsertDate			
+		FROM t_match_notice	
+		<if test="searchWord != null">
+  			WHERE match_kinds =  #{searchWord}
+  		</if>	
+	</select>
 	
+	<!-- 매치공고 상세 정보를 조회하는 쿼리문 -->
+ 	<select id="matchSelectOne" 			
+ 			resultType="com.ezground.teamproject.match.dto.MatchNotice">
+		SELECT 
+			match_notice_no AS matchNoticeNo,
+			match_expected_day AS matchExpectedDay, 
+			match_expected_start_time AS matchExpectedStartTime,
+			match_expected_end_time AS matchExpectedEndTime,
+			team_no AS teamNo, 
+			match_kinds AS matchKinds,
+			match_notice_status AS matchNoticeStatus,
+			match_notice_region AS matchNoticeRegion, 
+			match_member_count AS matchMemberCount, 
+			match_notice_insert_date AS matchNoticeInsertDate			
+		FROM t_match_notice	
+		WHERE match_notice_no = #{matchNoticeNo}	
+	</select>	
+	
+	<!-- 매치 참가 맴버 아이디 리스트 조회 쿼리문 -->
+ 	<select id="matchJoinMemberList"
+ 			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember"
+ 			resultType="String">
+		SELECT 
+			m.member_id		
+		FROM t_match_join_member j INNER JOIN t_member m
+		ON j.member_no = m.member_no
+		WHERE j.match_notice_no = #{matchNoticeNo} AND j.home_away = #{homeAway}
+	</select>
+	
+	<!-- 참가신청 매치의 home or away 판별 쿼리문 -->
+ 	<select id="matchNoticeSelectHomeAway" 			
+ 			resultType="int">
+		SELECT			
+			team_no AS teamNo
+		FROM t_match_join_member
+		WHERE match_notice_no = #{matchNoticeNo} AND home_away = 'home'
+		GROUP BY teamNo
+	</select>
+		
  </mapper>

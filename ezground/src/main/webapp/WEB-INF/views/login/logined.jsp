@@ -33,8 +33,8 @@
 
 <br>
 <a href ="${pageContext.request.contextPath}/creatMatch?entryNo=${currentSportEntry.getSportEntriesNo()}" >매치 생성하기</a> 
-
-
+<br>
+<a href ="${pageContext.request.contextPath}/match/matchSelect" >매치 검색 페이지로..</a>
 
 </body>
 </html>

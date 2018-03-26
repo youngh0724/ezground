@@ -1,5 +1,8 @@
 package com.ezground.teamproject.match.dto;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class MatchJoinMember {
 	
 	private int matchNoticeNo;

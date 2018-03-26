@@ -2,10 +2,12 @@ package com.ezground.teamproject.match.dto;
 
 public class MatchNotice {
 	private int matchNoticeNo;
-	private String calendar;
-	private String time;
+	private String matchExpectedDay;
+	private String matchExpectedStartTime;
+	private String matchExpectedEndTime;
 	private int teamNo;
 	private String matchNoticeRegion;
+	private String matchKinds;
 	private String matchNoticeStatus;
 	private int matchMemberCount;
 	private String matchNoticeInsertDate;
@@ -14,15 +16,18 @@ public class MatchNotice {
 	public MatchNotice() {
 		super();
 	}
-	public MatchNotice(int matchNoticeNo, String calendar, String time, int teamNo, String matchNoticeRegion,
+	public MatchNotice(int matchNoticeNo, String matchExpectedDay, String matchExpectedStartTime,
+			String matchExpectedEndTime, int teamNo, String matchNoticeRegion, String matchKinds,
 			String matchNoticeStatus, int matchMemberCount, String matchNoticeInsertDate,
 			String matchNoticeUpdateDate) {
 		super();
 		this.matchNoticeNo = matchNoticeNo;
-		this.calendar = calendar;
-		this.time = time;
+		this.matchExpectedDay = matchExpectedDay;
+		this.matchExpectedStartTime = matchExpectedStartTime;
+		this.matchExpectedEndTime = matchExpectedEndTime;
 		this.teamNo = teamNo;
 		this.matchNoticeRegion = matchNoticeRegion;
+		this.matchKinds = matchKinds;
 		this.matchNoticeStatus = matchNoticeStatus;
 		this.matchMemberCount = matchMemberCount;
 		this.matchNoticeInsertDate = matchNoticeInsertDate;
@@ -30,10 +35,12 @@ public class MatchNotice {
 	}
 	@Override
 	public String toString() {
-		return "MatchNotice [matchNoticeNo=" + matchNoticeNo + ", calendar=" + calendar + ", time=" + time + ", teamNo="
-				+ teamNo + ", matchNoticeRegion=" + matchNoticeRegion + ", matchNoticeStatus=" + matchNoticeStatus
-				+ ", matchMemberCount=" + matchMemberCount + ", matchNoticeInsertDate=" + matchNoticeInsertDate
-				+ ", matchNoticeUpdateDate=" + matchNoticeUpdateDate + "]";
+		return "MatchNotice [matchNoticeNo=" + matchNoticeNo + ", matchExpectedDay=" + matchExpectedDay
+				+ ", matchExpectedStartTime=" + matchExpectedStartTime + ", matchExpectedEndTime="
+				+ matchExpectedEndTime + ", teamNo=" + teamNo + ", matchNoticeRegion=" + matchNoticeRegion
+				+ ", matchKinds=" + matchKinds + ", matchNoticeStatus=" + matchNoticeStatus + ", matchMemberCount="
+				+ matchMemberCount + ", matchNoticeInsertDate=" + matchNoticeInsertDate + ", matchNoticeUpdateDate="
+				+ matchNoticeUpdateDate + "]";
 	}
 	public int getMatchNoticeNo() {
 		return matchNoticeNo;
@@ -41,17 +48,23 @@ public class MatchNotice {
 	public void setMatchNoticeNo(int matchNoticeNo) {
 		this.matchNoticeNo = matchNoticeNo;
 	}
-	public String getCalendar() {
-		return calendar;
+	public String getMatchExpectedDay() {
+		return matchExpectedDay;
 	}
-	public void setCalendar(String calendar) {
-		this.calendar = calendar;
+	public void setMatchExpectedDay(String matchExpectedDay) {
+		this.matchExpectedDay = matchExpectedDay;
 	}
-	public String getTime() {
-		return time;
+	public String getMatchExpectedStartTime() {
+		return matchExpectedStartTime;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setMatchExpectedStartTime(String matchExpectedStartTime) {
+		this.matchExpectedStartTime = matchExpectedStartTime;
+	}
+	public String getMatchExpectedEndTime() {
+		return matchExpectedEndTime;
+	}
+	public void setMatchExpectedEndTime(String matchExpectedEndTime) {
+		this.matchExpectedEndTime = matchExpectedEndTime;
 	}
 	public int getTeamNo() {
 		return teamNo;
@@ -64,6 +77,12 @@ public class MatchNotice {
 	}
 	public void setMatchNoticeRegion(String matchNoticeRegion) {
 		this.matchNoticeRegion = matchNoticeRegion;
+	}
+	public String getMatchKinds() {
+		return matchKinds;
+	}
+	public void setMatchKinds(String matchKinds) {
+		this.matchKinds = matchKinds;
 	}
 	public String getMatchNoticeStatus() {
 		return matchNoticeStatus;

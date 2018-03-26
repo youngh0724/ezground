@@ -15,11 +15,21 @@
 		<table class="table table-striped">		
 			<tr>
 				<td>일정</td>
-				<td><input id="calendar" name="calendar" type="date"/></td>
+				<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/></td>
 			</tr>
 			<tr>
-				<td>시간</td>
-				<td><input id="time" name="time" type="text"/></td>
+				<td>시간대</td>
+				<td><input id="matchExpectedTime" name="matchExpectedStartTime" type="time"/>~
+					<input id="matchExpectedTime" name="matchExpectedEndTime" type="time"/>
+				</td>
+			</tr>			
+			<tr>
+				<td>매치 종류</td>
+				<td><select name="matchKinds">
+					    <option value="team">팀전</option>
+					    <option value="free">자유</option>					   		    
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>지역 선택</td>
