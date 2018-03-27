@@ -44,13 +44,13 @@ public class LoginController {
 		} else {
 			logger.debug("loginSelectOne() 로그인 성공");	
 			session.setAttribute("MemberLogin", memberLogin);
-			flag = "redirect:/logined";
+			flag = "redirect:/";
 		}
 		
 		return flag;
 	}
 	
-	@RequestMapping(value="/logined", method = RequestMethod.GET)
+	@RequestMapping(value="/login/logined", method = RequestMethod.GET)
 	public String loginedPage(Model model, HttpSession session,
 			@RequestParam(value="entryNo", defaultValue="0") int entryNo) {
 		
