@@ -25,7 +25,7 @@
 					<tbody>
 						<c:forEach var="entry" items="${list}">
 							<tr>						
-								<td><a href="${pageContext.request.contextPath}/logined?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></td>
+								<td><a href="${pageContext.request.contextPath}/login/logined?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

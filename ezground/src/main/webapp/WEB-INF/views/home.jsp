@@ -14,6 +14,8 @@
 <br>
 <a href ="${pageContext.request.contextPath}/login" >로그인 페이지</a> 
 <br>
+<a href ="${pageContext.request.contextPath}/memberInsert" >회원가입 페이지</a> 
+<br>
 <!-- 종목 이름 -->
 <a href = "${pageContext.request.contextPath}/login/logined">종목</a>
 <br>
