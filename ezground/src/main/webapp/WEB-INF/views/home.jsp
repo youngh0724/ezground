@@ -13,6 +13,13 @@
 <a href ="${pageContext.request.contextPath}/reservation/reservationTest" >예약 페이지</a> 
 <br>
 <a href ="${pageContext.request.contextPath}/login" >로그인 페이지</a> 
+<br>
+<!-- 시설 등록페이지 -->					
+<a href ="${pageContext.request.contextPath}/facility/facilityTest" >시설 등록요청 페이지</a>
+<br>					
+<!-- 시설 등록요청 리스트 페이지 -->					
+<a href="${pageContext.request.contextPath}/facility/masterFacilityInsertStatusList">시설 등록요청 리스트 페이지</a>					
+
 </h1>
 </body>
 </html>

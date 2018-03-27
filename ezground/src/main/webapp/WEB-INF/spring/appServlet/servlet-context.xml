@@ -73,7 +73,9 @@
 				<value>classpath:com/ezground/teamproject/service/LoginMapper.xml
 				</value>
 				<value>classpath:com/ezground/teamproject/match/MatchMapper.xml
-				</value>			
+				</value>	
+				<value>classpath:com/ezground/teamproject/facility/FacilityMapper.xml
+				</value>		
 			</list>
 		</property>
 	</bean>
