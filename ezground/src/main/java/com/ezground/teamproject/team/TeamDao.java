@@ -21,13 +21,7 @@ public class TeamDao {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(TeamDao.class);
-	
-	public List<Team> teamSelectList(){
-		logger.debug("teamSelectList() 실행확인");
-		//mapper에 id가 selectMovieList인 쿼리문을 실행시키고 결과값을 리턴한다.		
-		return sqlSessionTemplate.selectList(mapperRoot+"teamSelectList");
-	}
-	
+		
 	public List<Team> teamSelectPage(Map map) {
 		logger.debug("teamSelectPage() map.startRow = {}", map.get("startRow"));
 		logger.debug("teamSelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
@@ -38,6 +32,33 @@ public class TeamDao {
 	public int teamSelectTotalCount() {
 		logger.debug("totalCount() 실행확인"); 
 		return sqlSessionTemplate.selectOne(mapperRoot+"teamSelectCount");	
+	}
+	
+	public Team teamSelectListDetail(int teamNo) {
+		logger.debug("teamSelectListDetail() teamNo = {}", teamNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"teamSelectListDetail", teamNo);
+	}
+	public int teamInsert(Team team) {
+		logger.debug("teamInsert() team = {}", team);
+		//team객체를 매개변수로 받아 db에 정보를 입력한다.
+		return sqlSessionTemplate.insert(mapperRoot+"teamInsert", team);
+	}
+	
+	//팀 한개를 업데이트 하기위해 한개의 팀을 선택해주는 쿼리문을 실행하는 메서드
+	public Team teamSelectOneForUpdate(int teamNo) {
+		logger.debug("teamSelectOneForUpdate() teamNo = {}", teamNo);
+		//맵퍼에 매개변수와 일치하는 하나의 행을 찾아 team객체타입으로 리턴한다.		
+		return sqlSessionTemplate.selectOne(mapperRoot+"teamSelectOne", teamNo);
+	}
+	public int teamUpdate(Team team) {
+		logger.debug("teamUpdate() team = {}", team);
+		//team객체를 매개변수로 받아 db에 정보를 업데이트(수정)한다.
+		return sqlSessionTemplate.update(mapperRoot+"teamUpdate", team);
+	}
+	public int teamDelete(int teamNo) {
+		logger.debug("teamDelete() teamNo = {}", teamNo);
+		//아이디를 입력받아 db에서 일치하는 정보를 삭제한다. 
+		return sqlSessionTemplate.delete(mapperRoot+"teamDelete", teamNo);
 	}
 
 }

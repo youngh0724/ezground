@@ -36,19 +36,23 @@
 					<!--SELECT COUNT OPTION 끝 -->
 				</table>
 				
-				<table class="table table-striped" data-effect="fade">
+				<table border="1">
 					<thead>
 						<tr>
 							<th>팀 번호</th>
 							<th>종목</th>
 							<th>팀 이름</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
+						
 						<c:forEach var="team" items="${list}">
 							<tr>
-								<td>${team.teamNo }</td>
-								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName }</a></td>
+								<td>${team.teamNo}</td>
+								<td>${team.sportEntriesNo}</td>
+								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName}</a></td>
 								<td><a href="${pageContext.request.contextPath}/team/teamUpdate?teamNo=${team.teamNo}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/team/teamDelete?teamNo=${team.teamNo}">삭제</a></td>
 							</tr>
