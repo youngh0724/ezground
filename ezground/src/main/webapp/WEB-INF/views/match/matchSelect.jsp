@@ -16,10 +16,11 @@
 		<thead>
 			<tr>
 				<th>매치 종류</th>
-				<th>매치 참가 인원수</th>
+				<th>매치 팀당 최소 인원수</th>
 				<th>매치 상태</th>
 				<th>매치 지역</th>
 				<th>매치 예정일</th>
+				<th>매치 예정시간대</th>
 				<th>매치 상세 정보</th>
 			</tr>	
 		</thead>
@@ -31,6 +32,7 @@
 					<td>${matchNoticeInfo.matchNoticeStatus }</td>
 					<td>${matchNoticeInfo.matchNoticeRegion }</td>
 					<td>${matchNoticeInfo.matchExpectedDay }</td>
+					<td>${matchNoticeInfo.matchExpectedStartTime}~${matchNoticeInfo.matchExpectedEndTime}</td>
 					<td><a href ="${pageContext.request.contextPath}/match/matchNoticeInfomation?matchNoticeNo=${matchNoticeInfo.matchNoticeNo}" >상세보기</a></td>
 				</tr>	
 			</c:forEach>					

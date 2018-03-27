@@ -19,8 +19,8 @@
 			</tr>
 			<tr>
 				<td>시간대</td>
-				<td><input id="matchExpectedTime" name="matchExpectedStartTime" type="time"/>~
-					<input id="matchExpectedTime" name="matchExpectedEndTime" type="time"/>
+				<td><input id="matchExpectedStartTime" name="matchExpectedStartTime" type="time"/>~
+					<input id="matchExpectedEndTime" name="matchExpectedEndTime" type="time"/>
 				</td>
 			</tr>			
 			<tr>
@@ -50,7 +50,7 @@
 				<td><input id="matchMemberCount" name="matchMemberCount" type="text"/></td>
 			</tr>	
 		</table>
-		<input id="teamNo" name="teamNo" type="hidden" value="${teamNo}" }/>
+		<input id="teamNo" name="teamNo" type="hidden" value="${teamNo}"/>
 		<input id="matchCreat" type="submit" value="매치생성">
 	</form>	
 

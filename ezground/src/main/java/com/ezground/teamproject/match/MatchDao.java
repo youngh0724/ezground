@@ -20,41 +20,54 @@ public class MatchDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MatchDao.class);
 	
+	//매퍼 루트를 반복에서 쓰게 되므로 변경불가능한 파이널로 변수 선언하여 방복기록을 피한다.
 	private final String mapperRoot = "com.ezground.teamproject.match.MatchMapper.";
 	
-	public int teamNoSelectOne(Map map) {
-		
-		logger.debug("teamNoSelectOne() entryNo = {}", map.get("entryNo"));	
+	//매개변수 값과 일치하는 하나의 팀 번호를 조회한다.
+	public int teamNoSelectOne(Map<String, Object> map) {		
+		logger.debug("teamNoSelectOne() sportEntryNo = {}", map.get("sportEntryNo"));	
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"teamNoSelectOne", map);
 	}
 	
+	//매치공고 정보를 입력한다.
 	public int matchNoticeInsert(MatchNotice matchNotice) {
+		logger.debug("matchNoticeInsert() matchNotice = {}", matchNotice);	
 		
 		return sqlSessionTemplate.insert(mapperRoot+"matchNoticeInsert", matchNotice);		
 	}
 	
-	public int matchJoinMemberInsertHomeTeam(MatchJoinMember matchJoinMember) {
+	//매치에 맴버 참가 신청(입력)을 한다.
+	public int matchJoinMemberInsert(MatchJoinMember matchJoinMember) {
+		logger.debug("matchJoinMemberInsert() matchJoinMember = {}", matchJoinMember);	
 		
-		return sqlSessionTemplate.insert(mapperRoot+"matchJoinMemberInsertHomeTeam", matchJoinMember);		
+		return sqlSessionTemplate.insert(mapperRoot+"matchJoinMemberInsert", matchJoinMember);		
 	}
 	
-	public List<MatchNotice> matchSelectList(String searchWord){
+	//매치공고 리스트를 조회한다.(매개변수에따라 매치종류에따른 조회기능)
+	public List<MatchNotice> matchSelectList(Map<String, Object> map){
+		logger.debug("matchSelectList() matchKindsSearchWord = {}", map.get("matchKindsSearchWord"));
 				
-		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectList", searchWord);
+		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectList", map);
 	}
 	
+	//하나의 매치공고 정보를 조회한다.
 	public MatchNotice matchSelectOne(int matchNoticeNo) {
-	
+		logger.debug("matchSelectOne() matchNoticeNo = {}", matchNoticeNo);
+		
 		return sqlSessionTemplate.selectOne(mapperRoot+"matchSelectOne", matchNoticeNo);		
 	}
 	
-	public List<String> matchJoinMemberList(MatchJoinMember matchJoinMember) {
+	//매치참가 맴버의 아이디 리스트를 조회한다.
+	public List<String> matchJoinMemberSelectList(MatchJoinMember matchJoinMember) {
+		logger.debug("matchJoinMemberSelectList() matchJoinMember = {}", matchJoinMember);
 		
-		return sqlSessionTemplate.selectList(mapperRoot+"matchJoinMemberList", matchJoinMember);
+		return sqlSessionTemplate.selectList(mapperRoot+"matchJoinMemberSelectList", matchJoinMember);
 	}
 	
+	//매치에서 home팀의 팀번호를 조회한다.
 	public int matchNoticeSelectHomeAway(int matchNoticeNo) {
+		logger.debug("matchNoticeSelectHomeAway() matchNoticeNo = {}", matchNoticeNo);
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"matchNoticeSelectHomeAway", matchNoticeNo);
 	}

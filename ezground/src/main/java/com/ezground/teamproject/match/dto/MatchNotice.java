@@ -5,42 +5,47 @@ public class MatchNotice {
 	private String matchExpectedDay;
 	private String matchExpectedStartTime;
 	private String matchExpectedEndTime;
-	private int teamNo;
+	private int sportEntriesNo;
+	private int memberNo;
 	private String matchNoticeRegion;
 	private String matchKinds;
 	private String matchNoticeStatus;
 	private int matchMemberCount;
 	private String matchNoticeInsertDate;
 	private String matchNoticeUpdateDate;
-		
+	private String matchFurtherInformation;	
+	
 	public MatchNotice() {
 		super();
 	}
 	public MatchNotice(int matchNoticeNo, String matchExpectedDay, String matchExpectedStartTime,
-			String matchExpectedEndTime, int teamNo, String matchNoticeRegion, String matchKinds,
-			String matchNoticeStatus, int matchMemberCount, String matchNoticeInsertDate,
-			String matchNoticeUpdateDate) {
+			String matchExpectedEndTime, int sportEntriesNo, int memberNo, String matchNoticeRegion, String matchKinds,
+			String matchNoticeStatus, int matchMemberCount, String matchNoticeInsertDate, String matchNoticeUpdateDate,
+			String matchFurtherInformation) {
 		super();
 		this.matchNoticeNo = matchNoticeNo;
 		this.matchExpectedDay = matchExpectedDay;
 		this.matchExpectedStartTime = matchExpectedStartTime;
 		this.matchExpectedEndTime = matchExpectedEndTime;
-		this.teamNo = teamNo;
+		this.sportEntriesNo = sportEntriesNo;
+		this.memberNo = memberNo;
 		this.matchNoticeRegion = matchNoticeRegion;
 		this.matchKinds = matchKinds;
 		this.matchNoticeStatus = matchNoticeStatus;
 		this.matchMemberCount = matchMemberCount;
 		this.matchNoticeInsertDate = matchNoticeInsertDate;
 		this.matchNoticeUpdateDate = matchNoticeUpdateDate;
+		this.matchFurtherInformation = matchFurtherInformation;
 	}
 	@Override
 	public String toString() {
 		return "MatchNotice [matchNoticeNo=" + matchNoticeNo + ", matchExpectedDay=" + matchExpectedDay
 				+ ", matchExpectedStartTime=" + matchExpectedStartTime + ", matchExpectedEndTime="
-				+ matchExpectedEndTime + ", teamNo=" + teamNo + ", matchNoticeRegion=" + matchNoticeRegion
-				+ ", matchKinds=" + matchKinds + ", matchNoticeStatus=" + matchNoticeStatus + ", matchMemberCount="
-				+ matchMemberCount + ", matchNoticeInsertDate=" + matchNoticeInsertDate + ", matchNoticeUpdateDate="
-				+ matchNoticeUpdateDate + "]";
+				+ matchExpectedEndTime + ", sportEntriesNo=" + sportEntriesNo + ", memberNo=" + memberNo
+				+ ", matchNoticeRegion=" + matchNoticeRegion + ", matchKinds=" + matchKinds + ", matchNoticeStatus="
+				+ matchNoticeStatus + ", matchMemberCount=" + matchMemberCount + ", matchNoticeInsertDate="
+				+ matchNoticeInsertDate + ", matchNoticeUpdateDate=" + matchNoticeUpdateDate
+				+ ", matchFurtherInformation=" + matchFurtherInformation + "]";
 	}
 	public int getMatchNoticeNo() {
 		return matchNoticeNo;
@@ -66,11 +71,17 @@ public class MatchNotice {
 	public void setMatchExpectedEndTime(String matchExpectedEndTime) {
 		this.matchExpectedEndTime = matchExpectedEndTime;
 	}
-	public int getTeamNo() {
-		return teamNo;
+	public int getSportEntriesNo() {
+		return sportEntriesNo;
 	}
-	public void setTeamNo(int teamNo) {
-		this.teamNo = teamNo;
+	public void setSportEntriesNo(int sportEntriesNo) {
+		this.sportEntriesNo = sportEntriesNo;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getMatchNoticeRegion() {
 		return matchNoticeRegion;
@@ -107,5 +118,11 @@ public class MatchNotice {
 	}
 	public void setMatchNoticeUpdateDate(String matchNoticeUpdateDate) {
 		this.matchNoticeUpdateDate = matchNoticeUpdateDate;
-	}		
+	}
+	public String getMatchFurtherInformation() {
+		return matchFurtherInformation;
+	}
+	public void setMatchFurtherInformation(String matchFurtherInformation) {
+		this.matchFurtherInformation = matchFurtherInformation;
+	}			
 }

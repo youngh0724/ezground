@@ -17,6 +17,35 @@ public class Member {
 	private int memberPoint;
 	private String memberWithdrawalStatus;
 	
+	public Member() {
+		super();
+	}
+	public Member(int memberNo, String memberId, String memberPw, String memberLevel, String memberName,
+			String memberAge, String memberGender, String memberPhone, String memberEmail, String memberAddress,
+			Date memberJoinDate, int memberPoint, String memberWithdrawalStatus) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberLevel = memberLevel;
+		this.memberName = memberName;
+		this.memberAge = memberAge;
+		this.memberGender = memberGender;
+		this.memberPhone = memberPhone;
+		this.memberEmail = memberEmail;
+		this.memberAddress = memberAddress;
+		this.memberJoinDate = memberJoinDate;
+		this.memberPoint = memberPoint;
+		this.memberWithdrawalStatus = memberWithdrawalStatus;
+	}
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberLevel="
+				+ memberLevel + ", memberName=" + memberName + ", memberAge=" + memberAge + ", memberGender="
+				+ memberGender + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail + ", memberAddress="
+				+ memberAddress + ", memberJoinDate=" + memberJoinDate + ", memberPoint=" + memberPoint
+				+ ", memberWithdrawalStatus=" + memberWithdrawalStatus + "]";
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}
