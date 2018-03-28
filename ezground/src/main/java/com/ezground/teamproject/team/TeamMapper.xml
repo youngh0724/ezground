@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ezground.teamproject.team.TeamMapper">
+	
+
+	<select id="teamSelectPage"
+			parameterType="java.util.Map"
+			resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT 
+			team_no AS teamNo
+			,sport_entries_no AS sportEntriesNo
+			,team_name AS teamName
+		FROM t_team
+		<if test="searchWord != null">
+			WHERE team_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
+		ORDER BY team_no
+		LIMIT #{startRow}, #{rowPerPage} 		
+	</select>
+	
+	<select id="teamSelectListDetail"
+			parameterType="int"
+			resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT
+			team_no AS teamNo
+			,sport_entries_no AS sportEntriesNo
+			,team_name AS teamName
+			,team_ages AS teamAges
+			,team_intro AS teamIntro
+			,team_created_date AS teamCreatedDate
+			,team_region AS teamRegion
+			,team_win AS teamWin
+			,team_draw AS teamDraw
+			,team_lose AS teamLose
+			,team_victory_point AS teamVictoryPoint
+		FROM t_team
+		WHERE team_no = #{teamNo}
+	</select>
+		
+	<select id="teamSelectCount"
+  			resultType="int">
+  		SELECT 
+  			count(*) 
+  		FROM t_team
+  	</select>
+  	
+  	<insert id="teamInsert"
+  			parameterType="com.ezground.teamproject.team.dto.Team">
+  		INSERT INTO t_team(sport_entries_no, team_name, team_region, team_ages, team_intro, team_created_date)
+  		VALUES (#{sportEntriesNo}, #{teamName}, #{teamRegion}, #{teamAges}, #{teamIntro}, now())
+   	</insert>
+   	
+	<select id="teamSelectOne"
+			parameterType="int"
+			resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT 
+		team_no AS teamNo
+		,team_name AS teamName
+		FROM t_team
+		WHERE team_no = #{teamNo}
+	</select>
+   	
+	<update id="teamUpdate" 
+			parameterType="com.ezground.teamproject.team.dto.Team">
+	    UPDATE t_team 
+	    SET team_name = #{teamName} 	
+	    	,team_region = #{teamRegion}
+	    	,team_ages = #{teamAges}
+	    	,team_intro = #{teamIntro}
+	    WHERE team_no = #{teamNo}   
+	</update>
+	
+	<delete id="teamDelete" 
+	    		parameterType="com.ezground.teamproject.team.dto.Team">
+	        DELETE FROM t_team 
+	        WHERE team_no = #{teamNo} 
+	</delete>
+	
+</mapper>

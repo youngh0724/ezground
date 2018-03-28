@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ezground.teamproject.FacilityMapper">
+  
+  		<insert id="facilityInsert" 
+				parameterType="com.ezground.teamproject.facilitydto.Facility">
+				INSERT
+				INTO t_facility(facility_name
+								,facility_phone
+								,facility_address
+								,facility_notice
+								,facility_detail
+								,facility_price
+								,facility_refund
+								,facility_rule
+								,facility_licensee_no
+								,facility_return
+								,facility_status
+								,facility_write_date)
+				VALUES(#{facilityName}
+						,#{facilityPhone}
+						,#{facilityAddress}
+						,#{facilityNotice}
+						,#{facilityDetail}
+						,#{facilityPrice}
+						,#{facilityRefund}
+						,#{facilityRule}
+						,#{facilityLicenseeNo}
+						,#{facilityReturn}
+						,#{facilityStatus}
+						,now())
+		</insert>
+  </mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- multiPartFile config -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
+
+	<!-- 다운로드 처리 빈즈 시작 -->	
+	<bean id="fileDownloadView" class="com.ezground.teamproject.errortest.test"/>
+	
+	<bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+   		<property name="order" value="0"/>
+	</bean>
+	
+	<!-- 다운로드 처리빈즈 끝 -->
+	
+	<context:component-scan base-package="com.ezground.teamproject" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://yhpro724.cafe24.com/yhpro724?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="yhpro724" />
+		<property name="password" value="etvmfhwprxm123" />
+	</bean>
+	<!-- transaction -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven />
+	<tx:annotation-driven proxy-target-class="true" />
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSessionFactory" />      
+    <!--<constructor-arg index="1" value="BATCH" /> -->
+	</bean>
+	
+	<!-- transaction -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis 세션생성시 사용할 dataSource주입 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/ezground/teamproject/reservation/ReservationMapper.xml
+				</value>
+				<value>classpath:com/ezground/teamproject/service/LoginMapper.xml
+				</value>
+				<value>classpath:com/ezground/teamproject/match/MatchMapper.xml
+				</value>	
+				<value>classpath:com/ezground/teamproject/facility/FacilityMapper.xml
+				</value>
+				<value>classpath:com/ezground/teamproject/member/MemberMapper.xml
+				</value>		
+				<value>classpath:com/ezground/teamproject/team/TeamMapper.xml
+				</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+</beans>

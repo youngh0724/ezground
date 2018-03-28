@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.ezground.teamproject.member.MemberMapper">
+ 
+ 	<!-- 회원가입 처리 쿼리문 -->
+ 	<insert	id="memberInsert"
+ 			parameterType="com.ezground.teamproject.member.dto.Member">
+	 	INSERT INTO t_member(
+	 		member_id,
+	 		member_pw,
+	 		member_name,
+	 		member_age,
+	 		member_gender,
+	 		member_phone,
+	 		member_email,
+	 		member_address,
+	 		member_join_date)
+	 	VALUES (
+	 		#{memberId},
+	 		#{memberPw},
+	 		#{memberName},
+	 		#{memberAge},
+	 		#{memberGender},
+	 		#{memberPhone},
+	 		#{memberEmail},
+	 		#{memberAddress},
+	 		now())	
+ 	</insert>
+ 	
+ 	<!-- 아이디 중복체크 처리 쿼리문 -->
+ 	<select id="idOverlapCheck"
+ 			parameterType="String"
+ 			resultType="int">
+ 		SELECT count(*)
+ 		FROM t_member
+ 		WHERE member_id = #{memberId}
+ 	
+ 	</select>
+ 
+ 
+ </mapper>
