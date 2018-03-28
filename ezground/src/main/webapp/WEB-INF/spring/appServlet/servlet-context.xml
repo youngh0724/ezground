@@ -78,6 +78,8 @@
 				</value>
 				<value>classpath:com/ezground/teamproject/member/MemberMapper.xml
 				</value>		
+				<value>classpath:com/ezground/teamproject/team/TeamMapper.xml
+				</value>
 			</list>
 		</property>
 	</bean>
