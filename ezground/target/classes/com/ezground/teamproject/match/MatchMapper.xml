@@ -14,7 +14,7 @@
 			m.team_no as teamNo		
 		FROM t_team_member m INNER JOIN t_team t
 		ON m.team_no = t.team_no
-		WHERE t.sport_entries_no = #{entryNo} and m.member_no = #{memberNo}
+		WHERE t.sport_entries_no = #{sprotEntryNo} and m.member_no = #{memberNo}
 	</select>
 	
 	<!-- 매치공고 정보를 생성하는 쿼리문 -->
@@ -45,8 +45,8 @@
 		</selectKey>		
 	</insert>
 	
-	<!-- 매치 참가 맴버 정보에 홈팀 참가 맴버 정보 입력 쿼리문 -->
-	<insert id="matchJoinMemberInsertHomeTeam"
+	<!-- 매치 참가 맴버 정보에 팀 참가 맴버 정보 입력 쿼리문 -->
+	<insert id="matchJoinMemberInsert"
 			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember">
 		INSERT INTO t_match_join_member(
 			match_notice_no,
@@ -60,22 +60,24 @@
 	</insert>
 	
 	<!-- 매치공고 정보를 조회하는 쿼리문 -->
- 	<select id="matchSelectList" 			
+ 	<select id="matchSelectList" 	
+ 			parameterType="java.util.Map"		
  			resultType="com.ezground.teamproject.match.dto.MatchNotice">
 		SELECT 
 			match_notice_no AS matchNoticeNo,
 			match_expected_day AS matchExpectedDay, 
 			match_expected_start_time AS matchExpectedStartTime,
 			match_expected_end_time AS matchExpectedEndTime,
-			team_no AS teamNo, 
+			member_no AS memberNo, 
 			match_notice_status AS matchNoticeStatus,
 			match_kinds AS matchKinds,
 			match_notice_region AS matchNoticeRegion, 
 			match_member_count AS matchMemberCount, 
 			match_notice_insert_date AS matchNoticeInsertDate			
 		FROM t_match_notice	
+		WHERE sport_entries_no = #{sprotEntryNo}
 		<if test="searchWord != null">
-  			WHERE match_kinds =  #{searchWord}
+  			AND match_kinds =  #{matchKindsSearchWord}
   		</if>	
 	</select>
 	
@@ -87,7 +89,7 @@
 			match_expected_day AS matchExpectedDay, 
 			match_expected_start_time AS matchExpectedStartTime,
 			match_expected_end_time AS matchExpectedEndTime,
-			team_no AS teamNo, 
+			member_no AS memberNo, 
 			match_kinds AS matchKinds,
 			match_notice_status AS matchNoticeStatus,
 			match_notice_region AS matchNoticeRegion, 
@@ -98,7 +100,7 @@
 	</select>	
 	
 	<!-- 매치 참가 맴버 아이디 리스트 조회 쿼리문 -->
- 	<select id="matchJoinMemberList"
+ 	<select id="matchJoinMemberSelectList"
  			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember"
  			resultType="String">
 		SELECT 

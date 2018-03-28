@@ -10,6 +10,7 @@
 
 <body>
 
+<jsp:include page="/WEB-INF/views/module/top.jsp" />
 		<h2>Team List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-12 col-lg-12">
@@ -68,11 +69,14 @@
 							<td colspan="3">${team.teamIntro}</td>
 					</thead>
 					<tbody>						
-			
+							
 					</tbody>
 				
 				</table>
 				<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamList">리스트로 돌아가기</a>
+				<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamMemberJoin?teamNo=${team.teamNo}">팀 가입하기</a>
 			</div>
 		</div>
+		
+<jsp:include page="/WEB-INF/views/module/footer.jsp" />
 		
