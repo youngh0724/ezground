@@ -10,7 +10,6 @@
 
 <body>
 
-<jsp:include page="/WEB-INF/views/module/top.jsp" />
 		<h2>Team List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-12 col-lg-12">
@@ -74,9 +73,20 @@
 				
 				</table>
 				<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamList">리스트로 돌아가기</a>
-				<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamMemberJoin?teamNo=${team.teamNo}">팀 가입하기</a>
+				
+				<script type = "text/javascript">
+					function btn_team_join() {
+						if(confirm("가입 신청 메세지를 보내시겠습니까?") == true) {
+						   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert"
+						}else{
+						   return;
+						}
+					}
+				</script>
+				<input type="button" value="팀 가입하기" onclick="btn_team_join();">
 			</div>
 		</div>
 		
 <jsp:include page="/WEB-INF/views/module/footer.jsp" />
+
 		

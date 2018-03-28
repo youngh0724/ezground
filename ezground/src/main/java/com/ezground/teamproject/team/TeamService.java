@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.Logger;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.team.dto.Team;
+import com.ezground.teamproject.teamMember.dto.TeamMember;
 
 @Service
 @Transactional
@@ -59,13 +62,14 @@ public class TeamService {
 	public void teamInsert(Team team) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
 		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
-			
+		
 		team.setSportEntriesNo(team.getSportEntriesNo());
 		team.setTeamName(team.getTeamName());
 		team.setTeamAges(team.getTeamAges());
 		team.setTeamCreatedDate(team.getTeamCreatedDate());
 		team.setTeamIntro(team.getTeamIntro());
-		team.setTeamRegion(team.getTeamRegion());
+		team.setTeamRegion(team.getTeamRegion());		
+	
 		//위에서 뽑아낸 team타입을 insert한다.
 		teamDao.teamInsert(team);
 	}
@@ -97,8 +101,7 @@ public class TeamService {
 		int row = teamDao.teamDelete(teamNo);
 		
 		logger.debug("teamDelete() row = {}", row);
-		return row;	
+		return row;
 	
-			
 	}
 }

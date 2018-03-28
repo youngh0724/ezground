@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.team.dto.Team;
+import com.ezground.teamproject.teamMember.TeamMemberService;
+import com.ezground.teamproject.teamMember.dto.TeamMember;
 
 @Controller
 public class TeamController {
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private TeamMemberService teamMemberService;
 	
 	//입력값과 리턴값을 확인 하기 위한 로거 기능 
 	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
@@ -48,7 +53,7 @@ public class TeamController {
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("currentPage", currentPage);
 		return "team/teamList";
-	}
+	}	
 	
 	@RequestMapping(value="/team/teamDetail", method = RequestMethod.GET)
 	public String teamSelectListDetail(Model model, HttpSession session, 
@@ -72,10 +77,15 @@ public class TeamController {
 	
 	//teamInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드를 호출
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.POST)
-    public String teamInsert(Team team) {			
+    public String teamInsert(Team team, TeamMember teamMember, HttpSession session) {			
 		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
 		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
 		teamService.teamInsert(team);
+		
+		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+		int memberNo = memberLogin.getMemberNo();
+		teamMemberService.teamMemberInsert(teamMember, session);
+		
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/team/teamList";
     }

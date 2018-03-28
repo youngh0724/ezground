@@ -8,8 +8,8 @@
 
 	<insert id="teamMemberInsert"
 			parameterType="com.ezground.teamproject.teamMember.dto.TeamMember">
-		INSERT INTO t_team_member(team_member_no, team_no,)
-	
+		INSERT INTO t_team_member(team_no, member_no, team_member_join_date)
+		VALUES (#{teamNo}, #{memberNo}, now())
 	</insert>
 	
 </mapper>
