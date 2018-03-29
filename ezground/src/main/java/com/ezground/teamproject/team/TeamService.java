@@ -65,10 +65,11 @@ public class TeamService {
 	public void teamInsert(Team team, TeamMember teamMember) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
 		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
-	
 		//위에서 뽑아낸 team타입을 insert한다.
 		teamDao.teamInsert(team);
+		
 		teamMemberDao.teamMemberInsert(teamMember);
+		
 	}
 	
 	//컨트롤러에서 수정화면에 사용될 하나의 레코드값을 조회할때 사용되어지는 메서드
