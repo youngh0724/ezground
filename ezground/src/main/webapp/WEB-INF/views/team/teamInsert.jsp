@@ -15,7 +15,7 @@
 		<table class="table table-striped" data-effect="fade">
 			<tr>
 				<td>종목</td>
-				<td><input id="sportEntries" name="sportEntries" type="text"/></td>
+				<td><input id="sportEntriesNo" name="sportEntriesNo" type="text"/></td>
 			</tr>
 			<tr>
 				<td>팀 이름</td>

@@ -80,12 +80,9 @@ public class TeamController {
     public String teamInsert(Team team, TeamMember teamMember, HttpSession session) {			
 		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
 		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
-		teamService.teamInsert(team);
-		
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-		int memberNo = memberLogin.getMemberNo();
-		teamMemberService.teamMemberInsert(teamMember, session);
-		
+		int memberNo = memberLogin.getMemberNo();	
+		teamService.teamInsert(team, teamMember);		
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/team/teamList";
     }

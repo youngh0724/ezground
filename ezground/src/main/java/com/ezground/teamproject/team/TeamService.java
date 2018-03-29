@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.team.dto.Team;
+import com.ezground.teamproject.teamMember.TeamMemberDao;
 import com.ezground.teamproject.teamMember.dto.TeamMember;
 
 @Service
@@ -23,6 +24,8 @@ public class TeamService {
 	
 	@Autowired
 	private TeamDao teamDao;
+	@Autowired
+	private TeamMemberDao teamMemberDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(TeamService.class);
 	
@@ -59,19 +62,13 @@ public class TeamService {
 	}
 	
 
-	public void teamInsert(Team team) {
+	public void teamInsert(Team team, TeamMember teamMember) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
-		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
-		
-		team.setSportEntriesNo(team.getSportEntriesNo());
-		team.setTeamName(team.getTeamName());
-		team.setTeamAges(team.getTeamAges());
-		team.setTeamCreatedDate(team.getTeamCreatedDate());
-		team.setTeamIntro(team.getTeamIntro());
-		team.setTeamRegion(team.getTeamRegion());		
+		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
 	
 		//위에서 뽑아낸 team타입을 insert한다.
 		teamDao.teamInsert(team);
+		teamMemberDao.teamMemberInsert(teamMember);
 	}
 	
 	//컨트롤러에서 수정화면에 사용될 하나의 레코드값을 조회할때 사용되어지는 메서드

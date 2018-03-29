@@ -20,19 +20,18 @@ public class TeamMemberService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TeamMemberService.class);
 	
-	public void teamMemberInsert(TeamMember teamMember, HttpSession session) {
+	public void teamMemberInsert(TeamMember teamMember, HttpSession session, int teamNo) {
 		logger.debug("teamMemberInsert() MemberNo = {}", teamMember.getMemberNo());
-			
+		logger.debug("teamMemberInsert() TeamNo = {}", teamNo);	
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
 		
 		teamMember.setMemberNo(memberNo);
-		teamMember.setTeamNo(teamMember.getTeamNo());
+		teamMember.setTeamNo(teamNo);
 		teamMember.setTeamMemberLevelNo(teamMember.getTeamMemberLevelNo());
 		teamMember.setTeamMemberJoinDate(teamMember.getTeamMemberJoinDate());
 		
 		teamMemberDao.teamMemberInsert(teamMember);
 	}
-	
 	
 }

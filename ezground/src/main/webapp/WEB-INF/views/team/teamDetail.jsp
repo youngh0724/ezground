@@ -77,7 +77,7 @@
 				<script type = "text/javascript">
 					function btn_team_join() {
 						if(confirm("가입 신청 메세지를 보내시겠습니까?") == true) {
-						   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert"
+						   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert?teamNo=${team.teamNo}"
 						}else{
 						   return;
 						}

@@ -29,8 +29,9 @@ public class TeamMemberController {
 	
 	
 	@RequestMapping(value="/teamMember/teamMemberInsert", method = RequestMethod.GET)
-	public String teamMemberInsert(TeamMember teamMember, HttpSession session) {
-		teamMemberService.teamMemberInsert(teamMember, session);
+	public String teamMemberInsert(TeamMember teamMember, HttpSession session,
+									@RequestParam(value="teamNo", required=true) int teamNo) {
+		teamMemberService.teamMemberInsert(teamMember, session, teamNo);
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();		
 		return "redirect:/team/teamList";
