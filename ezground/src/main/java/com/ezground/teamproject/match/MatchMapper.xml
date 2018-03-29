@@ -14,7 +14,7 @@
 			m.team_no as teamNo		
 		FROM t_team_member m INNER JOIN t_team t
 		ON m.team_no = t.team_no
-		WHERE t.sport_entries_no = #{sprotEntryNo} and m.member_no = #{memberNo}
+		WHERE t.sport_entries_no = #{sportEntryNo} and m.member_no = #{memberNo}
 	</select>
 	
 	<!-- 매치공고 정보를 생성하는 쿼리문 -->

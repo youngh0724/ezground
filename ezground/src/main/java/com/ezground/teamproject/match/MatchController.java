@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
@@ -38,6 +39,7 @@ public class MatchController {
 		
 		//종목번호와 맴버번호로 팀번호를 조회한다.
 		int teamNo = matchService.teamNoSelectOne(entryNo, memberLogin.getMemberNo());
+		logger.debug("creatMatch() teamNo = {}", teamNo);	
 		
 		model.addAttribute("teamNo", teamNo);
 		return "match/matchCreat";
@@ -149,5 +151,25 @@ public class MatchController {
 		redirectAttributes.addAttribute("matchNoticeNo", matchNoticeNo);
 		return "redirect:/match/matchNoticeInfomation";
 	}
+	
+	//매치검색 화면에서 fullcalendar에 날짜에 매치 예정일과 일치하는 경기 내용을 표시해줄 데이터를 제공하는 요청처리
+	@ResponseBody
+	@RequestMapping(value = "/matchNoticeExpectedDay", method = RequestMethod.POST)
+	public String matchNoticeExpectedDaySelectList(HttpSession session,
+			@RequestParam(value="searchWord", required=false) String matchKindsSearchWord) {
+		
+		//현재 세션이 갖고있는 스포츠 종목		
+		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+		logger.debug("matchNoticeExpectedDaySelectList() sportEntries = {}", sportEntries);
+				
+		int sprotEntryNo = sportEntries.getSportEntriesNo();
+		logger.debug("matchNoticeExpectedDaySelectList() sprotEntryNo = {}", sprotEntryNo);
+				
+		List<MatchNotice> list = matchService.matchSelectList(sprotEntryNo, matchKindsSearchWord);
+		logger.debug("matchNoticeExpectedDaySelectList() list = {}", list);
+		
+		return String.valueOf(list);		
+	}
+	
 	
 }

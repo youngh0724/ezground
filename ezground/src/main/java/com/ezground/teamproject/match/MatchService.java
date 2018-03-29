@@ -33,7 +33,7 @@ public class MatchService {
 		
 		//서로 다른 타입의 정보를 하나의 변수에 저장하기위에 map타입 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sprotEntryNo", sportEntryNo);
+		map.put("sportEntryNo", sportEntryNo);
 		map.put("memberNo", memberNo);
 		
 		//팀 번호를 조회
