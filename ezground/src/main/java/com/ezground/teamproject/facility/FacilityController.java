@@ -1,5 +1,6 @@
 package com.ezground.teamproject.facility;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +35,15 @@ public class FacilityController {
 	
 	// facilityInsert 요청
 		@RequestMapping(value="/facility/facilityInsert", method = RequestMethod.POST)
-		public String facilityInsert(Facility facility) {
+		public String facilityInsert(HttpSession session, Facility facility) {
+			
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
+			int memberNo = memberLogin.getMemberNo();
+			facility.setMemberNo(memberNo);
+			logger.debug("FacilityController facilityInsert memberNo = {}", memberNo);
 			// facilityService.facilityInsert 확인
 			logger.debug("FacilityController facilityInsert facilityNo = {}", facility.getFacilityNo());
-			logger.debug("FacilityController facilityInsert memberNo = {}", facility.getMemberNo());
 			logger.debug("FacilityController facilityInsert facilityname = {}", facility.getFacilityName());
 			logger.debug("FacilityController facilityInsert facilityPhone = {}", facility.getFacilityPhone());
 			logger.debug("FacilityController facilityInsert facilityAddress = {}", facility.getFacilityAddress());
@@ -52,16 +58,34 @@ public class FacilityController {
 			logger.debug("FacilityController facilityInsert facilityWriteDate = {}", facility.getFacilityWriteDate());
 			logger.debug("FacilityController facilityInsert facilityGrade = {}", facility.getFacilityGrade());
 			logger.debug("FacilityController facilityInsert facilityServiceGrade = {}", facility.getFacilityServiceGrade());
+			
 			facilityService.facilityInsert(facility);
-			return null;
+			return "redirect:/";
 		}
 		
-	// 관리자용 facility 등록요청 리스트					
-		@RequestMapping(value="/facility/masterFacilityInsertStatusList")					
-		public String masterFacilityInsertStatusList() {
-			return "facility/masterFacilityInsertStatusListForm";		
-			
+		// 사업자 자신이 시설 등록요청한 글 조회
+		@RequestMapping(value="facility/memberFacilityInsertStatusListForm")
+		public String memberFacilityInsertStatusSelectList(Model model, HttpSession session) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			int memberNo = memberLogin.getMemberNo();
+			logger.debug("FacilityController memberFacilityInsertStatusSelectOne memberNo = {}", memberLogin.getMemberNo());
+			List<Facility> list = facilityService.memberFacilityInsertStatusList(memberNo);
+			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list);
+			model.addAttribute("List", list);
+			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list.get(1).getFacilityNo());
+			return "facility/memberFacilityInsertStatusListForm";
 		}
+		
+		// 사업자 자신이 시설 등록요청한 글 수정화면페이지 요청
+		@RequestMapping(value="facility/facilityInsertUpdateForm", method = RequestMethod.GET)
+		public String memberFacilityInsertUpdateForm(Model model, @RequestParam(value="facilityNo", required=true) int facilityNo) {
+			logger.debug("FacilityController memberFacilityInsertUpdateForm facilityNo = {}", facilityNo);
+			Facility facility = facilityService.facilitySelectOne(facilityNo);
+			logger.debug("FacilityController memberFacilityInsertUpdateForm facility = {}", facility.getFacilityNo());
+			model.addAttribute("facility", facility);
+			return "facility/facilityInsertUpdateForm";
+		}
+
 
 
 

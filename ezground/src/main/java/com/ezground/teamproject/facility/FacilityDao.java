@@ -21,7 +21,8 @@ public class FacilityDao {
 	private final String mapperRoot = "com.ezground.teamproject.FacilityMapper.";
 	
 	private static final Logger logger = LoggerFactory.getLogger(FacilityService.class);
-
+	
+	// 시설 등록 처리요청
 	public int facilityInsert(Facility facility) {
 		logger.debug("FacilityDao facilityInsert facilityNo = {}", facility.getFacilityNo());
 		logger.debug("FacilityDao facilityInsert memberNo = {}", facility.getMemberNo());
@@ -39,10 +40,18 @@ public class FacilityDao {
 		logger.debug("FacilityDao facilityInsert facilityWriteDate = {}", facility.getFacilityWriteDate());
 		logger.debug("FacilityDao facilityInsert facilityGrade = {}", facility.getFacilityGrade());
 		logger.debug("FacilityDao facilityInsert facilityServiceGrade = {}", facility.getFacilityServiceGrade());
-		
 		return sqlSessionTemplate.insert(mapperRoot+"facilityInsert", facility);
+	}
+	// 사업자가 신청한 시설 등록신청 요청 리스트 조회
+	public List<Facility> memberFacilityInsertStatusList(int memberNo) {
+		logger.debug("FacilityDao memberFacilityInsertStatusList memberNo = {}", memberNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"memberfacilitySelectList", memberNo);
+	}
+	// 사업자가 신청한 시설등록 신청 요청 수정화면페이지 처리
+	public Facility facilitySelectOne(int facilityNo) {
+		logger.debug("FacilityDao facilitySelectOne facilityNo = {}", facilityNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"facilitySelectOne", facilityNo);
 		
 	}
-
 
 }

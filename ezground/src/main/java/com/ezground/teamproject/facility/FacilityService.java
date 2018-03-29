@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.match.dto.MatchNotice;
 
 
 @Service
@@ -41,10 +42,20 @@ public class FacilityService {
 		logger.debug("FacilityService facilityInsert facilityWriteDate = {}", facility.getFacilityWriteDate());
 		logger.debug("FacilityService facilityInsert facilityGrade = {}", facility.getFacilityGrade());
 		logger.debug("FacilityService facilityInsert facilityServiceGrade = {}", facility.getFacilityServiceGrade());
-		
 		facilityDao.facilityInsert(facility);
 	}
 	
-
-
+	// 사업자 --> 자신이 시설 등록신청 요청한 정보 보기
+	public List<Facility> memberFacilityInsertStatusList(int memberNo) {
+		logger.debug("FacilityService memberFacilityInsertStatusList memberNo = {}", memberNo);
+		List<Facility> list = facilityDao.memberFacilityInsertStatusList(memberNo);
+		return list;
+	}
+	
+	// 사업자 --> 자신이 시설 등록신청 요청한 정보수정 페이지 요청
+	public Facility facilitySelectOne(int facilityNo) {
+		logger.debug("FacilityService facilitySelectOne facilityNo = {}", facilityNo);
+		Facility facility = facilityDao.facilitySelectOne(facilityNo);
+		return facility;
+	}
 }

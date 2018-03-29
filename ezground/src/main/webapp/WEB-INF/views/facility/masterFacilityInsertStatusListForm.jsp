@@ -30,9 +30,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="facilityAndMemberList" items="${facilityAndMember.list}">
+						<c:forEach var="memberFacilityInsertList" items="${memberFacilityInsertList}">
 							<tr>
-								<td>${facilityAndMemberList.memberNo}</td>
+								<td>${memberFacilityInsertList.}</td>
 								<td>${facilityAndMemberList.memberName}</td>
 								<td>${facilityAndMember.facilityNo}</td>
 								<td>${facilityAndMember.facilityName}</td>
