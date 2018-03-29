@@ -58,4 +58,10 @@ public class FacilityService {
 		Facility facility = facilityDao.facilitySelectOne(facilityNo);
 		return facility;
 	}
+	
+	// 시설 수정등록 처리요청
+	public void facilityInsertUpdate(Facility facility) {
+		logger.debug("FacilityService facilityInsertUpdate facility = {}", facility);
+		facilityDao.facilityInsertUpdate(facility);
+	}
 }

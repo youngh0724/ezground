@@ -36,7 +36,7 @@ public class FacilityController {
 	// facilityInsert 요청
 		@RequestMapping(value="/facility/facilityInsert", method = RequestMethod.POST)
 		public String facilityInsert(HttpSession session, Facility facility) {
-			
+			// 세션에서 세션 키값을 통해 회원번호 출력
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
 			int memberNo = memberLogin.getMemberNo();
@@ -66,11 +66,17 @@ public class FacilityController {
 		// 사업자 자신이 시설 등록요청한 글 조회
 		@RequestMapping(value="facility/memberFacilityInsertStatusListForm")
 		public String memberFacilityInsertStatusSelectList(Model model, HttpSession session) {
+			// 세션에서 뽑아낸 회원 번호 값을 멤버로 형변환 후 데이터 타입 바꿈
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			// 멤버 로그인 변수 안에서 회원 번호를 뽑아내 int 멤버 변수에 담아줌
 			int memberNo = memberLogin.getMemberNo();
+			// 변수 memberNo 에 값이 잘 들어가있는지 확인
 			logger.debug("FacilityController memberFacilityInsertStatusSelectOne memberNo = {}", memberLogin.getMemberNo());
+			// facilityService.memberFacilityInsertStatusList 호출하여 리턴 받은 값을  List<Facility>타입의 list 변수에 할당
 			List<Facility> list = facilityService.memberFacilityInsertStatusList(memberNo);
+			// list안의 정보 확인
 			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list);
+			// 변수 list를 키값  List 로 모델에 셋팅해줌
 			model.addAttribute("List", list);
 			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list.get(1).getFacilityNo());
 			return "facility/memberFacilityInsertStatusListForm";
@@ -79,14 +85,33 @@ public class FacilityController {
 		// 사업자 자신이 시설 등록요청한 글 수정화면페이지 요청
 		@RequestMapping(value="facility/facilityInsertUpdateForm", method = RequestMethod.GET)
 		public String memberFacilityInsertUpdateForm(Model model, @RequestParam(value="facilityNo", required=true) int facilityNo) {
+			// 전달 받은 값 확인
 			logger.debug("FacilityController memberFacilityInsertUpdateForm facilityNo = {}", facilityNo);
+			// 매개변수 값을 이용해 facilityService.facilitySelectOne 호출후 리턴 받은 값을 변수에 담아줌
 			Facility facility = facilityService.facilitySelectOne(facilityNo);
+			// 변수에 담긴 정보 확인
 			logger.debug("FacilityController memberFacilityInsertUpdateForm facility = {}", facility.getFacilityNo());
+			// facility변수를 키값 facility로 세션에 셋팅
 			model.addAttribute("facility", facility);
 			return "facility/facilityInsertUpdateForm";
 		}
-
-
-
+		
+		//  시설 정보 수정 처리요청
+		@RequestMapping(value="/facility/facilityInsertUpdate", method = RequestMethod.POST)
+		public String facilityInsertUpdate(Facility facility) {
+			logger.debug("FacilityController facilityInsertUpdate facility = {}", facility.getFacilityNo());
+			facilityService.facilityInsertUpdate(facility);
+			return "redirect:/facility/memberFacilityInsertStatusListForm";
+		}
+		
+		// 관리자용 시설 등록 신청 리스트 조회
+		@RequestMapping(value="facility/masterFacilityInsertStatusListForm", method = RequestMethod.GET)
+		public String masterFacilityInsertStatusListForm(Model model, HttpSession session) {
+			
+			//
+			
+			return null;
+		}
+		
 
 }

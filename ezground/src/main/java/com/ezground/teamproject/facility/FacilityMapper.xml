@@ -41,19 +41,19 @@
 		<select id = "memberfacilitySelectList"
 				resultType="com.ezground.teamproject.facilitydto.Facility">
 				SELECT
-				facility_name AS facilityName
-				,facility_no AS facilityNo				
-				,facility_phone AS facilityPhone
-				,facility_address AS facilityAddress
-				,facility_notice AS facilityNotice
-				,facility_detail AS FacilityDetail
-				,facility_price AS facilityPrice
-				,facility_refund AS facilityRefund
-				,facility_rule AS facilityRule
-				,facility_licensee_no AS facilityLicenseeNo
-				,facility_return AS facilityReturn
-				,facility_status AS facilityStatus
-				,facility_write_date AS facilityWriteDate
+					facility_name AS facilityName
+					,facility_no AS facilityNo				
+					,facility_phone AS facilityPhone
+					,facility_address AS facilityAddress
+					,facility_notice AS facilityNotice
+					,facility_detail AS FacilityDetail
+					,facility_price AS facilityPrice
+					,facility_refund AS facilityRefund
+					,facility_rule AS facilityRule
+					,facility_licensee_no AS facilityLicenseeNo
+					,facility_return AS facilityReturn
+					,facility_status AS facilityStatus
+					,facility_write_date AS facilityWriteDate
 				FROM t_facility 
 				WHERE member_no = #{memberNo}
 		</select>
@@ -62,20 +62,36 @@
 		<select id="facilitySelectOne"
 				resultType="com.ezground.teamproject.facilitydto.Facility">
 				SELECT
-				facility_name AS facilityName
-				,facility_no AS facilityNo				
-				,facility_phone AS facilityPhone
-				,facility_address AS facilityAddress
-				,facility_notice AS facilityNotice
-				,facility_detail AS FacilityDetail
-				,facility_price AS facilityPrice
-				,facility_refund AS facilityRefund
-				,facility_rule AS facilityRule
-				,facility_licensee_no AS facilityLicenseeNo
-				,facility_return AS facilityReturn
-				,facility_status AS facilityStatus
-				,facility_write_date AS facilityWriteDate
+					facility_name AS facilityName
+					,facility_no AS facilityNo				
+					,facility_phone AS facilityPhone
+					,facility_address AS facilityAddress
+					,facility_notice AS facilityNotice
+					,facility_detail AS facilityDetail
+					,facility_price AS facilityPrice
+					,facility_refund AS facilityRefund
+					,facility_rule AS facilityRule
+					,facility_licensee_no AS facilityLicenseeNo
+					,facility_return AS facilityReturn
+					,facility_status AS facilityStatus
+					,facility_write_date AS facilityWriteDate
 				FROM t_facility 
 				WHERE facility_no = #{facilityNo}
 		</select>
+		
+	<!-- 시설 수정 등록 처리  -->
+		<update id = "facilityInsertUpdate"
+			parameterType = "com.ezground.teamproject.facilitydto.Facility">
+			UPDATE t_facility
+				SET facility_name = #{facilityName}
+					,facility_phone = #{facilityPhone}
+					,facility_address = #{facilityAddress}
+					,facility_notice = #{facilityNotice}
+					,facility_detail = #{facilityDetail}
+					,facility_price = #{facilityPrice}
+					,facility_refund = #{facilityRefund}
+					,facility_rule = #{facilityRule}
+					,facility_licensee_no = #{facilityLicenseeNo}
+				WHERE facility_no = #{facilityNo}
+		</update>
   </mapper>

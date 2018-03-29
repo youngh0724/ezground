@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,7 +43,7 @@
 								<td>${List.facilityLicenseeNo}</td>
 								<td>${List.facilityReturn}</td>
 								<td>${List.facilityStatus}</td>
-								<td>${List.facilityWriteDate}</td>
+								<td><fmt:formatDate value="${List.facilityWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td><a href="${pageContext.request.contextPath}/facility/facilityInsertUpdateForm?facilityNo=${List.facilityNo}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/facility/facilityInsertUpdateForm?facilityNo=${List.facilityNo}">삭제</a></td>
 							</tr>

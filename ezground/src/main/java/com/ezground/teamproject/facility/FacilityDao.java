@@ -51,7 +51,10 @@ public class FacilityDao {
 	public Facility facilitySelectOne(int facilityNo) {
 		logger.debug("FacilityDao facilitySelectOne facilityNo = {}", facilityNo);
 		return sqlSessionTemplate.selectOne(mapperRoot+"facilitySelectOne", facilityNo);
-		
+	}
+	public int facilityInsertUpdate(Facility facility) {
+		logger.debug("FacilityDao facilityInsertUpdate facilityNo = {}", facility);
+		return sqlSessionTemplate.update(mapperRoot+"facilityInsertUpdate", facility); 
 	}
 
 }
