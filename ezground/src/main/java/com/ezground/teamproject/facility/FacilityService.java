@@ -142,9 +142,15 @@ public class FacilityService {
 			logger.debug("FacilityService facilityAndFaiclityImageInsert imageExt = {}", facilityImage.getImageExt());
 			
 			//지정한 경로의 디렉토리 객체 생성
+			File directory = new File(path+"/facilityImageFileUpload/");
+			if(!directory.exists()) {
+				directory.mkdirs();
+			} else {
 				
 			// path 경로에 파일저장 이름+확장자
 			File temp = new File(path + "/facilityImageFileUpload/", imageRandomName+"."+imageExt);
+			logger.debug("FacilityService facilityAndFaiclityImageInsert temp = {}", temp);
+			
 			try {	
 				files.transferTo(temp);
 				facilityDao.facilityAndFaiclityImageInsert(facilityImage);
@@ -152,6 +158,7 @@ public class FacilityService {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
 			}
 		}
 	}
