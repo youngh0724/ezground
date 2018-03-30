@@ -49,16 +49,9 @@
 				<td>한 팅당 최소 참여 인원수</td>
 				<td><input id="matchMemberCount" name="matchMemberCount" type="text"/></td>
 			</tr>	
-		</table>
-		<input id="teamNo" name="teamNo" type="hidden" value="${teamNo}"/>
+		</table>		
 		<input id="matchCreat" type="submit" value="매치생성">
 	</form>	
-
-
-
-
-
-
 
 </body>
 </html>

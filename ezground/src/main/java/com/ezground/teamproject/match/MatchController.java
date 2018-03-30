@@ -1,6 +1,7 @@
 package com.ezground.teamproject.match;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.match.dto.MatchNotice;
+import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
 import com.ezground.teamproject.member.dto.MemberLogin;
+import com.google.gson.Gson;
 
 @Controller
 public class MatchController {
@@ -59,7 +62,10 @@ public class MatchController {
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
 		int sportEntryNo = sportEntries.getSportEntriesNo();
 		logger.debug("matchNoticeSelect() entryNo = {}", sportEntryNo);
-				
+		
+		matchNotice.setMemberNo(memberNo);
+		matchNotice.setSportEntriesNo(sportEntryNo);	
+		
 		//정보를 디비에 입력하고 입력후 방색한 매치공고 번호를 받아 저장한다.
 		int generatedMatchNoticeNo = matchService.matchNoticeInsert(matchNotice, memberNo, sportEntryNo);
 		logger.debug("creatMatch() generatedMatchNoticeNo = {}", generatedMatchNoticeNo);
@@ -153,23 +159,22 @@ public class MatchController {
 	}
 	
 	//매치검색 화면에서 fullcalendar에 날짜에 매치 예정일과 일치하는 경기 내용을 표시해줄 데이터를 제공하는 요청처리
-	@ResponseBody
-	@RequestMapping(value = "/matchNoticeExpectedDay", method = RequestMethod.POST)
-	public String matchNoticeExpectedDaySelectList(HttpSession session,
-			@RequestParam(value="searchWord", required=false) String matchKindsSearchWord) {
-		
-		//현재 세션이 갖고있는 스포츠 종목		
-		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
-		logger.debug("matchNoticeExpectedDaySelectList() sportEntries = {}", sportEntries);
-				
-		int sprotEntryNo = sportEntries.getSportEntriesNo();
-		logger.debug("matchNoticeExpectedDaySelectList() sprotEntryNo = {}", sprotEntryNo);
-				
-		List<MatchNotice> list = matchService.matchSelectList(sprotEntryNo, matchKindsSearchWord);
-		logger.debug("matchNoticeExpectedDaySelectList() list = {}", list);
-		
-		return String.valueOf(list);		
-	}
+		@RequestMapping(value = "/matchNoticeGsonList", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	    public @ResponseBody String gsonList(HttpSession session, Locale locale, Model model,
+	    		@RequestParam(value="matchKindsSearchWord", required = false) String matchKindsSearchWord) {
+			
+			//현재 세션이 갖고있는 스포츠 종목		
+			SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+			logger.debug("matchJoinMemberInsert() sportEntries = {}", sportEntries);
+			
+			int sprotEntryNo = sportEntries.getSportEntriesNo();
+	              
+			List<MatchNoticeFullcalendarEvent> list = matchService.matchSelectListfullcalendar(sprotEntryNo, matchKindsSearchWord);
+	        logger.debug("matchJoinMemberInsert() list = {}", list);
+	        
+	        Gson gson = new Gson();
+			return gson.toJson(list);
+	    }
 	
 	
 }

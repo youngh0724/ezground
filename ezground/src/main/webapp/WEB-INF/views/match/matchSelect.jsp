@@ -10,48 +10,25 @@
 <jsp:include page="/WEB-INF/views/module/fullcalendar.jsp" />
 <script>
 
-  $(document).ready(function() {
+$(document).ready(function() {
 
     $('#calendar').fullCalendar({
     	
 	header: {
         left: 'prev,next today',
         center: 'title',
-        right: ''
+        right: 'month,agendaWeek,agendaDay,list'
       },
       locale: 'ko',
       editable: true,
-      navLinks: false, // can click day/week names to navigate views
+      navLinks: true, // can click day/week names to navigate views
       eventLimit: true, // allow "more" link when too many events
-      events: function() {
-          $.ajax({
-              url: '${pageContext.request.contextPath}/matchNoticeExpectedDay',
-              type: 'POST',                    
-              success: function(data) {
-                  var events = [];
-                  if(data != 'empty'){
-                      $.each(data, function(key, val) {
-                        //alert(val.start);
-                          events.push({
-                              id: val.matchNoticeNo,
-                              title: val.matchKinds,
-                              start: val.matchExpectedDay,
-                              end: val.matchExpectedDay
-                          });
-                      });
-                  }
-                  //callback(events);
-              },
-              error:function(request, textStatus, errorThrown){
-                alert('error: ' + textStatus);
-              }
-          });
-		}
+      events: '${pageContext.request.contextPath}/matchNoticeGsonList'
+    	    
 
     });
 
   });
-
 </script>
 
 <style>

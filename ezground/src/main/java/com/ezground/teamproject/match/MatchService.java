@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.match.dto.MatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNotice;
+import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
 
 @Service
 @Transactional
@@ -58,9 +59,11 @@ public class MatchService {
 				
 		//서로 다른 타입의 정보를 하나의 변수에 저장하기위에 map타입 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sprotEntryNo", sportEntryNo);
+		map.put("sportEntryNo", sportEntryNo);
 		map.put("memberNo", memberNo);
 				
+		
+		logger.debug("matchNoticeInsert() sportEntryNo = {}", map.get("sprotEntryNo"));	
 		//팀번호와 참가팀을 성정한다.
 		int teamNo = matchDao.teamNoSelectOne(map);
 		String homeAway = "home";		
@@ -143,5 +146,27 @@ public class MatchService {
 		matchDao.matchJoinMemberInsert(matchJoinMember);
 		
 	}
+	
+	//매치 종류(팀전 or 자유)선택 혹은 미선택시 매치공고정보 리스트 조회 요청 처리
+		public List<MatchNoticeFullcalendarEvent> matchSelectListfullcalendar(int sprotEntryNo, String matchKindsSearchWord){
+			logger.debug("matchSelectListfullcalendar() matchKindsSearchWord = {}", matchKindsSearchWord);
+			
+			//두 매개변수를 하나의 변수(map타입)에 세팅한다.
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("sprotEntryNo", sprotEntryNo);
+			map.put("matchKindsSearchWord", matchKindsSearchWord);		
+			
+			//matchKindsSearchWord를 dao에 넘기고 매치공고 리스트를 받아온다.
+			List<MatchNoticeFullcalendarEvent> list = matchDao.matchSelectListfullcalendar(map);
+			logger.debug("matchSelectListfullcalendar() list = {}", list);
+			
+			for(int i = 0; i < list.size(); i++) {
+			
+				list.get(i).setUrl("${pageContext.request.contextPath}/match/matchNoticeInfomation?matchNoticeNo="+list.get(i).getId());
+								
+			}		
+			
+			return list;
+		}
 	
 }
