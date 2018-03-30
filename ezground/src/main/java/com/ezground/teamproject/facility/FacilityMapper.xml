@@ -35,6 +35,9 @@
 						,#{facilityReturn}
 						,#{facilityStatus}
 						,now())
+			<selectKey keyProperty="facilityNo" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>			
 		</insert>
 		
 	<!-- 사업자 자신이 신청한 시설등록 요청내역 조회  -->
@@ -94,4 +97,22 @@
 					,facility_licensee_no = #{facilityLicenseeNo}
 				WHERE facility_no = #{facilityNo}
 		</update>
+		
+	<!-- 시설 이미지 등록 처리 -->
+		<insert id = "facilityImageInsert"
+			parameterType = "com.ezground.teamproject.facilitydto.FacilityImage">
+			INSERT
+				INTO t_facility_image(facility_no
+									   ,image_path
+									   ,image_original_name
+									   ,image_random_name
+									   ,image_ext
+									   ,image_date)
+				VALUES (#{facilityNo}
+						,#{imagePath}
+						,#{imageOriginalName}
+						,#{imageRandomName}
+						,#{imageExt}
+						,now())
+		</insert>
   </mapper>

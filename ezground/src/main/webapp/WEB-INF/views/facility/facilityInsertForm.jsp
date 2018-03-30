@@ -10,7 +10,7 @@
 <body>
 <h3>${MemberLogin.memberId }님이 ${MemberLogin.memberLevel }권한으로 로그인중...</h3>
 	<h3>시설물 등록 요청</h3>
-	<form action="${pageContext.request.contextPath}/facility/facilityInsert" method="post">
+	<form action="${pageContext.request.contextPath}/facility/facilityInsert" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>시설 이름</td>
@@ -48,13 +48,15 @@
 				<td>사업자 번호</td>
 				<td><input type = "text" id = "facilityLicenseeNo" name = "facilityLicenseeNo"></td>
 			</tr>
-			<tr>	
-				<td>반려시 지적사항</td>
-				<td><input type = "text" id = "facilityReturn" name = "facilityReturn"></td>
-			</tr>
 			<!-- 글의 상태  -->
 			<tr>	
 				<td><input type = "hidden" id = "facilityStatus" name = "facilityStatus" value="승인 요청"></td>
+			</tr>
+			<tr>
+				<td>파일</td>
+			</tr>
+			<tr>
+				<td><input type = "file" name = "files" multiple = "multiple"></td>
 			</tr>
 			<tr>
 			<td><input Type = "submit" value = "등록요청"></td>

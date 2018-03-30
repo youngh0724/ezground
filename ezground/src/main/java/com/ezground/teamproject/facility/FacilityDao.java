@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.Member;
 
 @Repository
@@ -56,5 +57,12 @@ public class FacilityDao {
 		logger.debug("FacilityDao facilityInsertUpdate facilityNo = {}", facility);
 		return sqlSessionTemplate.update(mapperRoot+"facilityInsertUpdate", facility); 
 	}
-
+	public int facilityAndFaiclityImageInsert(FacilityImage facilityImage) {
+		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getFacilityNo());
+		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImageOriginalName());
+		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImageRandomName());
+		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImagePath());
+		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImageExt());
+		return sqlSessionTemplate.update(mapperRoot+"facilityImageInsert", facilityImage); 
+	}
 }

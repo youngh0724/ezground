@@ -1,17 +1,23 @@
 package com.ezground.teamproject.facility;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ezground.teamproject.facilitydto.Facility;
+import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.match.dto.MatchNotice;
 
 
@@ -63,5 +69,90 @@ public class FacilityService {
 	public void facilityInsertUpdate(Facility facility) {
 		logger.debug("FacilityService facilityInsertUpdate facility = {}", facility);
 		facilityDao.facilityInsertUpdate(facility);
+	}
+	
+	// 시설 정보 or 이미지 등록 처리요청
+	
+	public void facilityAndFaiclityImageInsert(FacilityAndFacilityImage facilityAndFacilityImage, String path) {
+		// 컨트롤러에서 넘겨받은 시설번호 값을 확인
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo = {}", facilityAndFacilityImage.getFacilityNo());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert memberNo = {}", facilityAndFacilityImage.getMemberNo());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityname = {}", facilityAndFacilityImage.getFacilityName());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityPhone = {}", facilityAndFacilityImage.getFacilityPhone());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityAddress = {}", facilityAndFacilityImage.getFacilityAddress());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNotice = {}", facilityAndFacilityImage.getFacilityNotice());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityDetatil = {}", facilityAndFacilityImage.getFacilityDetail());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityPrice = {}", facilityAndFacilityImage.getFacilityPrice());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityRefund = {}", facilityAndFacilityImage.getFacilityRefund());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityRule = {}", facilityAndFacilityImage.getFacilityRule());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityLicenseeNo = {}", facilityAndFacilityImage.getFacilityLicenseeNo());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityReturn = {}", facilityAndFacilityImage.getFacilityReturn());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityStatus = {}", facilityAndFacilityImage.getFacilityStatus());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityWriteDate = {}", facilityAndFacilityImage.getFacilityWriteDate());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityGrade = {}", facilityAndFacilityImage.getFacilityGrade());
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityServiceGrade = {}", facilityAndFacilityImage.getFacilityServiceGrade());
+		
+		// 시설 정보 입력 처리 요청
+		Facility facility = new Facility();
+		facility.setFacilityNo(facilityAndFacilityImage.getFacilityNo());
+		facility.setMemberNo(facilityAndFacilityImage.getMemberNo());
+		facility.setFacilityName(facilityAndFacilityImage.getFacilityName());
+		facility.setFacilityPhone(facilityAndFacilityImage.getFacilityPhone());
+		facility.setFacilityAddress(facilityAndFacilityImage.getFacilityAddress());
+		facility.setFacilityNotice(facilityAndFacilityImage.getFacilityNotice());
+		facility.setFacilityDetail(facilityAndFacilityImage.getFacilityDetail());
+		facility.setFacilityPrice(facilityAndFacilityImage.getFacilityPrice());
+		facility.setFacilityRefund(facilityAndFacilityImage.getFacilityRefund());
+		facility.setFacilityRule(facilityAndFacilityImage.getFacilityRule());
+		facility.setFacilityLicenseeNo(facilityAndFacilityImage.getFacilityLicenseeNo());
+		facility.setFacilityReturn(facilityAndFacilityImage.getFacilityReturn());
+		facility.setFacilityStatus(facilityAndFacilityImage.getFacilityStatus());
+		
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo실행전 = {}", facility.getFacilityNo());
+		facilityDao.facilityInsert(facility);
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo실행후 = {}", facility.getFacilityNo());
+		
+		
+		int facilityNo = facility.getFacilityNo();
+		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo = {}", facility.getFacilityNo());
+		
+		for(MultipartFile files : facilityAndFacilityImage.getFiles()) {
+			FacilityImage facilityImage = new FacilityImage();
+			// 겹치지 않는 값을 사용하기위해 랜덤UUID메서드를 사용하여 오리지널 파일이름 대신 사용한다.
+			UUID uuid = UUID.randomUUID();
+			String imageRandomName = uuid.toString().toString().replaceAll("_", ""); //중복 되지 않는 랜덤 이름값 표현
+			// 오리지널 파일 이름
+			String imageOriginalName = files.getOriginalFilename();
+			logger.debug("FacilityService facilityAndFaiclityImageInsert imageOriginalName = {}", files.getOriginalFilename());
+			// 오리지널 파일이름에서 .이 마지막 몇번쨰에 있는지 반환.
+			int pos = imageOriginalName.lastIndexOf(".");
+			// 오리지널 파일이름에서 pos+1 번쨰까지의 문자열을 잘라낸다.
+			String imageExt = imageOriginalName.substring(pos + 1);
+			// 도메인 image 셋팅
+			facilityImage.setImageOriginalName(imageOriginalName);
+			facilityImage.setImageRandomName(imageRandomName);
+			facilityImage.setFacilityNo(facilityNo);
+			facilityImage.setImagePath(path);
+			facilityImage.setImageExt(imageExt);
+			
+			logger.debug("FacilityService facilityAndFaiclityImageInsert imageOriginalName = {}", facilityImage.getImageOriginalName());
+			logger.debug("FacilityService facilityAndFaiclityImageInsert imageRandomName = {}", facilityImage.getImageRandomName());
+			logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getFacilityNo());
+			logger.debug("FacilityService facilityAndFaiclityImageInsert path = {}", facilityImage.getImagePath());
+			logger.debug("FacilityService facilityAndFaiclityImageInsert imageExt = {}", facilityImage.getImageExt());
+			
+			//지정한 경로의 디렉토리 객체 생성
+				
+			// path 경로에 파일저장 이름+확장자
+			File temp = new File(path + "/facilityImageFileUpload/", imageRandomName+"."+imageExt);
+			try {	
+				files.transferTo(temp);
+				facilityDao.facilityAndFaiclityImageInsert(facilityImage);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

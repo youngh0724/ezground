@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.facilitydto.Facility;
+import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -34,7 +36,8 @@ public class FacilityController {
 	}
 	
 	// facilityInsert 요청
-		@RequestMapping(value="/facility/facilityInsert", method = RequestMethod.POST)
+		/**
+		@RequestMapping(value="facility/facilityInsert", method = RequestMethod.POST)
 		public String facilityInsert(HttpSession session, Facility facility) {
 			// 세션에서 세션 키값을 통해 회원번호 출력
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
@@ -62,6 +65,7 @@ public class FacilityController {
 			facilityService.facilityInsert(facility);
 			return "redirect:/";
 		}
+		**/
 		
 		// 사업자 자신이 시설 등록요청한 글 조회
 		@RequestMapping(value="facility/memberFacilityInsertStatusListForm")
@@ -108,10 +112,25 @@ public class FacilityController {
 		@RequestMapping(value="facility/masterFacilityInsertStatusListForm", method = RequestMethod.GET)
 		public String masterFacilityInsertStatusListForm(Model model, HttpSession session) {
 			
-			//
-			
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			return null;
 		}
 		
+		// 시설  등록 요청
+		@RequestMapping(value="facility/facilityInsert" , method = RequestMethod.POST)
+		public String facilityAndFaiclityImageInsert(FacilityAndFacilityImage facilityAndFaiclityImage, HttpSession session) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
+			int memberNo = memberLogin.getMemberNo();
+			facilityAndFaiclityImage.setMemberNo(memberNo);
+			if(session.getAttribute("MemberLogin") == null) {
+				return "sessionError";
+			}
+			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", facilityAndFaiclityImage.getFacilityNo());
+			String path = session.getServletContext().getRealPath("/resources");
+			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", path);
+			facilityService.facilityAndFaiclityImageInsert(facilityAndFaiclityImage, path);
+			return "redirect:/facility/memberFacilityInsertStatusListForm";
+		}
 
 }

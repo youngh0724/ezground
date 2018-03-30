@@ -1,15 +1,19 @@
 package com.ezground.teamproject.facilitydto;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class FacilityImage {
-	
 	private int imageNo;
 	private int facilityNo;
 	private String imagePath;
-	private String originalName;
-	private String image_random_name;
-	private Timestamp imageDate;
+	private String imageOriginalName;
+	private String imageRandomName;
+	private String imageExt;
+	private Date imageDate;
 	public int getImageNo() {
 		return imageNo;
 	}
@@ -28,22 +32,28 @@ public class FacilityImage {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	public String getOriginalName() {
-		return originalName;
+	public String getImageOriginalName() {
+		return imageOriginalName;
 	}
-	public void setOriginalName(String originalName) {
-		this.originalName = originalName;
+	public void setImageOriginalName(String imageOriginalName) {
+		this.imageOriginalName = imageOriginalName;
 	}
-	public String getImage_random_name() {
-		return image_random_name;
+	public String getImageRandomName() {
+		return imageRandomName;
 	}
-	public void setImage_random_name(String image_random_name) {
-		this.image_random_name = image_random_name;
+	public void setImageRandomName(String imageRandomName) {
+		this.imageRandomName = imageRandomName;
 	}
-	public Timestamp getImageDate() {
+	public String getImageExt() {
+		return imageExt;
+	}
+	public void setImageExt(String imageExt) {
+		this.imageExt = imageExt;
+	}
+	public Date getImageDate() {
 		return imageDate;
 	}
-	public void setImageDate(Timestamp imageDate) {
+	public void setImageDate(Date imageDate) {
 		this.imageDate = imageDate;
 	}
 	

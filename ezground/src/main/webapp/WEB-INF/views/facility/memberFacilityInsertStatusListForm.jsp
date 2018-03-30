@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>관리자용 시설 등록신청 리스트 페이지</h3>
+	<h3>사용자 시설 등록신청 리스트 페이지</h3>
 	
 	<table class="table table-striped" data-effect="fade">
 					<thead>
