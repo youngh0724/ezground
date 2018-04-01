@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
+
+
 <body>
 
 <h2>매치 생성하기 페이지</h2>
@@ -15,14 +18,19 @@
 		<table class="table table-striped">		
 			<tr>
 				<td>일정</td>
-				<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/></td>
+				<td><input id="matchExpectedDay" name="matchExpectedDay" type="datetime-local"/></td>
 			</tr>
 			<tr>
 				<td>시간대</td>
 				<td><input id="matchExpectedStartTime" name="matchExpectedStartTime" type="time"/>~
 					<input id="matchExpectedEndTime" name="matchExpectedEndTime" type="time"/>
 				</td>
-			</tr>			
+			</tr>
+			<tr>
+				<td>풀 캘린더 모달창 띄우기</td>
+				<td><button id="fullcalendarModal">풀캘린더</button></td>
+			</tr>
+						
 			<tr>
 				<td>매치 종류</td>
 				<td><select name="matchKinds">

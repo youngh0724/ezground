@@ -160,10 +160,8 @@ public class MatchService {
 			List<MatchNoticeFullcalendarEvent> list = matchDao.matchSelectListfullcalendar(map);
 			logger.debug("matchSelectListfullcalendar() list = {}", list);
 			
-			for(int i = 0; i < list.size(); i++) {
-			
-				list.get(i).setUrl("${pageContext.request.contextPath}/match/matchNoticeInfomation?matchNoticeNo="+list.get(i).getId());
-								
+			for(int i = 0; i < list.size(); i++) {			
+				list.get(i).setUrl("../match/matchNoticeInfomation?matchNoticeNo="+list.get(i).getId());								
 			}		
 			
 			return list;
