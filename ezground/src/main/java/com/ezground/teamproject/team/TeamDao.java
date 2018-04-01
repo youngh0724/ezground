@@ -60,5 +60,26 @@ public class TeamDao {
 		//아이디를 입력받아 db에서 일치하는 정보를 삭제한다. 
 		return sqlSessionTemplate.delete(mapperRoot+"teamDelete", teamNo);
 	}
-
+	
+//팀 삭제를 위한 팀 멤버 우선 삭제
+	public int teamDeleteMember(int teamNo) {
+		logger.debug("teamDeleteMember() teamNo = {}", teamNo);
+		
+		return sqlSessionTemplate.delete(mapperRoot+"teamDeleteMember", teamNo);
+	}
+	//나의 팀 목록 조회
+	public List<Team> teamSelectMyTeam(Map map) {
+		logger.debug("teamSelectMyTeam() map.startRow = {}", map.get("startRow"));
+		logger.debug("teamSelectMyTeam() map.rowPerPage = {}", map.get("rowPerPage"));
+		logger.debug("teamSelectMyTeam() map.searchWord = {}", map.get("searchWord"));
+		logger.debug("teamSelectMyTeam() map.memberNo = {}", map.get("memberNo"));
+		return sqlSessionTemplate.selectList(mapperRoot+"teamSelectMyTeam", map);
+	}
+	//나의 팀 갯수 카운트
+	public int myTeamSelectTotalCount(int memberNo) {
+		logger.debug("totalCount() 실행확인"); 
+		return sqlSessionTemplate.selectOne(mapperRoot+"myTeamSelectCount", memberNo);	
+	}
+	
+	
 }

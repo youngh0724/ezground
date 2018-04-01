@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+	<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
 		<h2>Team List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-12 col-lg-12">

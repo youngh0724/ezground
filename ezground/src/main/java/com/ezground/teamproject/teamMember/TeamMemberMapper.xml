@@ -8,8 +8,18 @@
 
 	<insert id="teamMemberInsert"
 			parameterType="com.ezground.teamproject.teamMember.dto.TeamMember">
-		INSERT INTO t_team_member(team_no, member_no, team_member_join_date)
-		VALUES (#{teamNo}, #{memberNo}, now())
+		INSERT INTO t_team_member(team_no, member_no, team_member_level_no, team_member_join_date)
+		VALUES (#{teamNo}, #{memberNo}, #{teamMemberLevelNo}, now())
 	</insert>
+	
+	<select id="teamMemberSelect"
+			parameterType="int"
+			resultType="com.ezground.teamproject.teamMember.dto.TeamMember">
+		SELECT team_member_no AS teamMemberNo			   
+			   ,member_no AS memberNo
+			   ,team_member_level_no AS teamMemberLevelNo
+		FROM t_team_member
+		WHERE team_no = #{teamNo} AND member_no = #{memberNo}
+	</select>
 	
 </mapper>

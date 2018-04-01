@@ -77,14 +77,17 @@ public class TeamController {
 	
 	//teamInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드를 호출
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.POST)
-    public String teamInsert(Team team, TeamMember teamMember, HttpSession session) {			
+    public String teamInsert(Team team, HttpSession session) {			
 		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
 		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-		int memberNo = memberLogin.getMemberNo();	
-		teamService.teamInsert(team, teamMember);		
+		int memberNo = memberLogin.getMemberNo();
+		
+		teamService.teamInsert(team, memberNo);			
+		
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/team/teamList";
+        
     }
 	
 	@RequestMapping(value="/team/teamUpdate", method = RequestMethod.GET)
@@ -112,14 +115,44 @@ public class TeamController {
     }
 //삭제 action 요청
 	@RequestMapping(value="/team/teamDelete", method = RequestMethod.GET)
-	public String teamDelete(HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
+	public String teamDelete(Model model, HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
 		logger.debug("teamDelete() teamNo = {}", teamNo);	
-	
-		
-		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출
-		teamService.teamDelete(teamNo);
+		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+		int memberNo = memberLogin.getMemberNo();
+		teamService.teamMemberDelete(teamNo, memberNo);					
+
+		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출			
 		//리스트페이지로 리다이렉트 시킨다.
 		return "redirect:/team/teamList";
 	}
+	
+	@RequestMapping(value="/team/teamManagement", method = RequestMethod.GET)
+	public String myTeamSelectList(Model model, HttpSession session, 
+			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
+			@RequestParam(value="searchWord", required=false) String searchWord) {	
+						
+		logger.debug("myTeamSelectList() currentPage = {}", currentPage);
+		logger.debug("myTeamSelectList() rowPerPage = {}", rowPerPage);
+		logger.debug("myTeamSelectPage() searchWord = {}", searchWord);
+		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+		int memberNo = memberLogin.getMemberNo();
+		logger.debug("myTeamSelectPage() memberNo = {}", memberNo);
+		Map map = teamService.teamSelectMyTeam(currentPage, rowPerPage, searchWord, memberNo);
+		//list에 들어있는 값을 확인해본다.
+		logger.debug("myTeamSeletList() map = {}", map);			
+		
+		List<Team> list = (List<Team>)map.get("list");
+		int totalCount = (Integer) map.get("totalCount");		
+		
+		int lastPage = (totalCount/rowPerPage)+1;
+		//db에서 받아온 결과값을 model에 세팅한다.
+		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("currentPage", currentPage);
+		return "team/teamManagement";
+	}	
+	
 
 }

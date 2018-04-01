@@ -52,7 +52,13 @@
   			parameterType="com.ezground.teamproject.team.dto.Team">
   		INSERT INTO t_team(sport_entries_no, team_name, team_region, team_ages, team_intro, team_created_date)
   		VALUES (#{sportEntriesNo}, #{teamName}, #{teamRegion}, #{teamAges}, #{teamIntro}, now())
+   	
+   	<selectKey keyProperty="teamNo" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+	</selectKey>
+   	
    	</insert>
+   		
    	
 	<select id="teamSelectOne"
 			parameterType="int"
@@ -75,9 +81,41 @@
 	</update>
 	
 	<delete id="teamDelete" 
-	    		parameterType="com.ezground.teamproject.team.dto.Team">
-	        DELETE FROM t_team 
-	        WHERE team_no = #{teamNo} 
+	    	parameterType="com.ezground.teamproject.team.dto.Team">
+	    DELETE FROM t_team 
+	    WHERE team_no = #{teamNo} 
+	</delete>	
+	
+	<delete id="teamDeleteMember"
+			parameterType="com.ezground.teamproject.teamMember.dto.TeamMember">
+		DELETE FROM t_team_member
+		WHERE team_no = #{teamNo}		
 	</delete>
+	
+	<select id="teamSelectMyTeam"
+			parameterType="java.util.Map"
+			resultType="com.ezground.teamproject.team.dto.Team">
+		SELECT 
+			t.team_no AS teamNo
+			,t.team_name AS teamName
+			,t.sport_entries_no AS sportEntriesNo
+		FROM t_team t INNER JOIN t_team_member m
+		ON t.team_no = m.team_no
+		WHERE m.member_no = #{memberNo}
+		<if test="searchWord != null">
+			WHERE team_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
+		ORDER BY t.team_no
+		LIMIT #{startRow}, #{rowPerPage} 		
+	</select>
+	
+	<select id="myTeamSelectCount"
+  			resultType="int">
+  		SELECT 
+  			count(*) 
+  		FROM t_team_member
+  		WHERE member_no = #{memberNo}
+  		
+  	</select>
 	
 </mapper>

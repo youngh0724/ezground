@@ -9,6 +9,7 @@
 </head>
 
 <body>
+	<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
 		<h2>Team List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-6 col-lg-6">
@@ -29,7 +30,8 @@
 						<td style="margin: auto; text-align: right;">
 							<!--SELECT COUNT OPTION 시작 -->
 							<div>
-								<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamInsert">팀 추가</a>
+								<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamInsert">팀 생성</a>
+								<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamManagement">내 팀관리</a>
 							</div>
 						</td>
 					</tr>
@@ -41,9 +43,8 @@
 						<tr>
 							<th>팀 번호</th>
 							<th>종목</th>
-							<th>팀 이름</th>
-							<th>수정</th>
-							<th>삭제</th>
+							<th>팀 이름</th>		
+							<th>팀 마크</th>					
 						</tr>
 					</thead>
 					<tbody>
@@ -52,9 +53,8 @@
 							<tr>
 								<td>${team.teamNo}</td>
 								<td>${team.sportEntriesNo}</td>
-								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName}</a></td>
-								<td><a href="${pageContext.request.contextPath}/team/teamUpdate?teamNo=${team.teamNo}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/team/teamDelete?teamNo=${team.teamNo}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName}</a></td>	
+															
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -1,5 +1,8 @@
 package com.ezground.teamproject.teamMember;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -28,10 +31,11 @@ public class TeamMemberService {
 		
 		teamMember.setMemberNo(memberNo);
 		teamMember.setTeamNo(teamNo);
-		teamMember.setTeamMemberLevelNo(teamMember.getTeamMemberLevelNo());
-		teamMember.setTeamMemberJoinDate(teamMember.getTeamMemberJoinDate());
+		teamMember.setTeamMemberLevelNo(2);		
 		
 		teamMemberDao.teamMemberInsert(teamMember);
 	}
+	
+
 	
 }

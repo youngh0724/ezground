@@ -62,12 +62,18 @@ public class TeamService {
 	}
 	
 
-	public void teamInsert(Team team, TeamMember teamMember) {
+	public void teamInsert(Team team, int memberNo) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
 		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
 		//위에서 뽑아낸 team타입을 insert한다.
-		teamDao.teamInsert(team);
 		
+		teamDao.teamInsert(team);		
+		logger.debug("teamInsert() teamNo = {}", team.getTeamNo());
+		TeamMember teamMember = new TeamMember();
+		
+		teamMember.setTeamNo(team.getTeamNo());
+		teamMember.setMemberNo(memberNo);
+		teamMember.setTeamMemberLevelNo(1);			
 		teamMemberDao.teamMemberInsert(teamMember);
 		
 	}
@@ -91,15 +97,56 @@ public class TeamService {
 		//row에 들어있는 값을 확인해본다.
 		logger.debug("teamUpdate() row = {}", row);
 		return row;
-	}
-	//컨트롤러에서 넘겨받은 정보로 db정보를 삭제할때 사용되어지는 메서드
-	public int teamDelete(int teamNo) {
-		//컨트롤러에서 넘겨받은 값을 확인해본다.
-		logger.debug("teamDelete() teamNo = {}", teamNo);
-		int row = teamDao.teamDelete(teamNo);
-		
-		logger.debug("teamDelete() row = {}", row);
-		return row;
+	}	
 	
+		
+	//컨트롤러에서 넘겨받은 정보로 db정보를 삭제할때 사용되어지는 메서드
+	public int teamMemberDelete(int teamNo, int memberNo) {
+		//컨트롤러에서 넘겨받은 값을 확인해본다.		
+		logger.debug("teamMemberSelect() TeamNo = {}", teamNo);	
+		Map map = new HashMap();
+		map.put("teamNo", teamNo);
+		map.put("memberNo", memberNo);		
+		
+		TeamMember teamMember = teamMemberDao.teamMemberSelect(map);
+		logger.debug("teamMemberSelect() TeamMember = {}", teamMember);			
+		
+		if(teamMember.getMemberNo() == memberNo && teamMember.getTeamMemberLevelNo() == 1) {		
+			logger.debug("teamDelete() teamNo = {}", teamNo);		
+			teamDao.teamDeleteMember(teamNo);		
+			int row = teamDao.teamDelete(teamNo);
+			logger.debug("teamDelete() row = {}", row);		
+			return row;			
+			}
+			else {
+				
+				logger.debug("삭제 권한이 없습니다.");	
+				return 0;
+			}
+		
+	}
+	public Map<String, Object> teamSelectMyTeam(int currentPage, int rowPerPage, String searchWord, int memberNo){
+		
+		logger.debug("teamSelectMyTeam() currentPage = {}", currentPage);
+		logger.debug("teamSelectMyTeam() rowPerPage = {}", rowPerPage);
+		logger.debug("teamSelectMyTeam() searchWord = {}", searchWord);
+		
+		int startRow = (currentPage-1)*rowPerPage;
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		map.put("memberNo", memberNo);
+		
+		List<Team> list = teamDao.teamSelectMyTeam(map);
+		logger.debug("teamSelectMyTeam() list = {}", list);
+		int totalCount = teamDao.myTeamSelectTotalCount(memberNo);
+		logger.debug("teamSelectMyTeam() totalCount = {}", totalCount);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("list", list);
+		returnMap.put("totalCount", totalCount);
+		
+		return returnMap;
 	}
 }

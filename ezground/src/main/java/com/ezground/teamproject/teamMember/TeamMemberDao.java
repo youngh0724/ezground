@@ -27,4 +27,10 @@ public class TeamMemberDao {
 		
 		return sqlSessionTemplate.insert(mapperRoot+"teamMemberInsert", teamMember);
 	}
+	
+	//멤버에게 팀 삭제 권한이 있는지 확인하기 위한 조회 기능
+	public TeamMember teamMemberSelect(Map map) {
+		logger.debug("teamMemberSelect() teamMember = {}", map);		
+		return sqlSessionTemplate.selectOne(mapperRoot+"teamMemberSelect", map);
+	}
 }
