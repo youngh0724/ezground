@@ -2,29 +2,22 @@
     pageEncoding="EUC-KR"%>
 
 
+	<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
 
-<!-- Main Scripts-->
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+						</div>
+					</div>
 
-  <!-- Bootstrap 3 has typeahead optionally -->
-  <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
+			</div>
 
+		<!-- Scripts -->
+			<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/skel.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
-<style style="text/css">
-.footer{
-width: 100%;
-position: absolute;
-bottom: 0;
-text-align: center;
-}
-</style>
-
-<div class="footer" >
-<div>CopyRight by ET</div>
-</div>
-</div>
-</body>
-
-
+	</body>
 </html>

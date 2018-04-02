@@ -10,11 +10,10 @@
 
 <body>
 	<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
-		<section>
-			<header class="major">
-				<h2>TEAM List</h2>
-					</header>
-						<div class="features">
+		<h2>Team List</h2>
+		<div class="row" style="margin-bottom: 30;">
+			<div class="col-sm-6 col-lg-6">
+
 				<table style="width: 100%">
 					<tr>
 						<td>
@@ -55,7 +54,7 @@
 								<td>${team.teamNo}</td>
 								<td>${team.sportEntriesNo}</td>
 								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName}</a></td>	
-								<td>마크</td>						
+															
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -64,12 +63,13 @@
 				<!-- 이전, 다음 버튼 시작 -->
 				<div class="col-sm-12" style="margin-bottom: 10; text-align: center">
 					<div>
-						<a href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/team/teamList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}</c:if>">
-							<button type="button" class="btn btn-labeled btn-default" >
+						<a
+							href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/team/teamList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}</c:if>">
+							<button type="button" class="btn btn-labeled btn-default">
 								<span class="btn-label"> <i class="fa fa-arrow-left"></i>
 								</span>이전
-							</button></a>
-							${currentPage} <a href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/team/teamList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}</c:if>">
+							</button></a> ${currentPage} <a
+							href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/team/teamList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}</c:if>">
 							<button type="button" class="btn btn-labeled btn-default">
 								다음<span class="btn-label btn-label-right"> <i class="fa fa-arrow-right"></i>
 								</span>
@@ -86,11 +86,6 @@
 				</div>
 				<!-- 이전, 다음 버튼 끝 -->
 			</div>
-		</section>
-		</body>
-		</html>
 		</div>
-		</div>
-		
 <jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
 <jsp:include page="/WEB-INF/views/module/footer.jsp" />

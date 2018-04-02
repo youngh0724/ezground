@@ -41,7 +41,7 @@
                     <a href="${pageContext.request.contextPath}/memberInsert">회원가입</a>                    
                 </li>
                 <!-- /.dropdown -->
-           		 </c:when>            
+           		</c:when>            
             
             	<c:otherwise>            
         
@@ -106,13 +106,13 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 팀원소개</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 팀 관리<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 팀 <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">생성</a>
+                                    <a href="${pageContext.request.contextPath}/team/teamList">전체 팀 조회</a>
                                 </li>
                                 <li>
-                                    <a href="#">조회</a>
+                                    <a href="${pageContext.request.contextPath}/team/teamManagement">나의 팀 조회</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
