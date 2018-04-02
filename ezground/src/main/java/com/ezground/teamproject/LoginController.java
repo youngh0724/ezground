@@ -46,5 +46,19 @@ public class LoginController {
 		
 		return flag;
 	}
+	
+	@RequestMapping(value="/login/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		logger.debug("logout() 로그아웃 호출 성공");
+		
+		if(session.getAttribute("MemberLogin") == null) {
+			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
+			return "redirect:/";
+		}
+		session.invalidate();
+		logger.debug("logout() 세션값이 있으면 세션해제하고 리다이렉트");
+		return "redirect:/";
+	}
+	
 		
 }

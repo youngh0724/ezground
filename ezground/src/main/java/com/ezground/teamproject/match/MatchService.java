@@ -28,7 +28,7 @@ public class MatchService {
 	private static final Logger logger = LoggerFactory.getLogger(MatchService.class);
 	
 	//종목번호와 맴버 번호로 팀 번호 조회
-	public int teamNoSelectOne(int sportEntryNo, int memberNo) {		
+	public Integer teamNoSelectOne(int sportEntryNo, int memberNo) {		
 		logger.debug("teamNoSelectOne() memberNo = {}", memberNo);
 		logger.debug("teamNoSelectOne() entryNo = {}", sportEntryNo);
 		
@@ -38,7 +38,7 @@ public class MatchService {
 		map.put("memberNo", memberNo);
 		
 		//팀 번호를 조회
-		int teamNo = matchDao.teamNoSelectOne(map);
+		Integer teamNo = matchDao.teamNoSelectOne(map);
 		logger.debug("teamNoSelectOne() teamNo = {}", teamNo);	
 		
 		return teamNo;
@@ -148,23 +148,52 @@ public class MatchService {
 	}
 	
 	//매치 종류(팀전 or 자유)선택 혹은 미선택시 매치공고정보 리스트 조회 요청 처리
-		public List<MatchNoticeFullcalendarEvent> matchSelectListfullcalendar(int sprotEntryNo, String matchKindsSearchWord){
-			logger.debug("matchSelectListfullcalendar() matchKindsSearchWord = {}", matchKindsSearchWord);
-			
-			//두 매개변수를 하나의 변수(map타입)에 세팅한다.
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("sprotEntryNo", sprotEntryNo);
-			map.put("matchKindsSearchWord", matchKindsSearchWord);		
-			
-			//matchKindsSearchWord를 dao에 넘기고 매치공고 리스트를 받아온다.
-			List<MatchNoticeFullcalendarEvent> list = matchDao.matchSelectListfullcalendar(map);
-			logger.debug("matchSelectListfullcalendar() list = {}", list);
-			
-			for(int i = 0; i < list.size(); i++) {			
-				list.get(i).setUrl("../match/matchNoticeInfomation?matchNoticeNo="+list.get(i).getId());								
-			}		
-			
-			return list;
-		}
+	public List<MatchNoticeFullcalendarEvent> matchSelectListfullcalendar(int sprotEntryNo, String matchKindsSearchWord){
+		logger.debug("matchSelectListfullcalendar() matchKindsSearchWord = {}", matchKindsSearchWord);
+
+		//두 매개변수를 하나의 변수(map타입)에 세팅한다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sprotEntryNo", sprotEntryNo);
+		map.put("matchKindsSearchWord", matchKindsSearchWord);		
+
+		//matchKindsSearchWord를 dao에 넘기고 매치공고 리스트를 받아온다.
+		List<MatchNoticeFullcalendarEvent> list = matchDao.matchSelectListfullcalendar(map);
+		logger.debug("matchSelectListfullcalendar() list = {}", list);
+
+		for(int i = 0; i < list.size(); i++) {			
+			list.get(i).setUrl("../match/matchNoticeInfomation?matchNoticeNo="+list.get(i).getId());								
+		}		
+
+		return list;
+	}
+		
+	//매치 공고에 참가한 팀원인지 판별하는 요청 처리
+	public Integer isTeamMember(int matchNoticeNo, int memberNo) {
+		logger.debug("isTeamMember() matchNoticeNo = {}", matchNoticeNo);
+		logger.debug("isTeamMember() memberNo = {}", memberNo);
+		
+		//두 매개변수를 하나의 변수(map타입)에 세팅한다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("matchNoticeNo", matchNoticeNo);
+		map.put("memberNo", memberNo);
+		
+		Integer teamMember = matchDao.isTeamMember(map);
+		
+		return teamMember;
+	}
+	
+	//
+	public int matchJoinMemberDelete(int matchNoticeNo, int memberNo) {
+		logger.debug("matchJoinMemberDelete() matchNoticeNo = {}", matchNoticeNo);
+		logger.debug("matchJoinMemberDelete() memberNo = {}", memberNo);
+		
+		//두 매개변수를 하나의 변수(map타입)에 세팅한다.
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("matchNoticeNo", matchNoticeNo);
+		map.put("memberNo", memberNo);
+				
+		return matchDao.matchJoinMemberDelete(map);
+	}
+	
 	
 }

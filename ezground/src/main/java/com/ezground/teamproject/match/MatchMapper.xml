@@ -9,7 +9,7 @@
  	<!-- 종목번호와 맴버번호로 팀번호를 판별하는 쿼리문 -->
  	<select id="teamNoSelectOne"
  			parameterType="java.util.Map"
- 			resultType="int">
+ 			resultType="Integer">
 		SELECT 
 			m.team_no as teamNo		
 		FROM t_team_member m INNER JOIN t_team t
@@ -60,6 +60,15 @@
 				#{memberNo},
 				#{homeAway})
 	</insert>
+	
+	<!--  -->
+	<delete id="matchJoinMemberDelete"
+			parameterType="java.util.Map">
+		DELETE 
+		FROM t_match_join_member
+		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}	
+	
+	</delete>
 	
 	<!-- 매치공고 정보를 조회하는 쿼리문 -->
  	<select id="matchSelectList" 	
@@ -135,6 +144,16 @@
 		<if test="searchWord != null">
   			AND match_kinds =  #{matchKindsSearchWord}
   		</if>	
+	</select>
+	
+	<!-- 매치공고에 자신이 참가 신청을 햇는지  판별 쿼리문 -->
+ 	<select id="matchNoticeIsTeamMember" 
+ 			parameterType="java.util.Map"				
+ 			resultType="Integer">
+		SELECT			
+			member_no AS memberNo
+		FROM t_match_join_member
+		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}
 	</select>
 		
  </mapper>

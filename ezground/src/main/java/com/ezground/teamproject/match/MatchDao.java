@@ -25,7 +25,7 @@ public class MatchDao {
 	private final String mapperRoot = "com.ezground.teamproject.match.MatchMapper.";
 	
 	//매개변수 값과 일치하는 하나의 팀 번호를 조회한다.
-	public int teamNoSelectOne(Map<String, Object> map) {		
+	public Integer teamNoSelectOne(Map<String, Object> map) {		
 		logger.debug("teamNoSelectOne() sportEntryNo = {}", map.get("sprotEntryNo"));	
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"teamNoSelectOne", map);
@@ -74,11 +74,25 @@ public class MatchDao {
 	}
 	
 	//매치공고 리스트를 조회한다.(매개변수에따라 매치종류에따른 조회기능)
-		public List<MatchNoticeFullcalendarEvent> matchSelectListfullcalendar(Map<String, Object> map){
-			logger.debug("matchSelectList() matchKindsSearchWord = {}", map.get("matchKindsSearchWord"));
-					
-			return sqlSessionTemplate.selectList(mapperRoot+"matchSelectListfullcalendar", map);
-		}
+	public List<MatchNoticeFullcalendarEvent> matchSelectListfullcalendar(Map<String, Object> map){
+		logger.debug("matchSelectList() matchKindsSearchWord = {}", map.get("matchKindsSearchWord"));
+
+		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectListfullcalendar", map);
+	}
+	
+	//
+	public Integer isTeamMember(Map<String, Object> map) {
+		logger.debug("isTeamMember() matchNoticeNo = {}", map.get("matchNoticeNo"));
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"matchNoticeIsTeamMember", map);
+	}
+	
+	//
+	public Integer matchJoinMemberDelete(Map<String, Object> map) {
+		logger.debug("matchJoinMemberDelete() matchNoticeNo = {}", map.get("matchNoticeNo"));
+		
+		return sqlSessionTemplate.delete(mapperRoot+"matchJoinMemberDelete", map);
+	}
 	
 	
 }

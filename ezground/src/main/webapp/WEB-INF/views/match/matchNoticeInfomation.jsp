@@ -72,8 +72,33 @@
 		</tbody>
 	</table>
 	
+	<!-- 매치에 참가 되어있는지  -->
+            <c:set var="memberLevel" value="${memberLevel}"></c:set>
+            <c:choose>
+            	
+            	<c:when test="${empty memberLevel}">
+	
+	<!-- 매치에 참가 되어있는지  -->
+            <c:set var="isTeamMember" value="${isTeamMember}"></c:set>
+            <c:choose>
+            	
+            	<c:when test="${empty isTeamMember}">
 	<br>
 	<a href ="${pageContext.request.contextPath}/match/matchJoin?matchNoticeNo=${matchNotice.matchNoticeNo}" >매치 맴버 참가 신청</a>
+				</c:when>
+				<c:otherwise>
+	<br>
+	<a href ="${pageContext.request.contextPath}/match/matchJoinCancel?matchNoticeNo=${matchNotice.matchNoticeNo}" >매치 맴버 참가 취소</a>			
+				
+				</c:otherwise>
+				</c:choose>
+				</c:when>
+				<c:otherwise>
+	<br>
+	<a href ="${pageContext.request.contextPath}/match/matchNoticeDelete?matchNoticeNo=${matchNotice.matchNoticeNo}" >매치 공고 삭제</a>				
+				
+				</c:otherwise>
+				</c:choose>
 	<br>
 	<a href ="${pageContext.request.contextPath}/match/matchSelect" >매치 검색 페이지로..</a>
 	
