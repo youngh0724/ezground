@@ -1,6 +1,5 @@
-
-	<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 			
 
 							<!-- Search -->
@@ -16,23 +15,44 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="${pageContext.request.contextPath}/views/projectMember">������Ʈ ���</a></li>
-										<li><a href="${pageContext.request.contextPath}/">Home</a></li>								
+										<li><a href="${pageContext.request.contextPath}/views/projectMember">프로젝트 멤버</a></li>
+										<li><a href="${pageContext.request.contextPath}/">Home</a></li>	
+										<li>
+											<span class="opener">LOGIN</span>
+											<ul>
+												<li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
+												<li><a href="${pageContext.request.contextPath}/login/logout">로그아웃</a></li>												
+											</ul>
+										</li>								
 										<li>
 											<span class="opener">TEAM</span>
 											<ul>
-												<li><a href="${pageContext.request.contextPath}/team/teamList">��ü �� ���</a></li>
-												<li><a href="${pageContext.request.contextPath}/team/teamManagement">���� �� ����</a></li>												
+												<li><a href="${pageContext.request.contextPath}/team/teamList">전체 팀 목록</a></li>
+												<li><a href="${pageContext.request.contextPath}/team/teamManagement">나의 팀 관리</a></li>												
 											</ul>
 										</li>										
 										<li>
 											<span class="opener">MATCH</span>
 											<ul>
-												<li><a href="${pageContext.request.contextPath}/creatMatch?entryNo=${currentSportEntry.getSportEntriesNo()}">��ġ ����</a></li>
-												<li><a href="${pageContext.request.contextPath}/match/matchSelect">��ġ �˻�</a></li>																				
+												<li><a href="${pageContext.request.contextPath}/creatMatch?entryNo=${currentSportEntry.getSportEntriesNo()}">매치 생성</a></li>
+												<li><a href="${pageContext.request.contextPath}/match/matchSelect">매치 검색</a></li>																				
 											</ul>
 										</li>
-										<li><a href="#">Maximus Erat</a></li>									
+										<li>
+											<span class="opener">RESERVATION</span>
+											<ul>
+												<li><a href="#">예약하기</a></li>
+												<li><a href="#">예앾 홖인</a></li>																				
+											</ul>
+										</li>
+										<li>
+											<span class="opener">PAYMENT</span>
+											<ul>
+												<li><a href="#">결제하기</a></li>
+												<li><a href="#">결제 내역 확인</a></li>																				
+											</ul>
+										</li>
+										<li><a href="#">MYPAGE</a></li>																	
 									</ul>
 								</nav>
 

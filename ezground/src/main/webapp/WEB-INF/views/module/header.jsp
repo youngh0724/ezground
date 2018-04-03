@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Header -->
 <header id="header">
@@ -12,3 +13,8 @@
 		<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
 	</ul>
 </header>
+<div class="btn-group btn-group-justified">
+	<c:forEach var="entry" items="${list}">
+		<a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}" class="btn btn-info">${entry.sportEntriesName}</a>
+	</c:forEach>
+</div>

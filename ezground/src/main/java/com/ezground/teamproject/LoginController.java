@@ -29,7 +29,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String loginSelectOne(HttpSession session, MemberLogin memberLogin) {
-		String flag = "login";
+		String flag = "login/login";
 		
 		logger.debug("loginSelectOne() memberId = {}", memberLogin.getMemberId());	
 		logger.debug("loginSelectOne() memberPw = {}", memberLogin.getMemberPw());
