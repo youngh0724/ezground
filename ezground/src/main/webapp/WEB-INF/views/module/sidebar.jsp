@@ -15,6 +15,7 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
+<<<<<<< HEAD
 										<li><a href="${pageContext.request.contextPath}/views/projectMember">М■└К║°Л═²М┼╦ К╘╓К╡└</a></li>
 										<li><a href="${pageContext.request.contextPath}/">Home</a></li>	
 										<li>
@@ -24,6 +25,17 @@
 												<li><a href="${pageContext.request.contextPath}/login/logout">К║°Й╥╦Л∙└Л⌡┐</a></li>												
 											</ul>
 										</li>								
+=======
+										<li><a href="${pageContext.request.contextPath}/views/projectMember">га╥на╖ф╝ ╦Б╧Ж</a></li>
+										<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+										<li>
+											<span class="opener">Facility</span>
+											<ul>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">╫ц╪Ё ╣Н╥о</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">Ё╙юг ╫ц╪Ё ╣Н╥о Ё╩©╙</a></li>
+											</ul>
+										</li>
+>>>>>>> refs/remotes/origin/master
 										<li>
 											<span class="opener">TEAM</span>
 											<ul>
