@@ -15,7 +15,6 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-<<<<<<< HEAD
 										<li><a href="${pageContext.request.contextPath}/views/projectMember">М■└К║°Л═²М┼╦ К╘╓К╡└</a></li>
 										<li><a href="${pageContext.request.contextPath}/">Home</a></li>	
 										<li>
@@ -24,18 +23,14 @@
 												<li><a href="${pageContext.request.contextPath}/login">К║°Й╥╦Л²╦</a></li>
 												<li><a href="${pageContext.request.contextPath}/login/logout">К║°Й╥╦Л∙└Л⌡┐</a></li>												
 											</ul>
-										</li>								
-=======
-										<li><a href="${pageContext.request.contextPath}/views/projectMember">га╥на╖ф╝ ╦Б╧Ж</a></li>
-										<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+										</li>									
 										<li>
 											<span class="opener">Facility</span>
 											<ul>
-												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">╫ц╪Ё ╣Н╥о</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">Ё╙юг ╫ц╪Ё ╣Н╥о Ё╩©╙</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">Л▀°Л└╓ Л·┘К═╔</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">Л▀°Л└╓ Л┐│М┐°К╕╛Л┼╓М┼╦</a></li>
 											</ul>
 										</li>
->>>>>>> refs/remotes/origin/master
 										<li>
 											<span class="opener">TEAM</span>
 											<ul>
@@ -56,14 +51,7 @@
 												<li><a href="#">Л≤┬Л∙╫М∙≤Й╦╟</a></li>
 												<li><a href="#">Л≤┬Л∙╬ М≥√Л²╦</a></li>																				
 											</ul>
-										</li>
-										<li>
-											<span class="opener">PAYMENT</span>
-											<ul>
-												<li><a href="#">Й╡╟Л═°М∙≤Й╦╟</a></li>
-												<li><a href="#">Й╡╟Л═° К┌╢Л≈╜ М≥∙Л²╦</a></li>																				
-											</ul>
-										</li>
+										</li>										
 										<li><a href="#">MYPAGE</a></li>																	
 									</ul>
 								</nav>
