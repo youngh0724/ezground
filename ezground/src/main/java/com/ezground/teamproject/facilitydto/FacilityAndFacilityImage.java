@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FacilityAndFacilityImage {
 	private int facilityNo;
 	private int memberNo;
+	private String sportEntriesName;
 	private String facilityName;
 	private String facilityPhone;
 	private String facilityAddress;
@@ -28,14 +29,15 @@ public class FacilityAndFacilityImage {
 		super();
 	}
 	
-	public FacilityAndFacilityImage(int facilityNo, int memberNo, String facilityName, String facilityPhone,
-			String facilityAddress, String facilityNotice, String facilityDetail, String facilityPrice,
-			String facilityRefund, String facilityRule, String facilityLicenseeNo, String facilityReturn,
-			String facilityStatus, Date facilityWriteDate, String facilityGrade, String facilityServiceGrade,
-			List<MultipartFile> files) {
+	public FacilityAndFacilityImage(int facilityNo, int memberNo, String sportEntriesName, String facilityName,
+			String facilityPhone, String facilityAddress, String facilityNotice, String facilityDetail,
+			String facilityPrice, String facilityRefund, String facilityRule, String facilityLicenseeNo,
+			String facilityReturn, String facilityStatus, Date facilityWriteDate, String facilityGrade,
+			String facilityServiceGrade, List<MultipartFile> files) {
 		super();
 		this.facilityNo = facilityNo;
 		this.memberNo = memberNo;
+		this.sportEntriesName = sportEntriesName;
 		this.facilityName = facilityName;
 		this.facilityPhone = facilityPhone;
 		this.facilityAddress = facilityAddress;
@@ -64,6 +66,12 @@ public class FacilityAndFacilityImage {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public String getSportEntriesName() {
+		return sportEntriesName;
+	}
+	public void setSportEntriesName(String sportEntriesName) {
+		this.sportEntriesName = sportEntriesName;
 	}
 	public String getFacilityName() {
 		return facilityName;
@@ -155,8 +163,6 @@ public class FacilityAndFacilityImage {
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
-	
-	
 	
 	
 	

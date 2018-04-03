@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityField;
 import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.Member;
 
@@ -53,10 +55,14 @@ public class FacilityDao {
 		logger.debug("FacilityDao facilitySelectOne facilityNo = {}", facilityNo);
 		return sqlSessionTemplate.selectOne(mapperRoot+"facilitySelectOne", facilityNo);
 	}
+	
+	// 시설 정보 수정 처리
 	public int facilityInsertUpdate(Facility facility) {
 		logger.debug("FacilityDao facilityInsertUpdate facilityNo = {}", facility);
 		return sqlSessionTemplate.update(mapperRoot+"facilityInsertUpdate", facility); 
 	}
+	
+	// 시설 이미지 등록 처리
 	public int facilityAndFaiclityImageInsert(FacilityImage facilityImage) {
 		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getFacilityNo());
 		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImageOriginalName());
@@ -65,4 +71,39 @@ public class FacilityDao {
 		logger.debug("FacilityDao facilityAndFaiclityImageInsert facilityNo = {}", facilityImage.getImageExt());
 		return sqlSessionTemplate.update(mapperRoot+"facilityImageInsert", facilityImage); 
 	}
+	
+	public List<Facility> facilityStatusSelectList(int memberNo) {
+		logger.debug("FacilityDao facilityStatusSelectList memberNo = {}", memberNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"facilityStatusSelectList2", memberNo); 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 구장등록페이지 이동시 종목 리스트 뿌려주기
+	public List<SportEntries> selectSportEntriesName() {
+	
+		return sqlSessionTemplate.selectList(mapperRoot+"selectSportEntriesName"); 
+	}
+	*/
+	public int facilityFieldInsert(FacilityField facilityField) {
+		logger.debug("FacilityDao facilityFieldInsert fieldName = {}", facilityField.getFieldName());
+		logger.debug("FacilityDao facilityFieldInsert fieldSize = {}", facilityField.getFieldSize());
+		logger.debug("FacilityDao facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
+		logger.debug("FacilityDao facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
+		
+		return sqlSessionTemplate.update(mapperRoot+"facilityFieldInsert", facilityField); 
+		
+	}
+	
+	
 }

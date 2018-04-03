@@ -115,4 +115,40 @@
 						,#{imageExt}
 						,now())
 		</insert>
+		
+		<!-- 구장 등록화면에 종목 뿌려주기 -->
+		<select id = "selectSportEntriesName"
+				resultType="com.ezground.teamproject.dto.SportEntries">
+				SELECT 
+					sportEntries_no AS sportEntriesNo
+					,sportEntriesname AS sportEntriesName
+				FROM t_sport_entries
+		</select>
+		
+		<!-- 구장 등록 페이지 이동시 시설 번호 조회 -->
+		<select id = "facilityStatusSelectList2"
+				resultType="com.ezground.teamproject.facilitydto.Facility">
+				SELECT
+					facility_no AS facilityNo
+				FROM t_facility
+				WHERE member_no = #{memberNo}
+					
+		</select>
+		
+		<insert id = "facilityFieldInsert"
+			parameterType="com.ezground.teamproject.facilitydto.FacilityField">
+			INSERT
+				INTO t_facilityField(sport_entries_name
+									,field_name
+									,field_size
+									,field_price
+									,field_nember
+									,field_write_date
+				VALUES(#{sportEntriesName}
+						,#{fieldName}
+						,#{fieldSize}
+						,#{fieldPrice}
+						,#{feldNumber}
+						,now())
+		</insert>			
   </mapper>

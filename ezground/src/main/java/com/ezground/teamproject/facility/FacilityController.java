@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityField;
 import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
@@ -30,8 +32,14 @@ public class FacilityController {
 	private FacilityService facilityService;
 	
 	// facilityInsertForm.jsp 페이지 요청
-	@RequestMapping(value="/facility/facilityTest", method = RequestMethod.GET)
-	public String facility() {
+	@RequestMapping(value="/facility/facilityInsertForm", method = RequestMethod.GET)
+	public String facility(HttpSession session) {
+		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+		logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
+		logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberLevel());
+		if(!memberLogin.getMemberLevel().equals("business")) {
+			return "redirect:/";
+		}
 		return "facility/facilityInsertForm";
 	}
 	
@@ -72,6 +80,10 @@ public class FacilityController {
 		public String memberFacilityInsertStatusSelectList(Model model, HttpSession session) {
 			// 세션에서 뽑아낸 회원 번호 값을 멤버로 형변환 후 데이터 타입 바꿈
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
 			// 멤버 로그인 변수 안에서 회원 번호를 뽑아내 int 멤버 변수에 담아줌
 			int memberNo = memberLogin.getMemberNo();
 			// 변수 memberNo 에 값이 잘 들어가있는지 확인
@@ -82,7 +94,6 @@ public class FacilityController {
 			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list);
 			// 변수 list를 키값  List 로 모델에 셋팅해줌
 			model.addAttribute("List", list);
-			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list.get(1).getFacilityNo());
 			return "facility/memberFacilityInsertStatusListForm";
 		}
 		
@@ -101,7 +112,7 @@ public class FacilityController {
 		}
 		
 		//  시설 정보 수정 처리요청
-		@RequestMapping(value="/facility/facilityInsertUpdate", method = RequestMethod.POST)
+		@RequestMapping(value="facility/facilityInsertUpdate", method = RequestMethod.POST)
 		public String facilityInsertUpdate(Facility facility) {
 			logger.debug("FacilityController facilityInsertUpdate facility = {}", facility.getFacilityNo());
 			facilityService.facilityInsertUpdate(facility);
@@ -116,21 +127,53 @@ public class FacilityController {
 			return null;
 		}
 		
-		// 시설  등록 요청
+		// 시설  등록  or 이미지 등록 요청
 		@RequestMapping(value="facility/facilityInsert" , method = RequestMethod.POST)
 		public String facilityAndFaiclityImageInsert(FacilityAndFacilityImage facilityAndFaiclityImage, HttpSession session) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
 			int memberNo = memberLogin.getMemberNo();
 			facilityAndFaiclityImage.setMemberNo(memberNo);
-			if(session.getAttribute("MemberLogin") == null) {
-				return "sessionError";
+			
+			
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
 			}
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", facilityAndFaiclityImage.getFacilityNo());
 			String path = session.getServletContext().getRealPath("/resources");
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", path);
 			facilityService.facilityAndFaiclityImageInsert(facilityAndFaiclityImage, path);
 			return "redirect:/facility/memberFacilityInsertStatusListForm";
+		}
+		
+		// 구장 등록  페이지 요청
+		@RequestMapping(value="facility/facilityfieldInsertForm", method = RequestMethod.GET)
+		public String facilityFieldInsert(HttpSession session, Model model) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			logger.debug("FacilityController facilityFieldInsert memberNo = {}", memberLogin.getMemberNo());
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			int memberNo = memberLogin.getMemberNo();
+			List<Facility> facilityList = facilityService.facilityStatusSelectList(memberNo);
+			logger.debug("FacilityController facilityFieldInsert facilityList.facilityNo = {}", facilityList.get(0));
+			model.addAttribute("FacilityList", facilityList);
+			return "facility/facilityfieldInsertForm";
+		}
+
+		// 구장 등록 처리 요청
+		@RequestMapping(value="facility/facilityFieldInsert" , method = RequestMethod.POST)
+		public String facilityFieldInsert(HttpSession session,FacilityField facilityField) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			String memberLevel = memberLogin.getMemberLevel();
+			logger.debug("FacilityController facilityFieldInsert memberLevel = {}", memberLevel);
+			if(memberLevel == "user") {
+				return "sessionError";
+			}
+			facilityService.facilityFieldInsert(facilityField);	
+			
+			return null;
+			
 		}
 
 }

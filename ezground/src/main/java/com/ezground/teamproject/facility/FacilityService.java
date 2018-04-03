@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityField;
 import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.match.dto.MatchNotice;
 
@@ -154,12 +156,45 @@ public class FacilityService {
 			try {	
 				files.transferTo(temp);
 				facilityDao.facilityAndFaiclityImageInsert(facilityImage);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+					} catch (IllegalStateException e) {
+					e.printStackTrace();
+					} catch (IOException e) {
+					e.printStackTrace();
+					}
+					}
 			}
 		}
+	public List<Facility> facilityStatusSelectList(int memberNo) {
+		logger.debug("FacilityService facilityStatusSelectList memberNo = {}", memberNo);
+		List<Facility> facility = facilityDao.facilityStatusSelectList(memberNo);
+		return facility;
+	}
+	
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	
+		//
+		/* 구장 등록페이지 이동시 
+		public List<SportEntries> selectSportEntriesName() {
+			
+			 return facilityDao.selectSportEntriesName();
+		}
+		*/
+	
+	//
+	public void facilityFieldInsert(FacilityField facilityField) {
+		logger.debug("FacilityService facilityFieldInsert fieldName = {}", facilityField.getFieldName());
+		logger.debug("FacilityService facilityFieldInsert fieldSize = {}", facilityField.getFieldSize());
+		logger.debug("FacilityService facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
+		logger.debug("FacilityService facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
+		facilityDao.facilityFieldInsert(facilityField);
 	}
 }

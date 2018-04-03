@@ -6,6 +6,7 @@ public class Facility {
 	
 	private int facilityNo;
 	private int memberNo;
+	private String sportEntriesName;
 	private String facilityName;
 	private String facilityPhone;
 	private String facilityAddress;
@@ -32,6 +33,12 @@ public class Facility {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public String getSportEntriesName() {
+		return sportEntriesName;
+	}
+	public void setSportEntriesName(String sportEntriesName) {
+		this.sportEntriesName = sportEntriesName;
 	}
 	public String getFacilityName() {
 		return facilityName;
@@ -117,6 +124,8 @@ public class Facility {
 	public void setFacilityServiceGrade(String facilityServiceGrade) {
 		this.facilityServiceGrade = facilityServiceGrade;
 	}
+	
+	
 
 	
 	

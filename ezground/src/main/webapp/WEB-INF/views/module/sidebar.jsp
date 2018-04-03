@@ -27,8 +27,9 @@
 										<li>
 											<span class="opener">Facility</span>
 											<ul>
-												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 입력</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">시설 상태리스트</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityfieldInsertForm">구장 등록</a></li>
 											</ul>
 										</li>
 										<li>
