@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facilitydto.FacilityAndMember;
+import com.ezground.teamproject.facilitydto.FacilityField;
 import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
@@ -30,8 +32,11 @@ public class FacilityController {
 	private FacilityService facilityService;
 	
 	// facilityInsertForm.jsp 페이지 요청
-	@RequestMapping(value="/facility/facilityTest", method = RequestMethod.GET)
-	public String facility() {
+	@RequestMapping(value="/facility/facilityInsertForm", method = RequestMethod.GET)
+	public String facility(HttpSession session) {
+		if(session.getAttribute("MemberLogin") == null) {
+			return "redirect:/";
+		}
 		return "facility/facilityInsertForm";
 	}
 	
@@ -101,7 +106,7 @@ public class FacilityController {
 		}
 		
 		//  시설 정보 수정 처리요청
-		@RequestMapping(value="/facility/facilityInsertUpdate", method = RequestMethod.POST)
+		@RequestMapping(value="facility/facilityInsertUpdate", method = RequestMethod.POST)
 		public String facilityInsertUpdate(Facility facility) {
 			logger.debug("FacilityController facilityInsertUpdate facility = {}", facility.getFacilityNo());
 			facilityService.facilityInsertUpdate(facility);
@@ -131,6 +136,41 @@ public class FacilityController {
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", path);
 			facilityService.facilityAndFaiclityImageInsert(facilityAndFaiclityImage, path);
 			return "redirect:/facility/memberFacilityInsertStatusListForm";
+		}
+		
+		// facilityfieldInsertForm.jsp 페이지 요청
+		@RequestMapping(value="facility/facilityFieldInsertForm", method = RequestMethod.GET)
+		public String facilityFieldInsert() {
+			return "facility/facilityFieldInsertForm";
+		}
+		
+		/*
+		// 종목 facilityfieldInsertForm.jsp에 뿌려주기 요청
+		@RequestMapping(value="facility/sportEntriesName", method = RequestMethod.GET)
+		public String selectSportEntriesName(Model model, HttpSession session) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			String memberLevel = memberLogin.getMemberLevel();
+			if(memberLevel == "user") {
+				return "sessionError";
+			}
+			List<SportEntries> sportEntries =  facilityService.selectSportEntriesName();
+			model.addAttribute("sportEntries", sportEntries);
+			return "/redirect:/facility/facilityFieldInsertForm";
+		}
+		*/
+		//
+		@RequestMapping(value="facility/facilityFieldInsert" , method = RequestMethod.POST)
+		public String facilityFieldInsert(HttpSession session,FacilityField facilityField) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			String memberLevel = memberLogin.getMemberLevel();
+			logger.debug("FacilityController facilityFieldInsert memberLevel = {}", memberLevel);
+			if(memberLevel == "user") {
+				return "sessionError";
+			}
+			facilityService.facilityFieldInsert(facilityField);	
+			
+			return null;
+			
 		}
 
 }

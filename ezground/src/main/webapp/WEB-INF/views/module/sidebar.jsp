@@ -17,7 +17,14 @@
 									</header>
 									<ul>
 										<li><a href="${pageContext.request.contextPath}/views/projectMember">프로젝트 멤버</a></li>
-										<li><a href="${pageContext.request.contextPath}/">Home</a></li>								
+										<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+										<li>
+											<span class="opener">Facility</span>
+											<ul>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">나의 시설 등록 내역</a></li>
+											</ul>
+										</li>
 										<li>
 											<span class="opener">TEAM</span>
 											<ul>
