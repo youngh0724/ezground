@@ -125,16 +125,6 @@
 				FROM t_sport_entries
 		</select>
 		
-		<!-- 구장 등록 페이지 이동시 시설 번호 조회 -->
-		<select id = "facilityStatusSelectList2"
-				resultType="com.ezground.teamproject.facilitydto.Facility">
-				SELECT
-					facility_no AS facilityNo
-				FROM t_facility
-				WHERE member_no = #{memberNo}
-					
-		</select>
-		
 		<insert id = "facilityFieldInsert"
 			parameterType="com.ezground.teamproject.facilitydto.FacilityField">
 			INSERT
@@ -170,5 +160,13 @@
 					,facility_write_date AS facilityWriteDate
 				FROM t_facility 
 				WHERE member_no = #{memberNo}
-		</select>		
+		</select>	
+		
+		<select id = "facilityFieldInserPage"
+				resultType="com.ezground.teamproject.facilitydto.Facility">
+				SELECT
+					facility_no AS facilityNo
+					FROM t_facility
+					WHERE facility_no = #{facilityNo}
+		</select>			
   </mapper>

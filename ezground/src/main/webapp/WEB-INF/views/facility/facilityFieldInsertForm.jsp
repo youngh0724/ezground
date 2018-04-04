@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
- 	<!-- jQuery -->
+ 
+<head>
+		<title>EZ Ground</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
+	<!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/sbAdmin2/vendor/jquery/jquery.min.js"></script>
        <SCRIPT language=JavaScript>
 	
@@ -67,28 +77,8 @@
 	}
 
    </SCRIPT>
-<head>
-		<title>EZ Ground</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-</head>
 
 <body onload = "init(this.form);">	
-
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-						<jsp:include page="/WEB-INF/views/module/header.jsp" />
-						<!-- Banner -->
-								<section id="banner">
-									<div class="content">
 										<h2>구장 등록 페이지</h2>		
 											<form name="form">
 												<table class="table table-striped">
@@ -112,27 +102,8 @@
 													<td>적정 인원</td>
 													<td><select id = "fieldNumber" name = "fieldNumber"></select></td>
 													</tr>
-													<c:forEach var="FacilityNo" items="${FacilityNo}">
-													<input type = "hidden" id = "facilityNo" name = "facilityNo" value = "">
-													</c:forEach>
 												</table>
 												<input type = "submit" value = "등록">
 											</form>	
-										</div>
-								</section>							
-							</div>
-						</div>
-						<!-- main End -->
-						
-					<!-- Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
-									<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
-						</div>
-					</div>
-
-			</div>
-			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
-
 </body>
 </html>

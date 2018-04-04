@@ -47,7 +47,7 @@
 															<td>${List.facilityLicenseeNo}</td>
 															<td>${List.facilityStatus}</td>
 															<td><fmt:formatDate value="${List.facilityWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-															<td><a href="${pageContext.request.contextPath}/facility/facilityInsertUpdateForm?facilityNo=${List.facilityNo}">구장 등록</a></td>
+															<td><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertForm?facilityNo=${List.facilityNo}">구장 등록</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>

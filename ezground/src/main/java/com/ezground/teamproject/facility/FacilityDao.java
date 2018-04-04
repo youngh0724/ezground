@@ -72,30 +72,17 @@ public class FacilityDao {
 		return sqlSessionTemplate.update(mapperRoot+"facilityImageInsert", facilityImage); 
 	}
 	
-	public List<Facility> facilityStatusSelectList(int memberNo) {
-		logger.debug("FacilityDao facilityStatusSelectList memberNo = {}", memberNo);
-		return sqlSessionTemplate.selectList(mapperRoot+"facilityStatusSelectList2", memberNo); 
-	}
-	
-	/* 구장등록페이지 이동시 종목 리스트 뿌려주기
-	public List<SportEntries> selectSportEntriesName() {
-	
-		return sqlSessionTemplate.selectList(mapperRoot+"selectSportEntriesName"); 
-	}
-	*/
-	// 구장 등록123123
-	public int facilityFieldInsert(FacilityField facilityField) {
-		logger.debug("FacilityDao facilityFieldInsert fieldName = {}", facilityField.getFieldName());
-		logger.debug("FacilityDao facilityFieldInsert fieldSize = {}", facilityField.getFieldSize());
-		logger.debug("FacilityDao facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
-		logger.debug("FacilityDao facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
-		return sqlSessionTemplate.update(mapperRoot+"facilityFieldInsert", facilityField); 
-	}
-	
 	// 구장 등록가능 시설리스트
 	public List<Facility> facilityFieldPage(int memberNo){
+		logger.debug("FacilityDao facilityFieldPage memberNo = {}", memberNo);
 		return sqlSessionTemplate.selectList(mapperRoot+"facilityFieldPage", memberNo);
 	}
 	
+	// 구장 등록 페이지 요청
+	public Facility facilityFieldInsrtPage(int facilityNo) {
+		logger.debug("FacilityDao facilityFieldInsrtPage facilityNo = {}", facilityNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"facilityFieldInserPage", facilityNo);
+		
+	}
 	
 }

@@ -1,6 +1,5 @@
 package com.ezground.teamproject.facility;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
-import com.ezground.teamproject.facilitydto.FacilityAndMember;
-import com.ezground.teamproject.facilitydto.FacilityField;
-import com.ezground.teamproject.facilitydto.FacilityImage;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -146,41 +141,10 @@ public class FacilityController {
 			return "redirect:/facility/memberFacilityInsertStatusListForm";
 		}
 		
-		// 구장 등록  페이지 요청
-		@RequestMapping(value="facility/facilityfieldInsertForm", method = RequestMethod.GET)
-		public String facilityFieldInsert(HttpSession session, Model model) {
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			logger.debug("FacilityController facilityFieldInsert memberNo = {}", memberLogin.getMemberNo());
-			if(!memberLogin.getMemberLevel().equals("business")) {
-				return "redirect:/";
-			}
-			int memberNo = memberLogin.getMemberNo();
-			List<Facility> facilityList = facilityService.facilityStatusSelectList(memberNo);
-			logger.debug("FacilityController facilityFieldInsert facilityList.facilityNo = {}", facilityList.get(0));
-			model.addAttribute("FacilityList", facilityList);
-			return "facility/facilityfieldInsertForm";
-		}
-
-		// 구장 등록 처리 요청123
-		@RequestMapping(value="facility/facilityFieldInsert" , method = RequestMethod.POST)
-		public String facilityFieldInsert(HttpSession session,FacilityField facilityField) {
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			String memberLevel = memberLogin.getMemberLevel();
-			logger.debug("FacilityController facilityFieldInsert memberLevel = {}", memberLevel);
-			if(memberLevel == "user") {
-				return "sessionError";
-			}
-			facilityService.facilityFieldInsert(facilityField);	
-			
-			return null;
-			
-		}
-		
 		// 구장 등록이 가능한 시설 리스트  페이지 요청
-		@RequestMapping(value="facility/facilityfieldInsertListForm")
+		@RequestMapping(value="facility/facilityFieldInsertListForm")
 		public String facilityFieldPage(HttpSession session, Model model) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
 			}
@@ -188,10 +152,23 @@ public class FacilityController {
 			logger.debug("FacilityController facilityFieldPage memberNo = {}", memberNo);
 			List<Facility> list = facilityService.facilityFieldPage(memberNo);
 			model.addAttribute("List", list);
-			return "facility/facilityfieldInsertListForm";
-			
+			return "facility/facilityFieldInsertListForm";
 		}
-		// 시설 리스트(구장 등록)
 		
-
+		// 구장 등록 페이지 요청
+		@RequestMapping(value="facility/facilityFieldInsertForm")
+		public String facilityFieldInsrtPage(HttpSession session, Model model,
+				 @RequestParam(value="facilityNo", required=true) int facilityNo) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			logger.debug("FacilityController facilityFieldInsrtPage facilityNo = {}", facilityNo);
+			Facility facility = facilityService.facilityFieldInsrtPage(facilityNo);
+			model.addAttribute("FacilityNo" , facility.getFacilityNo());
+			return "facility/facilityFieldInsertForm";
+		}
+		
+		// 구장 등록 처리 요청
+		
 }

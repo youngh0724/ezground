@@ -164,31 +164,18 @@ public class FacilityService {
 					}
 			}
 		}
-	public List<Facility> facilityStatusSelectList(int memberNo) {
-		logger.debug("FacilityService facilityStatusSelectList memberNo = {}", memberNo);
-		List<Facility> facility = facilityDao.facilityStatusSelectList(memberNo);
-		return facility;
-	}
 	
-		//
-		/* 구장 등록페이지 이동시 
-		public List<SportEntries> selectSportEntriesName() {
-			
-			 return facilityDao.selectSportEntriesName();
-		}
-		*/
-	
-	//
-	public void facilityFieldInsert(FacilityField facilityField) {
-		logger.debug("FacilityService facilityFieldInsert fieldName = {}", facilityField.getFieldName());
-		logger.debug("FacilityService facilityFieldInsert fieldSize = {}", facilityField.getFieldSize());
-		logger.debug("FacilityService facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
-		logger.debug("FacilityService facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
-		facilityDao.facilityFieldInsert(facilityField);
-	}
 	// 구장 등록 가능 시설 리스트
 	public List<Facility> facilityFieldPage(int memberNo){
 			List<Facility> facility = facilityDao.facilityFieldPage(memberNo);
+			logger.debug("FacilityService facilityFieldPage memberNo = {}", memberNo);
+		return facility;
+	}
+	
+	// 구장 등록 페이지 요청
+	public Facility facilityFieldInsrtPage(int facilityNo) {
+		logger.debug("FacilityService facilityFieldInsrtPage facilityNo = {}", facilityNo);
+		Facility facility = facilityDao.facilityFieldInsrtPage(facilityNo);
 		return facility;
 	}
 }
