@@ -28,9 +28,9 @@
 											<span class="opener">Facility</span>
 											<ul>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">시설 상태리스트</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/facilityfieldInsertForm">구장 등록</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/facilityfieldInsertListForm">구장 등록  리스트</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityfieldInsertListForm">구장 등록가능 리스트</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityfieldInsertForm">구장 등록페이지</a></li>
 												
 											</ul>
 										</li>

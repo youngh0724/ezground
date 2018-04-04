@@ -92,6 +92,7 @@ public class FacilityDao {
 		return sqlSessionTemplate.update(mapperRoot+"facilityFieldInsert", facilityField); 
 	}
 	
+	// 구장 등록가능 시설리스트
 	public List<Facility> facilityFieldPage(int memberNo){
 		return sqlSessionTemplate.selectList(mapperRoot+"facilityFieldPage", memberNo);
 	}

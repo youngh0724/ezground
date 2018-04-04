@@ -186,7 +186,7 @@ public class FacilityService {
 		logger.debug("FacilityService facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
 		facilityDao.facilityFieldInsert(facilityField);
 	}
-	
+	// 구장 등록 가능 시설 리스트
 	public List<Facility> facilityFieldPage(int memberNo){
 			List<Facility> facility = facilityDao.facilityFieldPage(memberNo);
 		return facility;
