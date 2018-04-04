@@ -62,7 +62,7 @@ public class TeamController {
 	}	
 	
 	@RequestMapping(value="/team/teamDetail", method = RequestMethod.GET)
-	public String teamSelectListDetail(Model model, HttpSession session, 
+	public String teamSelectListDetail(Model model, 
 										@RequestParam(value="teamNo", required=true) int teamNo) {
 		logger.debug("teamSelectListDetail() teamNo = {}", teamNo);
 		Team team = teamService.teamSelectListDetail(teamNo);		
@@ -74,10 +74,11 @@ public class TeamController {
 	
 	//teamInserForm 입력폼  view파일을 요청
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.GET)
-    public String teamInsert(HttpSession session) {
+    public String teamInsert() {
+	
 		//처리하는 내용이 없기때문에 메서드가 실행되었는지 확인하기위해 문자열을 출력해본다.
 		logger.debug("teamInsert() 실행확인"); 
-			
+		
         return "team/teamInsert";
     }
 	
@@ -90,9 +91,9 @@ public class TeamController {
 		int memberNo = memberLogin.getMemberNo();
 		
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
-		int sportEntryNo = sportEntries.getSportEntriesNo();
+		int sportEntriesNo = sportEntries.getSportEntriesNo();
 		
-		teamService.teamInsert(team, memberNo, sportEntryNo);			
+		teamService.teamInsert(team, memberNo, sportEntriesNo);			
 		
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/team/teamList";

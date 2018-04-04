@@ -63,12 +63,12 @@ public class TeamService {
 	}
 	
 
-	public void teamInsert(Team team, int memberNo, int sportEntryNo) {
+	public void teamInsert(Team team, int memberNo, int sportEntriesNo) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
-		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
-		//위에서 뽑아낸 team타입을 insert한다.
+		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
+		//위에서 뽑아낸 team타입을 insert한다.		
+		teamDao.teamInsert(team);	
 		
-		teamDao.teamInsert(team);		
 		logger.debug("teamInsert() teamNo = {}", team.getTeamNo());
 		TeamMember teamMember = new TeamMember();
 		

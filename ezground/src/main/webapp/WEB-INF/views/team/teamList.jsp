@@ -1,32 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE HTML>
+
 <html>
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
-	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
-<title>Insert title here</title>
-</head>
-
-<body>
+	<head>
+		<title>EZ Ground</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
+	</head>
+	<body>
 <!-- Wrapper -->
-			<div id="wrapper">
+<div id="wrapper">
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-						<jsp:include page="/WEB-INF/views/module/header.jsp" />
-		<section>
-			<header class="major">
+	<!-- Main -->
+	<div id="main">
+		<div class="inner">
+		<jsp:include page="/WEB-INF/views/module/header.jsp" />
+			
+		<!-- Banner -->
+		<section id = "banner">
+			<div class="content">
 				<h2>TEAM List</h2>
-					</header>
-						<div class="features">
-				<table style="width: 100%">
+					
+					
+			<div class="row">
+				<div class="col-lg-6">
+				<table class="table table-striped">
 					<tr>
 						<td>
 							<div>
@@ -41,7 +47,7 @@
 
 						<td style="margin: auto; text-align: right;">
 							<!--SELECT COUNT OPTION 시작 -->
-							<div>
+							<div>			
 								<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamInsert">팀 생성</a>
 								<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamManagement">내 팀관리</a>
 							</div>
@@ -64,7 +70,7 @@
 						<c:forEach var="team" items="${list}">
 							<tr>
 								<td>${team.teamNo}</td>
-								<td>${team.sportEntriesNo}</td>
+								<td>${currentSportEntry.sportEntriesName}</td>
 								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}&sportEntriesNo=${sportEntriesNo}">${team.teamName}</a></td>	
 								<td>마크</td>						
 							</tr>
@@ -96,13 +102,14 @@
 					</div>
 				</div>
 				<!-- 이전, 다음 버튼 끝 -->
+				</div>
 			</div>
-		</section>
-		
-		</div>
-		</div>	
-		
-					<!-- Sidebar -->
+	</div>
+</section>		
+</div>		
+</div>	
+<!-- end main -->
+<!-- Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
 									<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
