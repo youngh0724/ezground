@@ -38,13 +38,13 @@ public class HomeController {
 			@RequestParam(value="entryNo", defaultValue="0") int entryNo) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		List<SportEntries> list = loginservice.sportEntriesNameSelectList();
+		List<SportEntries> entryList = loginservice.sportEntriesNameSelectList();
 		
-		logger.debug("loginedPage() sportEntriesName = {}", list.get(entryNo).getSportEntriesName());	
+		logger.debug("loginedPage() sportEntriesName = {}", entryList.get(entryNo).getSportEntriesName());	
 		
-		model.addAttribute("list", list);
 		
-		session.setAttribute("currentSportEntry", list.get(entryNo));
+		session.setAttribute("sportEntry", entryList);
+		session.setAttribute("currentSportEntry", entryList.get(entryNo));
 		
 		
 		
@@ -57,4 +57,15 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@RequestMapping(value = "/teamMemberInfo/teamMemberInfo", method = RequestMethod.GET)
+	public String teamMemberInfo() {
+		logger.info("팀 맴버 정보 화면으로으 요청 처리 메서드 호출 성공");
+		
+		return "teamMemberInfo/teamMemberInfo";
+	}
+	
+	
+	
+	
 }

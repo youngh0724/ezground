@@ -11,10 +11,14 @@
 		<li><a href="#" class="icon fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
 		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 		<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
-	</ul>
+	</ul>	
 </header>
-<div class="btn-group btn-group-justified">
-	<c:forEach var="entry" items="${list}">
-		<a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}" class="btn btn-info">${entry.sportEntriesName}</a>
-	</c:forEach>
+<div class="row">
+	<div class="col-sm-12">
+		<ul class="nav nav-pills">
+			<c:forEach var="entry" items="${sportEntry}">
+				<li><a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></li>		
+			</c:forEach>
+		</ul>
+	</div>
 </div>

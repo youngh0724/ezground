@@ -28,7 +28,15 @@
 								<section id="banner">
 									<div class="content">										
 										<div class="cantainer">
-											<h2>Log In</h2>
+										<div class="col-lg-6">
+						                    <div class="panel panel-default">
+						                        <div class="panel-heading">
+						                           	Log In
+						                        </div>
+						                        <div class="panel-body">
+						                            <div class="row">
+						                                <div class="col-lg-12">
+									
 							                            <!-- Nav tabs -->
 							                            <ul class="nav nav-tabs">
 							                                <li class="active"><a href="#user" data-toggle="tab">사용자</a></li>
@@ -92,9 +100,12 @@
 							                                </div>							                             
 							                            </div>
 							                        </div>
-							                       
-							              						
-									</div>
+							                        </div>
+								                   </div>
+								                 </div>
+								             </div>
+								          </div>
+								      </div>
 								</section>						
 												
 							</div>
