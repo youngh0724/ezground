@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 </head>
 	<!-- jQuery -->
     <script src="${pageContext.request.contextPath}/resources/sbAdmin2/vendor/jquery/jquery.min.js"></script>
@@ -31,7 +32,7 @@
 	
 
 	function init(f){
-		var f_sel = f.sprotEntriesName;
+		var f_sel = f.SportEntriesName;
 		var s_sel = f.fieldSize;
 		var t_sel = f.fieldNumber;
 
@@ -45,7 +46,7 @@
 	}
 
 	function itemChange(f){
-		var f_sel = f.sprotEntriesName;
+		var f_sel = f.SportEntriesName;
 		var s_sel = f.fieldSize;
 		var t_sel = f.fieldNumber;
 		// 1번째셀렉트 박스
@@ -80,11 +81,11 @@
 
 <body onload = "init(this.form);">	
 										<h2>구장 등록 페이지</h2>		
-											<form name="form">
+											<form name="form" action = "${pageContext.request.contextPath}/facility/fieldInsert" method="post">>
 												<table class="table table-striped">
 													<tr>
 													<td>종목</td>
-													<td><select id = "sprotEntriesName" name ="sprotEntriesName" onchange="itemChange(this.form);" ></select></td>
+													<td><select id = "SportEntriesName" name ="SportEntriesName" onchange="itemChange(this.form);" ></select></td>
 													</tr>
 													<tr>
 													<td>구장 이름</td>
@@ -102,6 +103,7 @@
 													<td>적정 인원</td>
 													<td><select id = "fieldNumber" name = "fieldNumber"></select></td>
 													</tr>
+													<input type = "hidden" name = "facilityNo" id = "facilityNo" value="${FacilityNo}">
 												</table>
 												<input type = "submit" value = "등록">
 											</form>	

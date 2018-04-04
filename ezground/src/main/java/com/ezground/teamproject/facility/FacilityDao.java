@@ -82,7 +82,11 @@ public class FacilityDao {
 	public Facility facilityFieldInsrtPage(int facilityNo) {
 		logger.debug("FacilityDao facilityFieldInsrtPage facilityNo = {}", facilityNo);
 		return sqlSessionTemplate.selectOne(mapperRoot+"facilityFieldInserPage", facilityNo);
-		
+	}
+	
+	// 구장 등록 처리
+	public int fieldInsert(FacilityField field) {
+		return sqlSessionTemplate.insert(mapperRoot+"fieldInsert", field);
 	}
 	
 }

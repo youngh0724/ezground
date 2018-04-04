@@ -178,4 +178,16 @@ public class FacilityService {
 		Facility facility = facilityDao.facilityFieldInsrtPage(facilityNo);
 		return facility;
 	}
+	
+	// 구장 등록 처리 요청
+	public void fieldInsert(FacilityField field) {
+		logger.debug("FacilityField fieldInsert FacilityNo = {}", field.getFacilityNo());
+		logger.debug("FacilityField fieldInsert SportEntriesName = {}", field.getSportEntriesName());
+		logger.debug("FacilityField fieldInsert FieldName = {}", field.getFieldName());
+		logger.debug("FacilityField fieldInsert FieldSize = {}", field.getFieldSize());
+		logger.debug("FacilityField fieldInsert FieldPrice = {}", field.getFieldPrice());
+		logger.debug("FacilityField fieldInsert FieldNumber = {}", field.getFieldNumber());
+		 facilityDao.fieldInsert(field);
+		
+	}
 }

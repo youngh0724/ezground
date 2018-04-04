@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.facilitydto.Facility;
 import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
+import com.ezground.teamproject.facilitydto.FacilityField;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -170,5 +171,19 @@ public class FacilityController {
 		}
 		
 		// 구장 등록 처리 요청
-		
+		@RequestMapping(value="facility/fieldInsert")
+		public String fieldInsert(HttpSession session, FacilityField field) {
+			logger.debug("FacilityController fieldInsert FacilityNo = {}", field.getFacilityNo());
+			logger.debug("FacilityController fieldInsert SportEntriesName = {}", field.getSportEntriesName());
+			logger.debug("FacilityController fieldInsert getFieldName = {}", field.getFieldName());
+			logger.debug("FacilityController fieldInsert FieldSize = {}", field.getFieldSize());
+			logger.debug("FacilityController fieldInsert FieldPrice = {}", field.getFieldPrice());
+			logger.debug("FacilityController fieldInsert FieldNumber = {}", field.getFieldNumber());
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			facilityService.fieldInsert(field);
+			return null;
+		}
 }

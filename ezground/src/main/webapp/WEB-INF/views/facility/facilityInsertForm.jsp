@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE HTML>
 
 <html>
 <head>
@@ -11,6 +13,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 </head>
 <body>
 
@@ -71,7 +74,9 @@
 														<td>파일</td>
 														<td><input type = "file" name = "files" multiple = "multiple"></td>
 													</tr>
-													<input Type = "submit" value = "등록요청">
+													<tr>
+													<td><input Type = "submit" value = "등록요청"></td>
+													</tr>
 												</table>
 											</form>
 										</div>

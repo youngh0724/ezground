@@ -125,22 +125,6 @@
 				FROM t_sport_entries
 		</select>
 		
-		<insert id = "facilityFieldInsert"
-			parameterType="com.ezground.teamproject.facilitydto.FacilityField">
-			INSERT
-				INTO t_facilityField(sport_entries_name
-									,field_name
-									,field_size
-									,field_price
-									,field_nember
-									,field_write_date
-				VALUES(#{sportEntriesName}
-						,#{fieldName}
-						,#{fieldSize}
-						,#{fieldPrice}
-						,#{feldNumber}
-						,now())
-		</insert>
 		<!-- 구장 등록이 가능한 시설 리스트 -->
 		<select id = "facilityFieldPage"
 				resultType="com.ezground.teamproject.facilitydto.Facility">
@@ -168,5 +152,26 @@
 					facility_no AS facilityNo
 					FROM t_facility
 					WHERE facility_no = #{facilityNo}
-		</select>			
+		</select>
+		
+		<!-- 구장 등록 처리 -->
+		<insert id = "fieldInsert"
+			parameterType="com.ezground.teamproject.facilitydto.FacilityField">
+			INSERT
+				INTO t_facility_field(facility_no
+									,sport_entries_name
+									,field_name
+									,field_size
+									,field_price
+									,field_number
+									,field_write_date)
+				VALUES(#{facilityNo}
+						,#{sportEntriesName}
+						,#{fieldName}
+						,#{fieldSize}
+						,#{fieldPrice}
+						,#{fieldNumber}
+						,now())
+		</insert>
+	
   </mapper>

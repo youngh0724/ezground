@@ -6,12 +6,12 @@ public class FacilityField {
 	
 	private int fieldNo;
 	private int facilityNo;
+	private String sportEntriesName;
 	private String fieldName;
 	private String fieldSize;
 	private String fieldPrice;
 	private String fieldNumber;
 	private Timestamp fieldWriteDate;
-	
 	public int getFieldNo() {
 		return fieldNo;
 	}
@@ -23,6 +23,12 @@ public class FacilityField {
 	}
 	public void setFacilityNo(int facilityNo) {
 		this.facilityNo = facilityNo;
+	}
+	public String getSportEntriesName() {
+		return sportEntriesName;
+	}
+	public void setSportEntriesName(String sportEntriesName) {
+		this.sportEntriesName = sportEntriesName;
 	}
 	public String getFieldName() {
 		return fieldName;
@@ -54,6 +60,7 @@ public class FacilityField {
 	public void setFieldWriteDate(Timestamp fieldWriteDate) {
 		this.fieldWriteDate = fieldWriteDate;
 	}
+	
 	
 	
 }
