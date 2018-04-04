@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.team.dto.Team;
 import com.ezground.teamproject.teamMember.TeamMemberService;
@@ -27,6 +28,8 @@ public class TeamController {
 	@Autowired
 	private TeamMemberService teamMemberService;
 	
+
+	
 	//입력값과 리턴값을 확인 하기 위한 로거 기능 
 	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
 	
@@ -35,11 +38,14 @@ public class TeamController {
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
 			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
 			@RequestParam(value="searchWord", required=false) String searchWord) {	
-						
+		
+		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+		int sportEntriesNo = sportEntries.getSportEntriesNo();		
+		
 		logger.debug("teamSelectList() currentPage = {}", currentPage);
 		logger.debug("teamSelectList() rowPerPage = {}", rowPerPage);
 		logger.debug("teamSelectPage() searchWord = {}", searchWord);
-		Map map = teamService.teamSelectListByPage(currentPage, rowPerPage, searchWord);
+		Map map = teamService.teamSelectListByPage(currentPage, rowPerPage, searchWord, sportEntriesNo);
 		//list에 들어있는 값을 확인해본다.
 		logger.debug("teamSeletList() map = {}", map);
 		
@@ -83,7 +89,10 @@ public class TeamController {
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
 		
-		teamService.teamInsert(team, memberNo);			
+		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+		int sportEntryNo = sportEntries.getSportEntriesNo();
+		
+		teamService.teamInsert(team, memberNo, sportEntryNo);			
 		
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/team/teamList";

@@ -15,6 +15,7 @@
 			,sport_entries_no AS sportEntriesNo
 			,team_name AS teamName
 		FROM t_team
+		WHERE sport_entries_no = #{sportEntriesNo}
 		<if test="searchWord != null">
 			WHERE team_name LIKE CONCAT('%',#{searchWord},'%')
 		</if>

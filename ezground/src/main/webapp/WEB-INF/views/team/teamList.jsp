@@ -3,13 +3,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 <title>Insert title here</title>
 </head>
 
 <body>
-	<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
+<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+						<jsp:include page="/WEB-INF/views/module/header.jsp" />
 		<section>
 			<header class="major">
 				<h2>TEAM List</h2>
@@ -54,7 +65,7 @@
 							<tr>
 								<td>${team.teamNo}</td>
 								<td>${team.sportEntriesNo}</td>
-								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}">${team.teamName}</a></td>	
+								<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}&sportEntriesNo=${sportEntriesNo}">${team.teamName}</a></td>	
 								<td>마크</td>						
 							</tr>
 						</c:forEach>
@@ -87,10 +98,19 @@
 				<!-- 이전, 다음 버튼 끝 -->
 			</div>
 		</section>
-		</body>
-		</html>
-		</div>
-		</div>
 		
-<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
-<jsp:include page="/WEB-INF/views/module/footer.jsp" />
+		</div>
+		</div>	
+		
+					<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+									<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
+						</div>
+					</div>
+
+			</div>
+			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
+			
+	</body>
+	</html>

@@ -30,7 +30,7 @@ public class TeamService {
 	private static final Logger logger = LoggerFactory.getLogger(TeamService.class);
 	
 
-	public Map<String, Object> teamSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+	public Map<String, Object> teamSelectListByPage(int currentPage, int rowPerPage, String searchWord, int sportEntriesNo){
 		
 		logger.debug("teamSelectListByPage() currentPage = {}", currentPage);
 		logger.debug("teamSelectListByPage() rowPerPage = {}", rowPerPage);
@@ -41,6 +41,7 @@ public class TeamService {
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
 		map.put("searchWord", searchWord);
+		map.put("sportEntriesNo", sportEntriesNo);
 		
 		List<Team> list = teamDao.teamSelectPage(map);
 		logger.debug("teamSelectListByPage() list = {}", list);
@@ -62,7 +63,7 @@ public class TeamService {
 	}
 	
 
-	public void teamInsert(Team team, int memberNo) {
+	public void teamInsert(Team team, int memberNo, int sportEntryNo) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
 		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
 		//위에서 뽑아낸 team타입을 insert한다.
@@ -73,7 +74,7 @@ public class TeamService {
 		
 		teamMember.setTeamNo(team.getTeamNo());
 		teamMember.setMemberNo(memberNo);
-		teamMember.setTeamMemberLevelNo(1);			
+		teamMember.setTeamMemberLevelNo(1);		
 		teamMemberDao.teamMemberInsert(teamMember);
 		
 	}
