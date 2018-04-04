@@ -77,32 +77,23 @@ public class FacilityDao {
 		return sqlSessionTemplate.selectList(mapperRoot+"facilityStatusSelectList2", memberNo); 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/* 구장등록페이지 이동시 종목 리스트 뿌려주기
 	public List<SportEntries> selectSportEntriesName() {
 	
 		return sqlSessionTemplate.selectList(mapperRoot+"selectSportEntriesName"); 
 	}
 	*/
+	// 구장 등록123123
 	public int facilityFieldInsert(FacilityField facilityField) {
 		logger.debug("FacilityDao facilityFieldInsert fieldName = {}", facilityField.getFieldName());
 		logger.debug("FacilityDao facilityFieldInsert fieldSize = {}", facilityField.getFieldSize());
 		logger.debug("FacilityDao facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
 		logger.debug("FacilityDao facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
-		
 		return sqlSessionTemplate.update(mapperRoot+"facilityFieldInsert", facilityField); 
-		
+	}
+	
+	public List<Facility> facilityFieldPage(int memberNo){
+		return sqlSessionTemplate.selectList(mapperRoot+"facilityFieldPage", memberNo);
 	}
 	
 	

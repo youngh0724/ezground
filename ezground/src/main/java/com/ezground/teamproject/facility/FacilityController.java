@@ -161,7 +161,7 @@ public class FacilityController {
 			return "facility/facilityfieldInsertForm";
 		}
 
-		// 구장 등록 처리 요청
+		// 구장 등록 처리 요청123
 		@RequestMapping(value="facility/facilityFieldInsert" , method = RequestMethod.POST)
 		public String facilityFieldInsert(HttpSession session,FacilityField facilityField) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
@@ -175,5 +175,23 @@ public class FacilityController {
 			return null;
 			
 		}
+		
+		// 구장 등록이 가능한 시설 리스트  페이지 요청
+		@RequestMapping(value="facility/facilityfieldInsertListForm")
+		public String facilityFieldPage(HttpSession session, Model model) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			int memberNo = memberLogin.getMemberNo();
+			logger.debug("FacilityController facilityFieldPage memberNo = {}", memberNo);
+			List<Facility> list = facilityService.facilityFieldPage(memberNo);
+			model.addAttribute("List", list);
+			return "facility/facilityfieldInsertListForm";
+			
+		}
+		// 시설 리스트(구장 등록)
+		
 
 }

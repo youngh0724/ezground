@@ -170,17 +170,6 @@ public class FacilityService {
 		return facility;
 	}
 	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
 		//
 		/* 구장 등록페이지 이동시 
 		public List<SportEntries> selectSportEntriesName() {
@@ -196,5 +185,10 @@ public class FacilityService {
 		logger.debug("FacilityService facilityFieldInsert fieldPrice = {}", facilityField.getFieldPrice());
 		logger.debug("FacilityService facilityFieldInsert facilityNumber = {}", facilityField.getFieldNumber());
 		facilityDao.facilityFieldInsert(facilityField);
+	}
+	
+	public List<Facility> facilityFieldPage(int memberNo){
+			List<Facility> facility = facilityDao.facilityFieldPage(memberNo);
+		return facility;
 	}
 }
