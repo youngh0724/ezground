@@ -40,6 +40,17 @@
  		WHERE member_id = #{memberId}
  	
  	</select>
+ 	
+ 	<!-- 로그인 체크 처리 쿼리문 -->
+ 	<select id="loginCheck" 			
+ 			resultType="com.ezground.teamproject.member.dto.MemberLogin">
+ 		SELECT 
+ 			member_id AS memberId,
+ 			member_pw AS memberPw
+ 		FROM t_member
+ 		WHERE member_id = #{memberId} 
+ 	
+ 	</select>
  
  
  </mapper>

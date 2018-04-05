@@ -47,7 +47,8 @@
 							                            <div class="tab-content">
 							                                <div class="tab-pane fade in active" id="user">
 							                                <h2>사용자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post">
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
+																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
@@ -59,13 +60,14 @@
 																		</tr>
 																	</table>
 																	<input type="hidden" id="memberLevel" name="memberLevel" value="user">
-																	<input class="btn btn-default" id="login" type="submit" value="login">
+																	<input class="btn btn-default" id="login" type="button" value="login">
 																</form>
 							                                  </div>
 							                                  
 							                                <div class="tab-pane fade" id="business">
 							                                <h2>사업자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post">
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
+																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
@@ -77,13 +79,14 @@
 																		</tr>
 																	</table>
 																	<input type="hidden" id="memberLevel" name="memberLevel" value="business">
-																	<input class="btn btn-default" id="login" type="submit" value="login">
+																	<input class="btn btn-default" id="login" type="button" value="login">
 																</form>
 							                               </div>
 							                               
 							                                <div class="tab-pane fade" id="admin">
 							                                <h2>관리자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post">
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
+																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
@@ -95,7 +98,7 @@
 																		</tr>
 																	</table>
 																	<input type="hidden" id="memberLevel" name="memberLevel" value="admin">
-																	<input class="btn btn-default" id="login" type="submit" value="login">
+																	<input class="btn btn-default" id="login" type="button" value="login">
 																</form>
 							                                </div>							                             
 							                            </div>
@@ -121,6 +124,46 @@
 
 			</div>
 			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
+			
+	<script type="text/javascript">
+
+    $('#login').click(function(){
+    	if ($('#memberId').val() == "") {
+			//값이 공백이면
+			$('#help').text("");
+			$('#help').text("아이디를 입력하세요");
+			$('#memberId').focus();
+		} else if ($('#memberPw').val() == ""){
+			//값이 공백이면
+			$('#help').text("");
+			$('#help').text("비밀번호를 입력하세요");
+			$('#memberPw').focus();
+		} else {
+			//값이 공백이 아닐시
+			$.post('${pageContext.request.contextPath}/loginCheck', 
+					{ memberId : $('#memberId').val(), memberPw : $('#memberPw').val()},
+					function(data) {
+				//입력받은 id값을  idCheckApi.jsp로 넘겨주고 Ajax로 받아온다 (Json파일)
+				console.log(data);
+				//브라우저 코솔창에 받아온 데이터를 출력한다. 
+				if (data == "0") {
+					//받아온 데이터의 member_no값이 0이면실행
+					$('#help').text("");
+					$('#help').text("없는 아이디 입니다.");					
+					$('#memberId').focus();
+					//중복검사를 실행하고 사용가능한 아이디이면(테이블에 중복되는 아이디가 없으면) check변수값을 true로 바꾼다.
+				} else if (data == "1") {
+					//member_no감이 0이 아니면 실행
+					$('#help').text("");
+					$('#help').text("비밀번호가 일치하지 않습니다.");	
+					$('#memberPw').focus();
+				} else if (data == "2") {
+					$('#loginInfo').submit();
+				}
+			});
+		}
+    });
+    </script>		
 			
 	</body>
 </html>			

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.member.dto.Member;
+import com.ezground.teamproject.member.dto.MemberLogin;
 
 @Repository
 public class MemberDao {
@@ -29,6 +30,12 @@ public class MemberDao {
 		logger.debug("String memberId() memberId = {}", memberId);		
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"idOverlapCheck", memberId);
+	}
+	
+	public MemberLogin loginCheck(String memberId) {
+		logger.debug("loginCheck() memberId = {}", memberId);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"loginCheck", memberId);
 	}
 	
 }
