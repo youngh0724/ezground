@@ -34,6 +34,12 @@ public class LoginDao {
 		
 		return sqlSessionTemplate.selectList(mapperRoot+"sportEntriesNameSelectList");
 	}
+	
+	public MemberLogin loginCheck(MemberLogin memberLogin) {
+		logger.debug("loginCheck() memberLogin = {}", memberLogin);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"loginCheck", memberLogin);
+	}
 		
 
 }

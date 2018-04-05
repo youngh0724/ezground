@@ -27,8 +27,17 @@
 		FROM t_sport_entries		
 	</select>
 	
-	
-	
+	<!-- 로그인 체크 처리 쿼리문 -->
+ 	<select id="loginCheck" 
+ 			parameterType="com.ezground.teamproject.member.dto.MemberLogin"			
+ 			resultType="com.ezground.teamproject.member.dto.MemberLogin">
+ 		SELECT 
+ 			member_id AS memberId,
+ 			member_pw AS memberPw
+ 		FROM t_member
+ 		WHERE member_id = #{memberId} AND member_level = #{memberLevel}
+ 	
+ 	</select>
 	
  </mapper>
   

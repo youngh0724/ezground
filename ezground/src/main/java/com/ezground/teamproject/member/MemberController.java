@@ -53,24 +53,14 @@ public class MemberController {
 		memberService.memberInsert(member);
 		
 		return "redirect:/";
-	}	
+	}
 	
-	//ajax요청값 반환을 위해서 @ResponseBody를 써준다.
-		@ResponseBody
-		@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
-	    public String loginCheck(Model model, MemberLogin memberLogin) {
-			logger.debug("loginCheck() memberLogin = {}", memberLogin);
-			
-			
-			String checkResult = null;
-			
-			checkResult = memberService.loginCheck(memberLogin);
-			logger.debug("loginCheck() checkResult = {}", checkResult);
-
-	        
-	        return checkResult;
-	    }
-	
+	@RequestMapping(value = "/memberDelete", method = RequestMethod.GET)
+	public String memberDelete() {
+		
+		return "redirect:/";
+	}
+		
 	
 	
 	

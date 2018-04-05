@@ -47,58 +47,58 @@
 							                            <div class="tab-content">
 							                                <div class="tab-pane fade in active" id="user">
 							                                <h2>사용자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
-																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo1">
+																<p id='help1' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
-																			<td><input id="memberId" name="memberId" type="text" value="user"/></td>
+																			<td><input id="memberId1" name="memberId" type="text" value="user"/></td>
 																		</tr>
 																		<tr>
 																			<td>PW</td>
-																			<td><input id="memberPw" name="memberPw" type="text" value="1234"/></td>
+																			<td><input id="memberPw1" name="memberPw" type="text" value="1234"/></td>
 																		</tr>
 																	</table>
-																	<input type="hidden" id="memberLevel" name="memberLevel" value="user">
-																	<input class="btn btn-default" id="login" type="button" value="login">
+																	<input type="hidden" id="memberLevel1" name="memberLevel" value="user">
+																	<input class="btn btn-default" id="login1" type="button" value="login">
 																</form>
 							                                  </div>
 							                                  
 							                                <div class="tab-pane fade" id="business">
 							                                <h2>사업자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
-																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo2">
+																<p id='help2' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
-																			<td><input id="memberId" name="memberId" type="text" value="business"/></td>
+																			<td><input id="memberId2" name="memberId" type="text" value="business"/></td>
 																		</tr>
 																		<tr>
 																			<td>PW</td>
-																			<td><input id="memberPw" name="memberPw" type="text" value="1234"/></td>
+																			<td><input id="memberPw2" name="memberPw" type="text" value="1234"/></td>
 																		</tr>
 																	</table>
-																	<input type="hidden" id="memberLevel" name="memberLevel" value="business">
-																	<input class="btn btn-default" id="login" type="button" value="login">
+																	<input type="hidden" id="memberLevel2" name="memberLevel" value="business">
+																	<input class="btn btn-default" id="login2" type="button" value="login">
 																</form>
 							                               </div>
 							                               
 							                                <div class="tab-pane fade" id="admin">
 							                                <h2>관리자 로그인</h2>								
-																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo">
-																<p id='help' class="help-block">로그인 정보를 입력하세요</p>
+																<form action="${pageContext.request.contextPath}/login" method="post" id="loginInfo3">
+																<p id='help3' class="help-block">로그인 정보를 입력하세요</p>
 																	<table>
 																		<tr>
 																			<td>ID</td>
-																			<td><input id="memberId" name="memberId" type="text" value="admin"/></td>
+																			<td><input id="memberId3" name="memberId" type="text" value="admin"/></td>
 																		</tr>
 																		<tr>
 																			<td>PW</td>
-																			<td><input id="memberPw" name="memberPw" type="text" value="1234"/></td>
+																			<td><input id="memberPw3" name="memberPw" type="text" value="1234"/></td>
 																		</tr>
 																	</table>
-																	<input type="hidden" id="memberLevel" name="memberLevel" value="admin">
-																	<input class="btn btn-default" id="login" type="button" value="login">
+																	<input type="hidden" id="memberLevel3" name="memberLevel" value="admin">
+																	<input class="btn btn-default" id="login3" type="button" value="login">
 																</form>
 							                                </div>							                             
 							                            </div>
@@ -127,42 +127,124 @@
 			
 	<script type="text/javascript">
 
-    $('#login').click(function(){
-    	if ($('#memberId').val() == "") {
+
+    $('#login1').click(function(){
+    	console.log("jquery 실행")
+    	if ($('#memberId1').val() == "") {
 			//값이 공백이면
-			$('#help').text("");
-			$('#help').text("아이디를 입력하세요");
-			$('#memberId').focus();
-		} else if ($('#memberPw').val() == ""){
+			$('#help1').text("");
+			$('#help1').text("아이디를 입력하세요");
+			$('#memberId1').focus();
+		} else if ($('#memberPw1').val() == ""){
 			//값이 공백이면
-			$('#help').text("");
-			$('#help').text("비밀번호를 입력하세요");
-			$('#memberPw').focus();
+			$('#help1').text("");
+			$('#help1').text("비밀번호를 입력하세요");
+			$('#memberPw1').focus();
 		} else {
 			//값이 공백이 아닐시
 			$.post('${pageContext.request.contextPath}/loginCheck', 
-					{ memberId : $('#memberId').val(), memberPw : $('#memberPw').val()},
+					{ memberId : $('#memberId1').val(), memberPw : $('#memberPw1').val(), memberLevel : $('#memberLevel1').val()},
 					function(data) {
-				//입력받은 id값을  idCheckApi.jsp로 넘겨주고 Ajax로 받아온다 (Json파일)
+				
 				console.log(data);
 				//브라우저 코솔창에 받아온 데이터를 출력한다. 
 				if (data == "0") {
-					//받아온 데이터의 member_no값이 0이면실행
-					$('#help').text("");
-					$('#help').text("없는 아이디 입니다.");					
-					$('#memberId').focus();
-					//중복검사를 실행하고 사용가능한 아이디이면(테이블에 중복되는 아이디가 없으면) check변수값을 true로 바꾼다.
+					//받아온 데이터의 값이 0이면실행
+					$('#help1').text("");
+					$('#help1').text("없는 아이디 입니다.");					
+					$('#memberId1').focus();
+					
 				} else if (data == "1") {
-					//member_no감이 0이 아니면 실행
-					$('#help').text("");
-					$('#help').text("비밀번호가 일치하지 않습니다.");	
-					$('#memberPw').focus();
+					
+					$('#help1').text("");
+					$('#help1').text("비밀번호가 일치하지 않습니다.");	
+					$('#memberPw1').focus();
 				} else if (data == "2") {
-					$('#loginInfo').submit();
+					$('#loginInfo1').submit();
+				}
+			});
+		}
+    });   
+
+    
+    
+    $('#login2').click(function(){
+    	console.log("jquery 실행")
+    	if ($('#memberId2').val() == "") {
+			//값이 공백이면
+			$('#help2').text("");
+			$('#help2').text("아이디를 입력하세요");
+			$('#memberId2').focus();
+		} else if ($('#memberPw2').val() == ""){
+			//값이 공백이면
+			$('#help2').text("");
+			$('#help2').text("비밀번호를 입력하세요");
+			$('#memberPw2').focus();
+		} else {
+			//값이 공백이 아닐시
+			$.post('${pageContext.request.contextPath}/loginCheck', 
+					{ memberId : $('#memberId2').val(), memberPw : $('#memberPw2').val(), memberLevel : $('#memberLevel2').val()},
+					function(data) {
+				
+				console.log(data);
+				//브라우저 코솔창에 받아온 데이터를 출력한다. 
+				if (data == "0") {
+					//받아온 데이터의 값이 0이면실행
+					$('#help2').text("");
+					$('#help2').text("없는 아이디 입니다.");					
+					$('#memberId2').focus();
+					
+				} else if (data == "1") {
+					
+					$('#help2').text("");
+					$('#help2').text("비밀번호가 일치하지 않습니다.");	
+					$('#memberPw2').focus();
+				} else if (data == "2") {
+					$('#loginInfo2').submit();
+				}
+			});
+		}
+    }); 
+    
+    $('#login3').click(function(){
+    	console.log("jquery 실행")
+    	if ($('#memberId1').val() == "") {
+			//값이 공백이면
+			$('#help3').text("");
+			$('#help3').text("아이디를 입력하세요");
+			$('#memberId3').focus();
+		} else if ($('#memberPw3').val() == ""){
+			//값이 공백이면
+			$('#help3').text("");
+			$('#help3').text("비밀번호를 입력하세요");
+			$('#memberPw3').focus();
+		} else {
+			//값이 공백이 아닐시
+			$.post('${pageContext.request.contextPath}/loginCheck', 
+					{ memberId : $('#memberId3').val(), memberPw : $('#memberPw3').val(), memberLevel : $('#memberLevel3').val()},
+					function(data) {
+				
+				console.log(data);
+				//브라우저 코솔창에 받아온 데이터를 출력한다. 
+				if (data == "0") {
+					//받아온 데이터의 값이 0이면실행
+					$('#help3').text("");
+					$('#help3').text("없는 아이디 입니다.");					
+					$('#memberId3').focus();
+					
+				} else if (data == "1") {
+					
+					$('#help3').text("");
+					$('#help3').text("비밀번호가 일치하지 않습니다.");	
+					$('#memberPw3').focus();
+				} else if (data == "2") {
+					$('#loginInfo3').submit();
 				}
 			});
 		}
     });
+    
+    
     </script>		
 			
 	</body>
