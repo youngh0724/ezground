@@ -27,10 +27,11 @@
 			sport_entries_no, 
 			member_no,
 			match_kinds,
-			match_notice_region, 
+			match_notice_region,
+			match_notice_status,
 			match_member_count, 
 			match_notice_insert_date, 
-			match_notice_update_date)
+			match_notice_update_date)			
 		VALUES (
 			#{matchExpectedDay},
 			#{matchExpectedStartTime},
@@ -38,7 +39,8 @@
 			#{sportEntriesNo}, 
 			#{memberNo}, 
 			#{matchKinds},
-			#{matchNoticeRegion}, 
+			#{matchNoticeRegion},
+			#{matchNoticeStatus},
 			#{matchMemberCount},
 			now(),
 			now())
@@ -72,24 +74,39 @@
 	
 	<!-- 매치공고 정보를 조회하는 쿼리문 -->
  	<select id="matchSelectList" 	
- 			parameterType="java.util.Map"		
+ 			parameterType="com.ezground.teamproject.match.dto.MatchNoticeAndMatchJoinMember"		
  			resultType="com.ezground.teamproject.match.dto.MatchNotice">
 		SELECT 
-			match_notice_no AS matchNoticeNo,
-			match_expected_day AS matchExpectedDay, 
-			match_expected_start_time AS matchExpectedStartTime,
-			match_expected_end_time AS matchExpectedEndTime,
-			member_no AS memberNo, 
-			match_notice_status AS matchNoticeStatus,
-			match_kinds AS matchKinds,
-			match_notice_region AS matchNoticeRegion, 
-			match_member_count AS matchMemberCount, 
-			match_notice_insert_date AS matchNoticeInsertDate			
-		FROM t_match_notice	
-		WHERE sport_entries_no = #{sprotEntryNo}
-		<if test="searchWord != null">
-  			AND match_kinds =  #{matchKindsSearchWord}
-  		</if>	
+			n.match_notice_no AS matchNoticeNo,
+			n.match_expected_day AS matchExpectedDay, 
+			n.match_expected_start_time AS matchExpectedStartTime,
+			n.match_expected_end_time AS matchExpectedEndTime,
+			n.member_no AS memberNo, 
+			n.match_notice_status AS matchNoticeStatus,
+			n.match_kinds AS matchKinds,
+			n.match_notice_region AS matchNoticeRegion, 
+			n.match_member_count AS matchMemberCount, 
+			n.match_notice_insert_date AS matchNoticeInsertDate,
+			j.home_away AS homeAway
+		FROM t_match_notice AS n INNER JOIN t_match_join_member AS j
+			 ON n.match_notice_no = j.match_notice_no	
+		WHERE sport_entries_no = #{sportEntriesNo}		
+			<if test="matchExpectedDay == null">
+				AND match_expected_day > now() 
+			</if>
+			<if test="matchExpectedDay != null">
+				AND match_expected_day > #{ matchExpectedDay}
+			</if>
+			<if test="matchKinds != null">
+				AND match_kinds = #{matchKinds}
+			</if>
+			<if test="matchNoticeStatus != null">
+				AND match_notice_status = #{matchNoticeStatus}
+			</if>
+			<if test="homeAway != null">
+				AND home_away = #{homeAway}
+			</if>
+		
 	</select>
 	
 	<!-- 매치공고 상세 정보를 조회하는 쿼리문 -->

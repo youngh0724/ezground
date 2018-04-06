@@ -41,13 +41,6 @@ $(document).ready(function() {
 
 <style>
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    font-size: 14px;
-  }
-
   #script-warning {
     display: none;
     background: #eee;
@@ -76,9 +69,6 @@ $(document).ready(function() {
 </style>
 	
 	<body>
-	<div id='loading'>loading...</div>
-	<div id='calendar' class='calendar'></div>
-	
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -91,8 +81,29 @@ $(document).ready(function() {
 								<section id="banner">
 									<div class="content">
 									
+									<div id='loading'>loading...</div>
+									<div id='calendar' class='calendar'></div>
+									
 									<h2>매치 검색 페이지</h2>
-																		
+										<form action="${pageContext.request.contextPath}/match/matchSelect" method="post">
+											<table>
+												<tr>
+													<td>매치종류</td>
+													<td><select id="matchKinds" name="matchKinds">
+															<option value=null>선택</option>
+												    		<option value="team">팀전</option>
+												    		<option value="free">자유</option>					   		    
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td>날짜</td>
+													<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/></td>
+												</tr>												
+											</table>										
+											<input class="btn btn-default" id="search" type="submit" value="search">
+										</form>	
+										<br>								
 										<table border="1">
 										<thead>
 											<tr>

@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 	</head>
 	<body>
 
@@ -32,12 +33,12 @@
 									<table class="table table-striped">		
 										<tr>
 											<td>일정</td>
-											<td><input id="matchExpectedDay" name="matchExpectedDay" type="datetime-local"/></td>
+											<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/></td>
 										</tr>
 										<tr>
 											<td>시간대</td>
-											<td><input id="matchExpectedStartTime" name="matchExpectedStartTime" type="time"/>~
-												<input id="matchExpectedEndTime" name="matchExpectedEndTime" type="time"/>
+											<td><!-- <input id="matchExpectedStartTime" name="matchExpectedStartTime" type="time"/>~
+												<input id="matchExpectedEndTime" name="matchExpectedEndTime" type="time"/> -->
 											</td>
 										</tr>
 										<tr>

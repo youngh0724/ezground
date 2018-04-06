@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.match.dto.MatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNotice;
+import com.ezground.teamproject.match.dto.MatchNoticeAndMatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
 
 @Repository
@@ -46,10 +47,10 @@ public class MatchDao {
 	}
 	
 	//매치공고 리스트를 조회한다.(매개변수에따라 매치종류에따른 조회기능)
-	public List<MatchNotice> matchSelectList(Map<String, Object> map){
-		logger.debug("matchSelectList() matchKindsSearchWord = {}", map.get("matchKindsSearchWord"));
+	public List<MatchNotice> matchSelectList(MatchNoticeAndMatchJoinMember matchNoticeAndMatchJoinMember){
+		logger.debug("matchSelectList() matchNoticeAndMatchJoinMember = {}", matchNoticeAndMatchJoinMember);
 				
-		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectList", map);
+		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectList", matchNoticeAndMatchJoinMember);
 	}
 	
 	//하나의 매치공고 정보를 조회한다.

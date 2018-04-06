@@ -2,6 +2,7 @@ package com.ezground.teamproject.match;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.match.dto.MatchNotice;
+import com.ezground.teamproject.match.dto.MatchNoticeAndMatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.google.gson.Gson;
@@ -50,6 +52,7 @@ public class MatchController {
 		Integer teamNo = matchService.teamNoSelectOne(entryNo, memberLogin.getMemberNo());
 		logger.debug("creatMatch() teamNo = {}", teamNo);	
 		
+		//현재 종목에 가입된 팀이 없으면 팀 생성 화면으로 이동한다.
 		if(teamNo == null) {
 			return "team/teamInsert";
 		}
@@ -78,10 +81,7 @@ public class MatchController {
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
 		int sportEntryNo = sportEntries.getSportEntriesNo();
 		logger.debug("matchNoticeSelect() entryNo = {}", sportEntryNo);
-		
-		matchNotice.setMemberNo(memberNo);
-		matchNotice.setSportEntriesNo(sportEntryNo);	
-		
+	
 		//정보를 디비에 입력하고 입력후 방색한 매치공고 번호를 받아 저장한다.
 		int generatedMatchNoticeNo = matchService.matchNoticeInsert(matchNotice, memberNo, sportEntryNo);
 		logger.debug("creatMatch() generatedMatchNoticeNo = {}", generatedMatchNoticeNo);
@@ -101,25 +101,14 @@ public class MatchController {
 		if(session.getAttribute("MemberLogin") == null) {
 			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
 			return "redirect:/";
-		}		
-		
-		//매치 공고번호로 매치공고 정보를 조회한다.
-		MatchNotice matchNotice = matchService.matchSelectOne(matchNoticeNo);		
+		}	
 		
 		//세션으로부터 자신의 맴버번호 확인
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
-				
-		//매치공고 참가 맴버에 자신이 이미 있는지 조회		
-		Integer isTeamMember = matchService.isTeamMember(matchNoticeNo, memberNo);
-		logger.debug("matchNoticeInfomation() isTeamMember = {}", isTeamMember);
-		model.addAttribute("isTeamMember", isTeamMember);
 		
-		if(isTeamMember == matchNotice.getMemberNo()) {
-			model.addAttribute("memberLevel", "teamMaker");
-		}
-		
-		
+		Map<String, Object> map = matchService.matchNoticeInfomation(matchNoticeNo, memberNo);
+	
 		//홈팀 맵버정보 리스트를 받아온다.
 		String homeAway = "home";		
 		List<String> homeTeamMember = matchService.matchJoinMemberSelectList(matchNoticeNo, homeAway);
@@ -130,19 +119,21 @@ public class MatchController {
 		List<String> awayTeamMember = matchService.matchJoinMemberSelectList(matchNoticeNo, homeAway);
 		logger.debug("matchNoticeInfomation() awayTeamMember = {}", awayTeamMember);
 		
-		model.addAttribute("matchNotice", matchNotice);
 		model.addAttribute("homeTeamMember", homeTeamMember);
 		model.addAttribute("awayTeamMember", awayTeamMember);
+		model.addAttribute("conditionInfo", map);		
 		
 		return "match/matchNoticeInfomation";
 	}
 	
 	//매치 공고 정보를 조회하는 화면으로의 요청처리
 	@RequestMapping(value="/match/matchSelect", method = RequestMethod.GET)
-	public String matchNoticeSelect(HttpSession session, Model model,
-			@RequestParam(value="searchWord", required=false) String searchWord) {
-		logger.debug("matchNoticeSelect() searchWord = {}", searchWord);
-		
+	public String matchNoticeSelect(HttpSession session, Model model, 
+			MatchNoticeAndMatchJoinMember matchNoticeAndMatchJoinMember){
+	
+		matchNoticeAndMatchJoinMember.setMatchNoticeStatus("awayTeamWating");			
+		logger.debug("matchNoticeSelect() NoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());		
+			
 		//세션검사 로그인되어있지 않으면 홈화면으로
 		if(session.getAttribute("MemberLogin") == null) {
 			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
@@ -153,31 +144,64 @@ public class MatchController {
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
 		int entryNo = sportEntries.getSportEntriesNo();
 		logger.debug("matchNoticeSelect() entryNo = {}", entryNo);
+		
+		matchNoticeAndMatchJoinMember.setSportEntriesNo(entryNo);
+		logger.debug("matchNoticeSelect() SportEntriesNo = {}", matchNoticeAndMatchJoinMember.getSportEntriesNo());
 				
 		//매치공고 정보 리스트를 조회하는 매서드
-		List<MatchNotice> list = matchService.matchSelectList(entryNo, searchWord);
+		List<MatchNotice> list = matchService.matchSelectList(matchNoticeAndMatchJoinMember);
 		logger.debug("matchNoticeSelect() list = {}", list);
 		
 		model.addAttribute("matchNoticeList", list);		
 		return "match/matchSelect";
 	}
 	
+	//매치 공고 정보를 조회하는 화면으로의 요청처리
+		@RequestMapping(value="/match/matchSelect", method = RequestMethod.POST)
+		public String matchNoticeSelectWithSearchCondition(HttpSession session, Model model,
+				MatchNoticeAndMatchJoinMember matchNoticeAndMatchJoinMember) {
+			logger.debug("matchNoticeSelectWithSearchCondition() MatchExpectedDay = {}", matchNoticeAndMatchJoinMember.getMatchExpectedDay());
+			logger.debug("matchNoticeSelectWithSearchCondition() MatchKinds = {}", matchNoticeAndMatchJoinMember.getMatchKinds());
+			logger.debug("matchNoticeSelectWithSearchCondition() MatchNoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());
+			logger.debug("matchNoticeSelectWithSearchCondition() HomeAway = {}", matchNoticeAndMatchJoinMember.getHomeAway());
+		
+						
+			//세션검사 로그인되어있지 않으면 홈화면으로
+			if(session.getAttribute("MemberLogin") == null) {
+				logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
+				return "redirect:/";
+			}
+			
+			//현재 세션이 갖고있는 스포츠 종목		
+			SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+			int entryNo = sportEntries.getSportEntriesNo();
+			logger.debug("matchNoticeSelect() entryNo = {}", entryNo);
+			
+			matchNoticeAndMatchJoinMember.setSportEntriesNo(entryNo);
+			logger.debug("matchNoticeSelect() SportEntriesNo = {}", matchNoticeAndMatchJoinMember.getSportEntriesNo());
+					
+			//매치공고 정보 리스트를 조회하는 매서드
+			List<MatchNotice> list = matchService.matchSelectList(matchNoticeAndMatchJoinMember);
+			logger.debug("matchNoticeSelect() list = {}", list);
+			
+			model.addAttribute("matchNoticeList", list);		
+			return "match/matchSelect";
+		}
+	
 	//매치 상세보기에서 매치에 참가신청을 하는 요청 처리
 	@RequestMapping(value="/match/matchJoin", method = RequestMethod.GET)
 	public String matchJoinMemberInsert(HttpSession session, RedirectAttributes redirectAttributes,
-			@RequestParam(value="matchNoticeNo", required=true) int matchNoticeNo) {
+			@RequestParam(value="matchNoticeNo", required=true) int matchNoticeNo,
+			@RequestParam(value="homeAway", required=false) String homeAway) {
 		logger.debug("matchJoinMemberInsert() matchNoticeNo = {}", matchNoticeNo);
-		
+		logger.debug("matchJoinMemberInsert() homeAway = {}", homeAway);
+			
 		//세션검사 로그인되어있지 않으면 홈화면으로
 		if(session.getAttribute("MemberLogin") == null) {
 			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
 			return "redirect:/";
 		}
-		
-		//매치공고 번호로 선택한 매치의 호스트 팀 번호를 확인하는 메서드
-		int matchTeamNo = matchService.matchNoticeSelectHomeAway(matchNoticeNo);
-		logger.debug("matchJoinMemberInsert() matchTeamNo = {}", matchTeamNo);	
-		
+			
 		//세션으로부터 자신의 맴버번호 확인
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
@@ -185,21 +209,9 @@ public class MatchController {
 		//현재 세션이 갖고있는 스포츠 종목		
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
 		logger.debug("matchJoinMemberInsert() sportEntries = {}", sportEntries);
-		
-		//종목과 맴버번호로 자신의 팀 번호 조회
-		int myTeamNo = matchService.teamNoSelectOne(sportEntries.getSportEntriesNo(), memberNo);		
-		logger.debug("matchJoinMemberInsert() myTeamNo = {}", myTeamNo);
-		
-		//신청할 팀 선택
-		String homeAway = "home";
-		
-		//매치 호스트팀 번호와 자신의 팀 번호가 다를시 어웨이로
-		if(matchTeamNo != myTeamNo) {
-			homeAway = "away";
-		}
-		
+				
 		//매치에 참가 신청 
-		matchService.matchJoinMemberInsert(matchNoticeNo, memberNo, myTeamNo, homeAway);
+		matchService.matchJoinMemberInsert(matchNoticeNo, memberNo, homeAway, sportEntries.getSportEntriesNo());
 		
 		//리다이렉트 시킬시 정보 저장
 		redirectAttributes.addAttribute("matchNoticeNo", matchNoticeNo);
@@ -258,15 +270,7 @@ public class MatchController {
 			if(session.getAttribute("MemberLogin") == null) {
 				logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
 				return "redirect:/";
-			}
-			
-			
-			
-			
-			
-			
-
-				
+			}				
 			return "match/matchSelect";
 		}	
 
