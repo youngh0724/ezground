@@ -1,12 +1,8 @@
-package com.ezground.teamproject.facilitydto;
+package com.ezground.teamproject.facility.dto;
 
 import java.util.Date;
-import java.util.List;
 
-import com.ezground.teamproject.member.dto.Member;
-
-
-public class FacilityAndMember {
+public class Facility {
 	
 	private int facilityNo;
 	private int memberNo;
@@ -25,7 +21,6 @@ public class FacilityAndMember {
 	private Date facilityWriteDate;
 	private String facilityGrade;
 	private String facilityServiceGrade;
-	private List<Member> list;
 	
 	public int getFacilityNo() {
 		return facilityNo;
@@ -129,12 +124,10 @@ public class FacilityAndMember {
 	public void setFacilityServiceGrade(String facilityServiceGrade) {
 		this.facilityServiceGrade = facilityServiceGrade;
 	}
-	public List<Member> getList() {
-		return list;
-	}
-	public void setList(List<Member> list) {
-		this.list = list;
-	}
+	
+	
+
+	
 	
 	
 }

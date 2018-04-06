@@ -103,8 +103,8 @@
 													<td>적정 인원</td>
 													<td><select id = "fieldNumber" name = "fieldNumber"></select></td>
 													</tr>
-													<input type = "hidden" name = "facilityNo" id = "facilityNo" value="${FacilityNo}">
 												</table>
+													<input type = "hidden" name = "facilityNo" id = "facilityNo" value="${FacilityNo}">
 												<input type = "submit" value = "등록">
 											</form>	
 </body>

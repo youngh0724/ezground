@@ -1,4 +1,4 @@
-package com.ezground.teamproject.facilitydto;
+package com.ezground.teamproject.facility.dto;
 
 import java.sql.Time;
 import java.util.Date;

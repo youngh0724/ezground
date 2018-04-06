@@ -13,10 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ezground.teamproject.facilitydto.Facility;
-import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
-import com.ezground.teamproject.facilitydto.FacilityField;
+import com.ezground.teamproject.facility.dto.Facility;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilityImage;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
+import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilitySub;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -143,7 +146,7 @@ public class FacilityController {
 		}
 		
 		// 구장 등록이 가능한 시설 리스트  페이지 요청
-		@RequestMapping(value="facility/facilityFieldInsertListForm")
+		@RequestMapping(value="facility/facilityFieldInsertListForm", method = RequestMethod.GET)
 		public String facilityFieldPage(HttpSession session, Model model) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
@@ -157,7 +160,7 @@ public class FacilityController {
 		}
 		
 		// 구장 등록 페이지 요청
-		@RequestMapping(value="facility/facilityFieldInsertForm")
+		@RequestMapping(value="facility/facilityFieldInsertForm", method = RequestMethod.GET)
 		public String facilityFieldInsrtPage(HttpSession session, Model model,
 				 @RequestParam(value="facilityNo", required=true) int facilityNo) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
@@ -171,19 +174,61 @@ public class FacilityController {
 		}
 		
 		// 구장 등록 처리 요청
-		@RequestMapping(value="facility/fieldInsert")
-		public String fieldInsert(HttpSession session, FacilityField field) {
+		@RequestMapping(value="facility/fieldInsert", method = RequestMethod.POST)
+		public String fieldInsert(HttpSession session, FacilityField field, RedirectAttributes redirectAttributes) {
 			logger.debug("FacilityController fieldInsert FacilityNo = {}", field.getFacilityNo());
 			logger.debug("FacilityController fieldInsert SportEntriesName = {}", field.getSportEntriesName());
 			logger.debug("FacilityController fieldInsert getFieldName = {}", field.getFieldName());
 			logger.debug("FacilityController fieldInsert FieldSize = {}", field.getFieldSize());
 			logger.debug("FacilityController fieldInsert FieldPrice = {}", field.getFieldPrice());
-			logger.debug("FacilityController fieldInsert FieldNumber = {}", field.getFieldNumber());
+			logger.debug("FacilityController fieldInsert FieldPeopleNumber = {}", field.getFieldPeopleNumber());
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
 			}
 			facilityService.fieldInsert(field);
-			return null;
+			redirectAttributes.addAttribute(field.getFacilityNo());
+			return "redirect:facility/facilityFieldInsertListForm";
 		}
+		
+		// 부대 시설 등록 페이지 요청
+		@RequestMapping(value="facility/facilitySubInsertForm", method = RequestMethod.GET)
+		public String facilitySubInsertPage(HttpSession session, Model model,
+				@RequestParam(value="facilityNo", required=true) int facilityNo) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			logger.debug("FacilityController FacilityController facilitySubInsertPage facilityNo = {}", facilityNo);
+			List<FacilityAndFacilitySub> facilityAndFacilitySub = facilityService.facilityAndFacilitySub(facilityNo);
+			Facility facility = facilityService.facilitySubInsertPage(facilityNo);
+			List<FacilitySub> list = facilityService.subSelect();
+			logger.debug("FacilityController facilitySubInsertPage facilityAndFacilitySub = {}", facilityAndFacilitySub);
+			logger.debug("FacilityController facilitySubInsertPage list = {}", list);
+			model.addAttribute("facilityAndFacilitySub", facilityAndFacilitySub);
+			model.addAttribute("Facility", facility);
+			model.addAttribute("List", list);
+			return "facility/facilitySubInsertForm";
+		}
+		
+		// 부대시설 등록 처리 요청
+		@RequestMapping(value="facility/facilitySubInsert", method = RequestMethod.GET)
+		public String facilitySubInsert(HttpSession session, Model model,RedirectAttributes redirectAttributes,
+				@RequestParam(value="facilitySubNo", required=true) int facilitySubNo,
+				@RequestParam(value="facilityNo", required=true) int facilityNo,
+				@RequestParam(value="facilitySubName", required=true) String facilitySubName){
+			logger.debug("FacilityController facilitySubInsert facilitySubNo = {}", facilitySubNo);
+			logger.debug("FacilityController facilitySubInsert facilityNo = {}", facilityNo);
+			logger.debug("FacilityController facilitySubInsert facilitySubName = {}", facilitySubName);
+			
+			FacilityAndFacilitySub facilityAndFacilitySub = new FacilityAndFacilitySub();
+			facilityAndFacilitySub.setSubNo(facilitySubNo);
+			facilityAndFacilitySub.setFacilityNo(facilityNo);
+			facilityAndFacilitySub.setSubName(facilitySubName);
+			facilityService.facilitySubInsert(facilityAndFacilitySub);
+			redirectAttributes.addAttribute("facilityNo", facilityNo);
+					return "redirect:/facility/facilitySubInsertForm";
+		}
+		
+	
 }

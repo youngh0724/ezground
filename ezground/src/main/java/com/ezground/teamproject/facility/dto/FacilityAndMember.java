@@ -1,11 +1,13 @@
-package com.ezground.teamproject.facilitydto;
+package com.ezground.teamproject.facility.dto;
 
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.ezground.teamproject.member.dto.Member;
 
-public class FacilityAndFacilityImage {
+
+public class FacilityAndMember {
+	
 	private int facilityNo;
 	private int memberNo;
 	private String sportEntriesName;
@@ -23,37 +25,7 @@ public class FacilityAndFacilityImage {
 	private Date facilityWriteDate;
 	private String facilityGrade;
 	private String facilityServiceGrade;
-	private List<MultipartFile> files;
-	
-	public FacilityAndFacilityImage() {
-		super();
-	}
-	
-	public FacilityAndFacilityImage(int facilityNo, int memberNo, String sportEntriesName, String facilityName,
-			String facilityPhone, String facilityAddress, String facilityNotice, String facilityDetail,
-			String facilityPrice, String facilityRefund, String facilityRule, String facilityLicenseeNo,
-			String facilityReturn, String facilityStatus, Date facilityWriteDate, String facilityGrade,
-			String facilityServiceGrade, List<MultipartFile> files) {
-		super();
-		this.facilityNo = facilityNo;
-		this.memberNo = memberNo;
-		this.sportEntriesName = sportEntriesName;
-		this.facilityName = facilityName;
-		this.facilityPhone = facilityPhone;
-		this.facilityAddress = facilityAddress;
-		this.facilityNotice = facilityNotice;
-		this.facilityDetail = facilityDetail;
-		this.facilityPrice = facilityPrice;
-		this.facilityRefund = facilityRefund;
-		this.facilityRule = facilityRule;
-		this.facilityLicenseeNo = facilityLicenseeNo;
-		this.facilityReturn = facilityReturn;
-		this.facilityStatus = facilityStatus;
-		this.facilityWriteDate = facilityWriteDate;
-		this.facilityGrade = facilityGrade;
-		this.facilityServiceGrade = facilityServiceGrade;
-		this.files = files;
-	}
+	private List<Member> list;
 	
 	public int getFacilityNo() {
 		return facilityNo;
@@ -157,13 +129,12 @@ public class FacilityAndFacilityImage {
 	public void setFacilityServiceGrade(String facilityServiceGrade) {
 		this.facilityServiceGrade = facilityServiceGrade;
 	}
-	public List<MultipartFile> getFiles() {
-		return files;
+	public List<Member> getList() {
+		return list;
 	}
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
+	public void setList(List<Member> list) {
+		this.list = list;
 	}
-	
 	
 	
 }

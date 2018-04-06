@@ -22,7 +22,7 @@ public class TeamDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(TeamDao.class);
 		
-	public List<Team> teamSelectPage(Map map) {
+	public List<Team> teamSelectListByPage(Map map) {
 		logger.debug("teamSelectPage() map.startRow = {}", map.get("startRow"));
 		logger.debug("teamSelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
 		logger.debug("teamSelectPage() map.searchWord = {}", map.get("searchWord"));
