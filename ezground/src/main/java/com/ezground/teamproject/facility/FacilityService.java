@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ezground.teamproject.dto.SportEntries;
-import com.ezground.teamproject.facilitydto.Facility;
-import com.ezground.teamproject.facilitydto.FacilityAndFacilityImage;
-import com.ezground.teamproject.facilitydto.FacilityAndMember;
-import com.ezground.teamproject.facilitydto.FacilityField;
-import com.ezground.teamproject.facilitydto.FacilityImage;
+import com.ezground.teamproject.facility.dto.Facility;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilityImage;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
+import com.ezground.teamproject.facility.dto.FacilityAndMember;
+import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilityImage;
+import com.ezground.teamproject.facility.dto.FacilitySub;
 import com.ezground.teamproject.match.dto.MatchNotice;
 
 
@@ -186,8 +189,43 @@ public class FacilityService {
 		logger.debug("FacilityField fieldInsert FieldName = {}", field.getFieldName());
 		logger.debug("FacilityField fieldInsert FieldSize = {}", field.getFieldSize());
 		logger.debug("FacilityField fieldInsert FieldPrice = {}", field.getFieldPrice());
-		logger.debug("FacilityField fieldInsert FieldNumber = {}", field.getFieldNumber());
+		logger.debug("FacilityField fieldInsert FieldPeopleNumber = {}", field.getFieldPeopleNumber());
 		 facilityDao.fieldInsert(field);
-		
 	}
+	// 부대 시설 등록 페이지 요청
+	public Facility facilitySubInsertPage(int facilityNo) {
+		logger.debug("FacilityService facilitySubInsertPage facilityNo = {}", facilityNo);
+		Facility facility = facilityDao.facilitySubInsertPage(facilityNo);
+		return facility;
+	}
+	// 부대 시설 등록 페이지 요청시 부대시설 정보 가져오기
+	public List<FacilitySub> subSelect() {
+		List<FacilitySub> facilitySub = facilityDao.subSelect();
+		return facilitySub;
+	}
+	
+	// 부대 시설 등록 페이지 요청시 시설 AND 부대시설 리스트 가져오기
+	public List<FacilityAndFacilitySub> facilityAndFacilitySub(int facilityNo){
+		logger.debug("FacilityService facilityAndFacilitySub facilityNo = {}", facilityNo);
+		List<FacilityAndFacilitySub> facilityAndFacilitySub = facilityDao.facilityAndFacilitySub(facilityNo);
+		logger.debug("FacilityService facilityAndFacilitySub facilityAndFacilitySub = {}", facilityAndFacilitySub);
+		return facilityAndFacilitySub;
+	}
+	// 부대 시설 등록
+	public void facilitySubInsert(FacilityAndFacilitySub facilityAndFacilitySub) {
+		int subNo = facilityAndFacilitySub.getSubNo();
+		int facilityNo = facilityAndFacilitySub.getFacilityNo();
+		List<Integer> intarr = facilityDao.subNoSelect(facilityNo);
+		boolean flag = true;
+		for(int arrNo : intarr){
+			if(arrNo == subNo) {
+				flag = false;
+			}
+		}
+		if(flag) {
+			facilityDao.facilitySubInsert(facilityAndFacilitySub);
+		}		
+	}
+
+	
 }

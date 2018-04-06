@@ -1,9 +1,11 @@
-package com.ezground.teamproject.facilitydto;
+package com.ezground.teamproject.facility.dto;
 
 import java.util.Date;
+import java.util.List;
 
-public class Facility {
-	
+import org.springframework.web.multipart.MultipartFile;
+
+public class FacilityAndFacilityImage {
 	private int facilityNo;
 	private int memberNo;
 	private String sportEntriesName;
@@ -21,6 +23,37 @@ public class Facility {
 	private Date facilityWriteDate;
 	private String facilityGrade;
 	private String facilityServiceGrade;
+	private List<MultipartFile> files;
+	
+	public FacilityAndFacilityImage() {
+		super();
+	}
+	
+	public FacilityAndFacilityImage(int facilityNo, int memberNo, String sportEntriesName, String facilityName,
+			String facilityPhone, String facilityAddress, String facilityNotice, String facilityDetail,
+			String facilityPrice, String facilityRefund, String facilityRule, String facilityLicenseeNo,
+			String facilityReturn, String facilityStatus, Date facilityWriteDate, String facilityGrade,
+			String facilityServiceGrade, List<MultipartFile> files) {
+		super();
+		this.facilityNo = facilityNo;
+		this.memberNo = memberNo;
+		this.sportEntriesName = sportEntriesName;
+		this.facilityName = facilityName;
+		this.facilityPhone = facilityPhone;
+		this.facilityAddress = facilityAddress;
+		this.facilityNotice = facilityNotice;
+		this.facilityDetail = facilityDetail;
+		this.facilityPrice = facilityPrice;
+		this.facilityRefund = facilityRefund;
+		this.facilityRule = facilityRule;
+		this.facilityLicenseeNo = facilityLicenseeNo;
+		this.facilityReturn = facilityReturn;
+		this.facilityStatus = facilityStatus;
+		this.facilityWriteDate = facilityWriteDate;
+		this.facilityGrade = facilityGrade;
+		this.facilityServiceGrade = facilityServiceGrade;
+		this.files = files;
+	}
 	
 	public int getFacilityNo() {
 		return facilityNo;
@@ -124,9 +157,12 @@ public class Facility {
 	public void setFacilityServiceGrade(String facilityServiceGrade) {
 		this.facilityServiceGrade = facilityServiceGrade;
 	}
-	
-	
-
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 	
 	
 	

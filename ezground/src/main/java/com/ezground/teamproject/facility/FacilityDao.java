@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.dto.SportEntries;
-import com.ezground.teamproject.facilitydto.Facility;
-import com.ezground.teamproject.facilitydto.FacilityAndMember;
-import com.ezground.teamproject.facilitydto.FacilityField;
-import com.ezground.teamproject.facilitydto.FacilityImage;
+import com.ezground.teamproject.facility.dto.Facility;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
+import com.ezground.teamproject.facility.dto.FacilityAndMember;
+import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilityImage;
+import com.ezground.teamproject.facility.dto.FacilitySub;
 import com.ezground.teamproject.member.dto.Member;
 
 @Repository
@@ -89,4 +91,27 @@ public class FacilityDao {
 		return sqlSessionTemplate.insert(mapperRoot+"fieldInsert", field);
 	}
 	
+	// 부대시설 등록 페이지 요청
+	public Facility facilitySubInsertPage(int facilityNo) {
+		logger.debug("FacilityDao facilitySubInsertPage facilityNo = {}", facilityNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"facilitySubInsertPage", facilityNo);
+	}
+	
+	public List<FacilitySub> subSelect() {
+		return sqlSessionTemplate.selectList(mapperRoot+"facilitySubSelect");
+	}
+	// 부대시설 등록 페이지 이동시 시설 And 부대시설 리스트 가져가기
+	public List<FacilityAndFacilitySub> facilityAndFacilitySub(int facilityNo){
+		logger.debug("FacilityDao facilitySubInsertPage facilityNo = {}", facilityNo);
+		
+		return sqlSessionTemplate.selectList(mapperRoot+"facilityAndFacilitySubList", facilityNo);
+	}
+	// 부대 시설 등록 처리
+	public int facilitySubInsert(FacilityAndFacilitySub facilityAndFacilitySub) {
+		return sqlSessionTemplate.insert(mapperRoot+"facilityAndFacilitySub", facilityAndFacilitySub);
+	}
+	// 부대 시설 번호 가져오기
+	public List<Integer> subNoSelect(int facilityNo) {
+		return sqlSessionTemplate.selectList(mapperRoot+"subNoSelect", facilityNo);
+	}
 }

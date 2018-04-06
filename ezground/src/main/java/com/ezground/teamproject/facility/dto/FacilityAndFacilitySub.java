@@ -1,9 +1,11 @@
-package com.ezground.teamproject.facilitydto;
+package com.ezground.teamproject.facility.dto;
 
 public class FacilityAndFacilitySub {
 	
 	private int facilityAndFacilitySub;
 	private int facilityNo;
+	private int subNo;
+	private int facilitySubStatus;
 	private int subWriteDate;
 	
 	public int getFacilityAndFacilitySub() {
@@ -18,12 +20,28 @@ public class FacilityAndFacilitySub {
 	public void setFacilityNo(int facilityNo) {
 		this.facilityNo = facilityNo;
 	}
+	public int getSubNo() {
+		return subNo;
+	}
+	public void setSubNo(int subNo) {
+		this.subNo = subNo;
+	}
+	public int getFacilitySubStatus() {
+		return facilitySubStatus;
+	}
+	public void setFacilitySubStatus(int facilitySubStatus) {
+		this.facilitySubStatus = facilitySubStatus;
+	}
 	public int getSubWriteDate() {
 		return subWriteDate;
 	}
 	public void setSubWriteDate(int subWriteDate) {
 		this.subWriteDate = subWriteDate;
 	}
+	
+	
+	
+	
 	
 	
 }

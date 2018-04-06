@@ -37,6 +37,7 @@
 														<th>승인/거절</th>
 														<th>등록 날짜</th>
 														<th>구장 등록</th>
+														<th>부대시설 등록</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -49,6 +50,7 @@
 															<td>${List.facilityStatus}</td>
 															<td><fmt:formatDate value="${List.facilityWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 															<td><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertForm?facilityNo=${List.facilityNo}">구장 등록</a></td>
+															<td><a href="${pageContext.request.contextPath}/facility/facilitySubInsertForm?facilityNo=${List.facilityNo}">부대시설 등록</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>

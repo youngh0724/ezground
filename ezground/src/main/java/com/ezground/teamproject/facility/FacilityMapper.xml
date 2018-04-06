@@ -7,7 +7,7 @@
   	
   	<!-- 사업자가 시설등록 요청 -->
   		<insert id="facilityInsert" 
-				parameterType="com.ezground.teamproject.facilitydto.Facility">
+				parameterType="com.ezground.teamproject.facility.dto.Facility">
 				INSERT
 				INTO t_facility(member_no
 								,facility_name
@@ -42,7 +42,7 @@
 		
 	<!-- 사업자 자신이 신청한 시설등록 요청내역 조회  -->
 		<select id = "memberfacilitySelectList"
-				resultType="com.ezground.teamproject.facilitydto.Facility">
+				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_name AS facilityName
 					,facility_no AS facilityNo				
@@ -63,7 +63,7 @@
 	
 	<!-- 사업자가 시설 등록 신청요청한 정보 수정 -->
 		<select id="facilitySelectOne"
-				resultType="com.ezground.teamproject.facilitydto.Facility">
+				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_name AS facilityName
 					,facility_no AS facilityNo				
@@ -84,7 +84,7 @@
 		
 	<!-- 시설 수정 등록 처리  -->
 		<update id = "facilityInsertUpdate"
-			parameterType = "com.ezground.teamproject.facilitydto.Facility">
+			parameterType = "com.ezground.teamproject.facility.dto.Facility">
 			UPDATE t_facility
 				SET facility_name = #{facilityName}
 					,facility_phone = #{facilityPhone}
@@ -100,7 +100,7 @@
 		
 	<!-- 시설 이미지 등록 처리 -->
 		<insert id = "facilityImageInsert"
-			parameterType = "com.ezground.teamproject.facilitydto.FacilityImage">
+			parameterType = "com.ezground.teamproject.facility.dto.FacilityImage">
 			INSERT
 				INTO t_facility_image(facility_no
 									   ,image_path
@@ -127,7 +127,7 @@
 		
 		<!-- 구장 등록이 가능한 시설 리스트 -->
 		<select id = "facilityFieldPage"
-				resultType="com.ezground.teamproject.facilitydto.Facility">
+				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_name AS facilityName
 					,facility_no AS facilityNo				
@@ -145,9 +145,9 @@
 				FROM t_facility 
 				WHERE member_no = #{memberNo}
 		</select>	
-		
+		<!-- 구장 등록 페이지 요청시 시설 번호 -->
 		<select id = "facilityFieldInserPage"
-				resultType="com.ezground.teamproject.facilitydto.Facility">
+				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_no AS facilityNo
 					FROM t_facility
@@ -156,22 +156,71 @@
 		
 		<!-- 구장 등록 처리 -->
 		<insert id = "fieldInsert"
-			parameterType="com.ezground.teamproject.facilitydto.FacilityField">
+			parameterType="com.ezground.teamproject.facility.dto.FacilityField">
 			INSERT
 				INTO t_facility_field(facility_no
 									,sport_entries_name
 									,field_name
 									,field_size
 									,field_price
-									,field_number
+									,field_people_number
 									,field_write_date)
 				VALUES(#{facilityNo}
 						,#{sportEntriesName}
 						,#{fieldName}
 						,#{fieldSize}
 						,#{fieldPrice}
-						,#{fieldNumber}
+						,#{fieldPeopleNumber}
 						,now())
 		</insert>
-	
+		<!-- 부대시설 등록페이지 요청시 시설 번호 -->
+		<select id = "facilitySubInsertPage"
+				resultType="com.ezground.teamproject.facility.dto.Facility">
+				SELECT
+					facility_no AS facilityNo
+					FROM t_facility
+					WHERE facility_no = #{facilityNo}
+		</select>
+		
+		<!-- 부대 시설 등록시 부대시설 정보 -->
+		<select id = "facilitySubSelect"
+				resultType="com.ezground.teamproject.facility.dto.FacilitySub">
+				SELECT
+					sub_no AS subNo
+					,sub_name AS subName
+				FROM t_facility_sub
+		</select>
+		
+		<!-- 부대 시설 등록 페이지 이동시 시설 And 부대시설 리스트 -->
+		<select id = "facilityAndFacilitySubList"
+				resultType="com.ezground.teamproject.facility.dto.FacilityAndFacilitySub">
+				SELECT
+					facility_and_facility_sub_no AS facilityAndFacilitySub
+					,facility_no AS facilityNo
+					,sub_no AS subNo
+					,sub_write_date AS subWriteDate
+				FROM t_facility_and_facility_sub
+		</select>
+		
+		<!--  부대 시설 등록 처리 -->
+		<insert id="facilityAndFacilitySub"
+				parameterType="com.ezground.teamproject.facility.dto.FacilityAndFacilitySub">
+				INSERT
+					INTO t_facility_and_facility_sub(facility_no
+													,sub_no
+													,sub_write_date)
+					VALUE (#{facilityNo}
+							,#{subNo}
+							,now())
+		</insert>
+		
+		<!-- 부대 시설 번호 가져오기 -->
+		<select id = "subNoSelect"
+				parameterType="int"			
+				resultType="Integer">
+				SELECT
+						sub_no AS subNo
+				FROM t_facility_and_facility_sub
+				WHERE facility_no = #{facilityNo}
+		</select>		
   </mapper>
