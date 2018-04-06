@@ -12,30 +12,26 @@
 	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 </head>
-
 <body>
 <!-- Wrapper -->
-<div id="wrapper">
+			<div id="wrapper">
 
-	<!-- Main -->
-	<div id="main">
-		<div class="inner">
-		<jsp:include page="/WEB-INF/views/module/header.jsp" />
-		
-		<!-- Banner -->
-		<section id="banner">
-			<div class="content">	
-				<h2>팀 생성 화면</h2>
-				
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+						<jsp:include page="/WEB-INF/views/module/header.jsp" />
+
+
+	<h2>Team insert form</h2>
 	<div class="row">
           <div class="col-sm-6 col-lg-6">
-	<form action="${pageContext.request.contextPath}/team/teamInsert" method="post">
+	<form action="${pageContext.request.contextPath}/team/teamInsert" method="post" id="insertForm">
 					<input id="sportEntriesNo" name="sportEntriesNo" type="hidden" value="${currentSportEntry.sportEntriesNo}" >
-		<table class="table table-striped" data-effect="fade">		
+		<table class="table table-striped" data-effect="fade">
 			<tr>
 				<td>종목</td>
 				<td><input id="entry" type="text" value="${currentSportEntry.sportEntriesName}" readonly="readonly"/></td>
-			</tr>		
+			</tr>
 			<tr>
 				<td>팀 이름</td>
 				<td><input id="teamName" name="teamName" type="text"/></td>
@@ -56,7 +52,21 @@
 		</table>
 		<input id="insert" type="button" value="추가">
 	</form>	
-	
+
+	</div>
+	</div>
+	</div>
+	</div>
+
+<div id="sidebar">
+						<div class="inner">
+									<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
+						</div>
+					</div>
+
+			</div>
+			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
+</body>
 	<script>
 		$('#insert').click(function(){
 			if($('#teamName').val() == ''){
@@ -69,34 +79,9 @@
 				alert('지역을 나이대를 선택하세요');
 				$('#teamAges').focus();
 			}else{
-				$('form').submit();
+				$('#insertForm').submit();
 			}
 		})
 		
 	</script>
-	</div>
-	
-	</div>
-	
-</div>
-</section>
-</div>
-</div>
-<!-- end main -->
-
-<!-- sidebar -->
-	<div id="sidebar">
-		<div class="inner">
-				<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
-		</div>
-	</div>
-	
-
-	</div>
-	<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
-</body>
 </html>
-
-
-
-

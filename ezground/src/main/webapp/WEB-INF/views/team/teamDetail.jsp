@@ -74,7 +74,7 @@
 							<td>${team.teamCreatedDate}</td>
 						</tr>
 						<tr>
-							<th colspan="3">팀 소개ddddd</th>
+							<th colspan="3">팀 소개</th>
 						</tr>
 						<tr>
 							<td colspan="3">${team.teamIntro}</td>
