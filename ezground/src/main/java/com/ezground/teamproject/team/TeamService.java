@@ -43,7 +43,7 @@ public class TeamService {
 		map.put("searchWord", searchWord);
 		map.put("sportEntriesNo", sportEntriesNo);
 		
-		List<Team> list = teamDao.teamSelectPage(map);
+		List<Team> list = teamDao.teamSelectListByPage(map);
 		logger.debug("teamSelectListByPage() list = {}", list);
 		int totalCount = teamDao.teamSelectTotalCount();
 		logger.debug("teamSelectListByPage() totalCount = {}", totalCount);

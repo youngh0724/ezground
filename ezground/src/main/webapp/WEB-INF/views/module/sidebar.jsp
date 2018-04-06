@@ -25,8 +25,9 @@
 											</ul>
 										</li>									
 										<li>
-											<span class="opener">Facility</span>
+											<span class="opener">시설 이용</span>
 											<ul>
+												<li><a href="${pageContext.request.contextPath}/reservation/facilList">예약 하기</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertListForm">구장 등록가능 리스트</a></li>
@@ -34,24 +35,25 @@
 											</ul>
 										</li>
 										<li>
-											<span class="opener">TEAM</span>
+											<span class="opener">팀</span>
 											<ul>
 												<li><a href="${pageContext.request.contextPath}/team/teamList">전체 팀 목록</a></li>
 												<li><a href="${pageContext.request.contextPath}/team/teamManagement">나의 팀 관리</a></li>												
 											</ul>
 										</li>										
 										<li>
-											<span class="opener">MATCH</span>
+											<span class="opener">매치</span>
 											<ul>
 												<li><a href="${pageContext.request.contextPath}/creatMatch?entryNo=${currentSportEntry.getSportEntriesNo()}">매치 생성</a></li>
 												<li><a href="${pageContext.request.contextPath}/match/matchSelect">매치 검색</a></li>																				
 											</ul>
 										</li>
 										<li>
-											<span class="opener">RESERVATION</span>
+											<span class="opener">게시판</span>
 											<ul>
-												<li><a href="#">예약하기</a></li>
-												<li><a href="#">예앾 홖인</a></li>																				
+												<li><a href="#">공지사항</a></li>
+												<li><a href="#">자유게시판</a></li>
+												<li><a href="#">매치게시판</a></li>																				
 											</ul>
 										</li>										
 										<li><a href="#">MYPAGE</a></li>																	
