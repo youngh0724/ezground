@@ -215,12 +215,16 @@ public class FacilityController {
 		@RequestMapping(value="facility/facilitySubInsert", method = RequestMethod.GET)
 		public String facilitySubInsert(HttpSession session, Model model,RedirectAttributes redirectAttributes,
 				@RequestParam(value="facilitySubNo", required=true) int facilitySubNo,
-				@RequestParam(value="facilityNo", required=true) int facilityNo) {
-			logger.debug("FacilityController facilitySubInsert facilitySubInsert = {}", facilitySubNo);
-			logger.debug("FacilityController facilitySubInsert facilitySubInsert = {}", facilityNo);
+				@RequestParam(value="facilityNo", required=true) int facilityNo,
+				@RequestParam(value="facilitySubName", required=true) String facilitySubName){
+			logger.debug("FacilityController facilitySubInsert facilitySubNo = {}", facilitySubNo);
+			logger.debug("FacilityController facilitySubInsert facilityNo = {}", facilityNo);
+			logger.debug("FacilityController facilitySubInsert facilitySubName = {}", facilitySubName);
+			
 			FacilityAndFacilitySub facilityAndFacilitySub = new FacilityAndFacilitySub();
 			facilityAndFacilitySub.setSubNo(facilitySubNo);
 			facilityAndFacilitySub.setFacilityNo(facilityNo);
+			facilityAndFacilitySub.setSubName(facilitySubName);
 			facilityService.facilitySubInsert(facilityAndFacilitySub);
 			redirectAttributes.addAttribute("facilityNo", facilityNo);
 					return "redirect:/facility/facilitySubInsertForm";

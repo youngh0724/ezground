@@ -198,8 +198,10 @@
 					facility_and_facility_sub_no AS facilityAndFacilitySub
 					,facility_no AS facilityNo
 					,sub_no AS subNo
+					,sub_name AS subName
 					,sub_write_date AS subWriteDate
 				FROM t_facility_and_facility_sub
+				WHERE facility_no = #{facilityNo}
 		</select>
 		
 		<!--  부대 시설 등록 처리 -->
@@ -208,9 +210,11 @@
 				INSERT
 					INTO t_facility_and_facility_sub(facility_no
 													,sub_no
+													,sub_name
 													,sub_write_date)
 					VALUE (#{facilityNo}
 							,#{subNo}
+							,#{subName}
 							,now())
 		</insert>
 		

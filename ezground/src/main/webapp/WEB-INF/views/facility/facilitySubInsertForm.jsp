@@ -23,7 +23,7 @@
 			<tr>
 				<td>${subList.subNo}</td>
 				<td>${subList.subName}</td>
-				<td><a id = "insert" href ="${pageContext.request.contextPath}/facility/facilitySubInsert?facilitySubNo=${subList.subNo}&facilityNo=${Facility.facilityNo}">등록</a></td>
+				<td><a id = "insert" href ="${pageContext.request.contextPath}/facility/facilitySubInsert?facilitySubNo=${subList.subNo}&facilityNo=${Facility.facilityNo}&facilitySubName=${subList.subName}">등록</a></td>
 				<td><a href ="${pageContext.request.contextPath}/facility/facilitySubDelete?facilitySubNo=${subList.subNo}&facilityNo=${facility.facilityNo}" >삭제</a></td>
 			</tr>
 			</c:forEach>
@@ -32,8 +32,9 @@
 		<table>
 			<thead>
 				<tr>
-				<th>시설 번호</th>
-				<th>부대 시설 번호</th>
+				<th>시설번호</th>
+				<th>부대시설번호</th>
+				<th>부대시설이름</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,6 +42,7 @@
 			<tr>
 				<td>${facilityAndFacilitySubList.facilityNo}</td>
 				<td>${facilityAndFacilitySubList.subNo}</td>
+				<td>${facilityAndFacilitySubList.subName}</td>
 			</tr>
 			</c:forEach>	
 			</tbody>

@@ -5,6 +5,7 @@ public class FacilityAndFacilitySub {
 	private int facilityAndFacilitySub;
 	private int facilityNo;
 	private int subNo;
+	private String subName;
 	private int facilitySubStatus;
 	private int subWriteDate;
 	
@@ -26,6 +27,12 @@ public class FacilityAndFacilitySub {
 	public void setSubNo(int subNo) {
 		this.subNo = subNo;
 	}
+	public String getSubName() {
+		return subName;
+	}
+	public void setSubName(String subName) {
+		this.subName = subName;
+	}
 	public int getFacilitySubStatus() {
 		return facilitySubStatus;
 	}
@@ -38,10 +45,6 @@ public class FacilityAndFacilitySub {
 	public void setSubWriteDate(int subWriteDate) {
 		this.subWriteDate = subWriteDate;
 	}
-	
-	
-	
-	
 	
 	
 }
