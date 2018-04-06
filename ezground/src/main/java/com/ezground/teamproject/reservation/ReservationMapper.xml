@@ -25,6 +25,18 @@
 		LIMIT #{startRow}, #{rowPerPage}		
 	</select>
 	
+	<resultMap type="ksmart.project.test26.movie.dto.MovieAndMovieFile"
+				id="MovieAndMovieFileMap">
+		<id column="movie_id" property="movieId" />
+		<result column="movie_name" property="movieName" />
+			<collection property="list"			ofType="ksmart.project.test26.movie.dto.MovieFile">
+				<id column="movie_file_id" property="movieFileId"/>
+				<result column="file_name" property="fileName"/>
+				<result column="file_ext" property="fileExt"/>
+				<result column="file_size" property="fileSize"/>
+			</collection>
+		</resultMap>	
+	
 	<select id="facilitySelectCount"
   			resultType="int">
   		SELECT 
