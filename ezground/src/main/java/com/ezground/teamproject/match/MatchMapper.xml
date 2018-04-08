@@ -14,7 +14,7 @@
 			m.team_no as teamNo		
 		FROM t_team_member m INNER JOIN t_team t
 		ON m.team_no = t.team_no
-		WHERE t.sport_entries_no = #{sportEntryNo} and m.member_no = #{memberNo}
+		WHERE t.sport_entries_no = #{sportEntriesNo} and m.member_no = #{memberNo}
 	</select>
 	
 	<!-- 매치공고 정보를 생성하는 쿼리문 -->
@@ -87,6 +87,7 @@
 			n.match_notice_region AS matchNoticeRegion, 
 			n.match_member_count AS matchMemberCount, 
 			n.match_notice_insert_date AS matchNoticeInsertDate,
+			j.team_no AS teamNo,
 			j.home_away AS homeAway
 		FROM t_match_notice AS n INNER JOIN t_match_join_member AS j
 			 ON n.match_notice_no = j.match_notice_no	
@@ -95,9 +96,9 @@
 				AND match_expected_day > now() 
 			</if>
 			<if test="matchExpectedDay != null">
-				AND match_expected_day > #{ matchExpectedDay}
+				AND match_expected_day >= #{ matchExpectedDay}
 			</if>
-			<if test="matchKinds != null">
+			<if test="matchKinds != 'all'">
 				AND match_kinds = #{matchKinds}
 			</if>
 			<if test="matchNoticeStatus != null">
@@ -105,6 +106,12 @@
 			</if>
 			<if test="homeAway != null">
 				AND home_away = #{homeAway}
+			</if>
+			<if test="matchMemberCount != 0">
+				AND match_member_count = #{matchMemberCount}
+			</if>
+			<if test="teamNo != null">
+				AND team_no = #{teamNo}
 			</if>
 		
 	</select>
@@ -130,12 +137,16 @@
 	<!-- 매치 참가 맴버 아이디 리스트 조회 쿼리문 -->
  	<select id="matchJoinMemberSelectList"
  			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember"
- 			resultType="String">
+ 			resultType="com.ezground.teamproject.member.dto.MemberLogin">
 		SELECT 
-			m.member_id		
+			m.member_id	AS memberId,
+			m.member_no AS memberNo	
 		FROM t_match_join_member j INNER JOIN t_member m
 		ON j.member_no = m.member_no
 		WHERE j.match_notice_no = #{matchNoticeNo} AND j.home_away = #{homeAway}
+		<if test="teamNo != 0">
+				AND j.team_no = #{teamNo}
+		</if>
 	</select>
 	
 	<!-- 참가신청 매치의 home or away 판별 쿼리문 -->

@@ -9,12 +9,13 @@ public class MatchNoticeAndMatchJoinMember {
 	private String matchNoticeStatus;
 	private int matchMemberCount;
 	private String homeAway;	
+	private int teamNo;
 	
 	public MatchNoticeAndMatchJoinMember() {
 		super();
 	}
 	public MatchNoticeAndMatchJoinMember(int matchNoticeNo, String matchExpectedDay, int sportEntriesNo,
-			String matchKinds, String matchNoticeStatus, int matchMemberCount, String homeAway) {
+			String matchKinds, String matchNoticeStatus, int matchMemberCount, String homeAway, int teamNo) {
 		super();
 		this.matchNoticeNo = matchNoticeNo;
 		this.matchExpectedDay = matchExpectedDay;
@@ -23,13 +24,14 @@ public class MatchNoticeAndMatchJoinMember {
 		this.matchNoticeStatus = matchNoticeStatus;
 		this.matchMemberCount = matchMemberCount;
 		this.homeAway = homeAway;
+		this.teamNo = teamNo;
 	}
 	@Override
 	public String toString() {
 		return "MatchNoticeAndMatchJoinMember [matchNoticeNo=" + matchNoticeNo + ", matchExpectedDay="
 				+ matchExpectedDay + ", sportEntriesNo=" + sportEntriesNo + ", matchKinds=" + matchKinds
 				+ ", matchNoticeStatus=" + matchNoticeStatus + ", matchMemberCount=" + matchMemberCount + ", homeAway="
-				+ homeAway + "]";
+				+ homeAway + ", teamNo=" + teamNo + "]";
 	}
 	public int getMatchNoticeNo() {
 		return matchNoticeNo;
@@ -72,5 +74,11 @@ public class MatchNoticeAndMatchJoinMember {
 	}
 	public void setHomeAway(String homeAway) {
 		this.homeAway = homeAway;
-	}	
+	}
+	public int getTeamNo() {
+		return teamNo;
+	}
+	public void setTeamNo(int teamNo) {
+		this.teamNo = teamNo;
+	}		
 }

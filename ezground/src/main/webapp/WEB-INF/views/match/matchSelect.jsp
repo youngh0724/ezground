@@ -85,21 +85,31 @@ $(document).ready(function() {
 									<div id='calendar' class='calendar'></div>
 									
 									<h2>매치 검색 페이지</h2>
-										<form action="${pageContext.request.contextPath}/match/matchSelect" method="post">
+										<form action="${pageContext.request.contextPath}/match/matchSelect" method="post" id="searchForm">
 											<table>
 												<tr>
 													<td>매치종류</td>
 													<td><select id="matchKinds" name="matchKinds">
-															<option value=null>선택</option>
+															<option value="all">종류 무관</option>
 												    		<option value="team">팀전</option>
-												    		<option value="free">자유</option>					   		    
+												    		<option value="free">자유</option>												    							   		    
 														</select>
 													</td>
 												</tr>
 												<tr>
 													<td>날짜</td>
-													<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/></td>
-												</tr>												
+													<td><input id="matchExpectedDay" name="matchExpectedDay" type="date"/>이후 경기</td>
+												</tr>	
+												<tr>
+													<td>팀당 최소인원수</td>
+													<td><select id="matchMemberCount" name="matchMemberCount">
+															<option value="0">선택</option>
+															<option value="3">3 vs 3</option>
+												    		<option value="4">4 vs 4</option>
+												    		<option value="5">5 vs 5</option>					   		    
+														</select>
+													</td>
+												</tr>											
 											</table>										
 											<input class="btn btn-default" id="search" type="submit" value="search">
 										</form>	

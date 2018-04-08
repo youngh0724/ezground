@@ -15,6 +15,7 @@ import com.ezground.teamproject.match.dto.MatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNotice;
 import com.ezground.teamproject.match.dto.MatchNoticeAndMatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
+import com.ezground.teamproject.member.dto.MemberLogin;
 
 @Service
 @Transactional
@@ -29,13 +30,13 @@ public class MatchService {
 	private static final Logger logger = LoggerFactory.getLogger(MatchService.class);
 	
 	//종목번호와 맴버 번호로 팀 번호 조회
-	public Integer teamNoSelectOne(int sportEntryNo, int memberNo) {		
+	public Integer teamNoSelectOne(int sportEntriesNo, int memberNo) {		
 		logger.debug("teamNoSelectOne() memberNo = {}", memberNo);
-		logger.debug("teamNoSelectOne() entryNo = {}", sportEntryNo);
+		logger.debug("teamNoSelectOne() entryNo = {}", sportEntriesNo);
 		
 		//서로 다른 타입의 정보를 하나의 변수에 저장하기위에 map타입 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sportEntryNo", sportEntryNo);
+		map.put("sportEntriesNo", sportEntriesNo);
 		map.put("memberNo", memberNo);
 		
 		//팀 번호를 조회
@@ -51,8 +52,11 @@ public class MatchService {
 		logger.debug("matchNoticeInsert() memberNo = {}", memberNo);
 		logger.debug("matchNoticeInsert() sportEntryNo = {}", sportEntryNo);
 		
+		//입력받은 매치종류가 팀전인지 자유인지 비교하여 상태값 세팅
 		if(matchNotice.getMatchKinds().equals("free")) {
 			matchNotice.setMatchNoticeStatus("awayTeamWating");
+		} else if(matchNotice.getMatchKinds().equals("team")) {
+			matchNotice.setMatchNoticeStatus("homeTeamWating");
 		}
 		matchNotice.setMemberNo(memberNo);
 		matchNotice.setSportEntriesNo(sportEntryNo);
@@ -66,7 +70,7 @@ public class MatchService {
 				
 		//서로 다른 타입의 정보를 하나의 변수에 저장하기위에 map타입 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sportEntryNo", sportEntryNo);
+		map.put("sportEntriesNo", sportEntryNo);
 		map.put("memberNo", memberNo);
 		
 		//팀번호와 참가팀을 성정한다.
@@ -85,17 +89,46 @@ public class MatchService {
 	
 	//매치 종류(팀전 or 자유)선택 혹은 미선택시 매치공고정보 리스트 조회 요청 처리
 	public List<MatchNotice> matchSelectList(MatchNoticeAndMatchJoinMember matchNoticeAndMatchJoinMember){
-		logger.debug("matchNoticeSelect() MatchExpectedDay = {}", matchNoticeAndMatchJoinMember.getMatchExpectedDay());
-		logger.debug("matchNoticeSelect() MatchKinds = {}", matchNoticeAndMatchJoinMember.getMatchKinds());
-		logger.debug("matchNoticeSelect() MatchNoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());		
-		logger.debug("matchNoticeSelect() HomeAway = {}", matchNoticeAndMatchJoinMember.getHomeAway());
-						
+		logger.debug("matchSelectList() MatchExpectedDay = {}", matchNoticeAndMatchJoinMember.getMatchExpectedDay());
+		logger.debug("matchSelectList() MatchKinds = {}", matchNoticeAndMatchJoinMember.getMatchKinds());
+		logger.debug("matchSelectList() MatchNoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());		
+		logger.debug("matchSelectList() HomeAway = {}", matchNoticeAndMatchJoinMember.getHomeAway());
+		logger.debug("matchSelectList() matchMemberCount = {}", matchNoticeAndMatchJoinMember.getMatchMemberCount());
+		
+		if(matchNoticeAndMatchJoinMember.getMatchExpectedDay() == "") {			
+			matchNoticeAndMatchJoinMember.setMatchExpectedDay(null);
+			logger.debug("matchSelectList() MatchExpectedDay공백이 입력되어 null로 세팅한다.");
+		}	
+		
+		//매치 공고 상태의 매치 정보만 검색되도록 상태값을 세팅한다.
+		matchNoticeAndMatchJoinMember.setMatchNoticeStatus("awayTeamWating");
+		
 		//matchKindsSearchWord를 dao에 넘기고 매치공고 리스트를 받아온다.
 		List<MatchNotice> list = matchDao.matchSelectList(matchNoticeAndMatchJoinMember);
 		
 		return list;
 	}
-	
+
+	// 매치 종류(팀전 or 자유)선택 혹은 미선택시 매치공고정보 리스트 조회 요청 처리
+	public List<MatchNotice> matchNoticeSelectTeam(MatchNoticeAndMatchJoinMember matchNoticeAndMatchJoinMember) {
+		logger.debug("matchNoticeSelectTeam() MatchExpectedDay = {}", matchNoticeAndMatchJoinMember.getMatchExpectedDay());
+		logger.debug("matchNoticeSelectTeam() MatchKinds = {}", matchNoticeAndMatchJoinMember.getMatchKinds());
+		logger.debug("matchNoticeSelectTeam() MatchNoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());
+		logger.debug("matchNoticeSelectTeam() HomeAway = {}", matchNoticeAndMatchJoinMember.getHomeAway());
+		logger.debug("matchNoticeSelectTeam() matchMemberCount = {}", matchNoticeAndMatchJoinMember.getMatchMemberCount());
+		logger.debug("matchNoticeSelectTeam() teamNo = {}", matchNoticeAndMatchJoinMember.getTeamNo());
+		
+		if (matchNoticeAndMatchJoinMember.getMatchExpectedDay() == "") {
+			matchNoticeAndMatchJoinMember.setMatchExpectedDay(null);
+			logger.debug("matchSelectList() MatchExpectedDay공백이 입력되어 null로 세팅한다.");
+		}
+
+		// matchKindsSearchWord를 dao에 넘기고 매치공고 리스트를 받아온다.
+		List<MatchNotice> list = matchDao.matchSelectList(matchNoticeAndMatchJoinMember);
+
+		return list;
+	}
+
 	//매치 번호와 일치하는 매치공고 정보를 조회힌다.
 	public MatchNotice matchSelectOne(int matchNoticeNo) {
 		logger.debug("matchSelectOne() matchNoticeNo = {}", matchNoticeNo);
@@ -108,15 +141,15 @@ public class MatchService {
 	}
 	
 	//매치 번호와 팀에 일치하는 매치 참가 맴버 리스트를 조회한다.
-	public List<String> matchJoinMemberSelectList(int matchNoticeNo, String homeAway) {
+	public List<MemberLogin> matchJoinMemberSelectList(int matchNoticeNo, String homeAway) {
 		logger.debug("matchJoinMemberSelectList() matchNoticeNo = {}", matchNoticeNo);
 		logger.debug("matchJoinMemberSelectList() homeAway = {}", homeAway);
 				
 		matchJoinMember.setMatchNoticeNo(matchNoticeNo);	
 		matchJoinMember.setHomeAway(homeAway);
-		
+		logger.debug("matchJoinMemberSelectList() teamNo = {}", matchJoinMember.getTeamNo());
 		//매치에 참가신청된 한쪽 팀 맴버 리스트를 조회한다.
-		List<String> list = matchDao.matchJoinMemberSelectList(matchJoinMember);
+		List<MemberLogin> list = matchDao.matchJoinMemberSelectList(matchJoinMember);
 		logger.debug("matchJoinMemberSelectList() list = {}", list);
 		
 		return list;
@@ -241,10 +274,7 @@ public class MatchService {
 				
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("matchNotice", matchNotice);
-		returnMap.put("isTeamMember", isTeamMember);
-		if(isTeamMember != null) {
-			returnMap.put("memberLevel", "teamMaker");
-		}
+		returnMap.put("isTeamMember", isTeamMember);		
 	
 		return returnMap;
 	}

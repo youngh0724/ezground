@@ -13,6 +13,7 @@ import com.ezground.teamproject.match.dto.MatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNotice;
 import com.ezground.teamproject.match.dto.MatchNoticeAndMatchJoinMember;
 import com.ezground.teamproject.match.dto.MatchNoticeFullcalendarEvent;
+import com.ezground.teamproject.member.dto.MemberLogin;
 
 @Repository
 public class MatchDao {
@@ -27,7 +28,7 @@ public class MatchDao {
 	
 	//매개변수 값과 일치하는 하나의 팀 번호를 조회한다.
 	public Integer teamNoSelectOne(Map<String, Object> map) {		
-		logger.debug("teamNoSelectOne() sportEntryNo = {}", map.get("sprotEntryNo"));	
+		logger.debug("teamNoSelectOne() sportEntryNo = {}", map.get("sportEntriesNo"));	
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"teamNoSelectOne", map);
 	}
@@ -61,7 +62,7 @@ public class MatchDao {
 	}
 	
 	//매치참가 맴버의 아이디 리스트를 조회한다.
-	public List<String> matchJoinMemberSelectList(MatchJoinMember matchJoinMember) {
+	public List<MemberLogin> matchJoinMemberSelectList(MatchJoinMember matchJoinMember) {
 		logger.debug("matchJoinMemberSelectList() matchJoinMember = {}", matchJoinMember);
 		
 		return sqlSessionTemplate.selectList(mapperRoot+"matchJoinMemberSelectList", matchJoinMember);

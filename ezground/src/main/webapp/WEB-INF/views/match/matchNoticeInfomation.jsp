@@ -51,7 +51,7 @@
 		<tbody>
 			<c:forEach var="matchJoinMember" items="${homeTeamMember}">
 				<tr>
-					<td>${matchJoinMember }</td>					
+					<td>${matchJoinMember.memberId }</td>					
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -66,7 +66,7 @@
 		<tbody>
 			<c:forEach var="matchJoinMember" items="${awayTeamMember}">
 				<tr>
-					<td>${matchJoinMember }</td>					
+					<td>${matchJoinMember.memberId }</td>					
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -104,11 +104,10 @@
 	
 </body>
 <script type="text/javascript">
-	str = JSON.stringify(Object.keys(conditionInfo.matchNotice));
-	str = JSON.stringify(Object.keys(conditionInfo.matchNotice), null, 4); // (Optional) beautiful indented output.
-	console.log(str);
-	console.log(Object.keys(conditionInfo.isTeamMember));
-	console.log(Object.keys(conditionInfo.memberLevel));
+
+	console.log('${conditionInfo.matchNotice}');
+	console.log('${conditionInfo.memberLevel}');
+	console.log('${conditionInfo.isTeamMember}');
 
 </script>
 

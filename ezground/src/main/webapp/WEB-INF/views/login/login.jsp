@@ -52,7 +52,7 @@
 																	<table>
 																		<tr>
 																			<td>ID</td>
-																			<td><input id="memberId1" name="memberId" type="text" value="user"/></td>
+																			<td><input id="memberId1" name="memberId" type="text" value="guest"/></td>
 																		</tr>
 																		<tr>
 																			<td>PW</td>
