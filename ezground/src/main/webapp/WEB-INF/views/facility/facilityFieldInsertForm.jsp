@@ -15,7 +15,7 @@
 		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 </head>
 	<!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/resources/sbAdmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
        <SCRIPT language=JavaScript>
 	
 	var f_selbox = new Array('풋살', '테니스', '배드민턴');

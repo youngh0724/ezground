@@ -230,5 +230,14 @@ public class FacilityController {
 					return "redirect:/facility/facilitySubInsertForm";
 		}
 		
+		@RequestMapping(value="facility/facilityCalendarForm", method = RequestMethod.GET)
+		public String facilityCalendarForm(HttpSession session) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			return "facility/facilityCalendarForm";
+			
+		}
 	
 }

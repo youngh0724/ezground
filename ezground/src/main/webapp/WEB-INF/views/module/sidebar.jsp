@@ -31,7 +31,7 @@
 												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertListForm">구장 등록가능 리스트</a></li>
-												
+												<li><a href="${pageContext.request.contextPath}/facility/facilityCalendarForm">시설 일정</a></li>
 											</ul>
 										</li>
 										<li>
