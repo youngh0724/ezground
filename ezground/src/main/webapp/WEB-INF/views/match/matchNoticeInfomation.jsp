@@ -41,7 +41,7 @@
 			<td>${conditionInfo.matchNotice.matchNoticeInsertDate }</td>
 		</tr>
 	</table>
-	
+		
 	<table border="1">
 		<thead>
 			<tr>			
@@ -49,7 +49,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="matchJoinMember" items="${homeTeamMember}">
+			<c:forEach var="matchJoinMember" items="${conditionInfo.homeTeamMember}">
 				<tr>
 					<td>${matchJoinMember.memberId }</td>					
 				</tr>
@@ -57,6 +57,8 @@
 		</tbody>
 	</table>
 	
+	<c:set var="awayTeamMember" value="${conditionInfo.awayTeamMember}"></c:set>
+	<c:if test = "${!empty awayTeamMember}">
 	<table border="1">
 		<thead>
 			<tr>			
@@ -71,6 +73,43 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</c:if>
+	
+	<c:set var="joinAwayTeamMember" value="${conditionInfo.joinAwayTeamMember}"></c:set>
+	<c:if test = "${!empty joinAwayTeamMember}">
+	<table border="1">
+		<thead>
+			<tr>			
+				<th>원정팀 참가자</th>							
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="matchJoinMember" items="${joinAwayTeamMember}">
+				<tr>
+					<td>${matchJoinMember.memberId }</td>					
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	</c:if>
+	
+	<c:set var="myTeamMember" value="${conditionInfo.myTeamMember}"></c:set>
+	<c:if test = "${!empty myTeamMember}">
+	<table border="1">
+		<thead>
+			<tr>			
+				<th>원정팀 참가자</th>							
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="matchJoinMember" items="${myTeamMember}">
+				<tr>
+					<td>${matchJoinMember.memberId }</td>					
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	</c:if>
 	
 	<!-- 매치에 참가 되어있는지  -->
             <c:set var="memberLevel" value="${conditionInfo.memberLevel}"></c:set>

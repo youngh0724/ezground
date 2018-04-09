@@ -106,21 +106,31 @@ public class MatchController {
 		// 세션으로부터 자신의 맴버번호 확인
 		MemberLogin memberLogin = (MemberLogin) session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
-
-		Map<String, Object> map = matchService.matchNoticeInfomation(matchNoticeNo, memberNo);
-
-		// 홈팀 맵버정보 리스트를 받아온다.
-		String homeAway = "home";
-		List<MemberLogin> homeTeamMember = matchService.matchJoinMemberSelectList(matchNoticeNo, homeAway);
-		logger.debug("matchNoticeInfomation() homeTeamMember = {}", homeTeamMember);
-
-		// 어웨이팀 맴버 정보 리스트를 받아온다.
-		homeAway = "away";
-		List<MemberLogin> awayTeamMember = matchService.matchJoinMemberSelectList(matchNoticeNo, homeAway);
-		logger.debug("matchNoticeInfomation() awayTeamMember = {}", awayTeamMember);
-
-		model.addAttribute("homeTeamMember", homeTeamMember);
-		model.addAttribute("awayTeamMember", awayTeamMember);
+		
+		//매치의 정보를 조회한다.
+		MatchNotice matchNotice = matchService.matchNoticeInfomation(matchNoticeNo, memberNo);
+		
+		// 현재 세션이 갖고있는 스포츠 종목
+		SportEntries sportEntries = (SportEntries) session.getAttribute("currentSportEntry");
+		int sportEntriesNo = sportEntries.getSportEntriesNo();
+		logger.debug("matchNoticeInfomation() sportEntriesNo = {}", sportEntriesNo);
+				
+		// 종목번호와 맴버번호로 팀번호를 조회한다.
+		Integer myTeamNo = matchService.teamNoSelectOne(sportEntriesNo, memberLogin.getMemberNo());
+		logger.debug("matchNoticeInfomation() myTeamNo = {}", myTeamNo);
+		
+		// 종목번호와 맴버번호로 팀번호를 조회한다.
+		Integer homeTeamNo = matchService.teamNoSelectOne(sportEntriesNo, matchNotice.getMemberNo());
+		logger.debug("matchNoticeInfomation() homeTeamNo = {}", homeTeamNo);
+				
+		Map<String, Object> map;
+		
+		if(homeTeamNo == myTeamNo) {
+			map = matchService.matchNoticeInfomationHome(matchNotice, memberNo);
+		} else {
+			map = matchService.matchNoticeInfomationAway(matchNotice, memberNo, myTeamNo);
+		}				
+		
 		model.addAttribute("conditionInfo", map);
 
 		return "match/matchNoticeInfomation";
@@ -136,7 +146,8 @@ public class MatchController {
 		logger.debug("matchNoticeSelect() matchExpectedDay = {}", matchNoticeAndMatchJoinMember.getMatchExpectedDay());
 		logger.debug("matchNoticeSelect() homeAway = {}", matchNoticeAndMatchJoinMember.getHomeAway());
 		logger.debug("matchNoticeSelect() matchMemberCount = {}", matchNoticeAndMatchJoinMember.getMatchMemberCount());
-
+		logger.debug("matchNoticeSelect() teamNo = {}", matchNoticeAndMatchJoinMember.getTeamNo());
+		
 		// 세션검사 로그인되어있지 않으면 홈화면으로
 		if (session.getAttribute("MemberLogin") == null) {
 			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
@@ -151,10 +162,10 @@ public class MatchController {
 
 		// 현재 세션이 갖고있는 스포츠 종목
 		SportEntries sportEntries = (SportEntries) session.getAttribute("currentSportEntry");
-		int entryNo = sportEntries.getSportEntriesNo();
-		logger.debug("matchNoticeSelect() entryNo = {}", entryNo);
+		int sportEntriesNo = sportEntries.getSportEntriesNo();
+		logger.debug("matchNoticeSelect() sportEntriesNo = {}", sportEntriesNo);
 
-		matchNoticeAndMatchJoinMember.setSportEntriesNo(entryNo);
+		matchNoticeAndMatchJoinMember.setSportEntriesNo(sportEntriesNo);
 		logger.debug("matchNoticeSelect() SportEntriesNo = {}", matchNoticeAndMatchJoinMember.getSportEntriesNo());
 
 		// 매치공고 정보 리스트를 조회하는 매서드

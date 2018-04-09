@@ -82,14 +82,14 @@ public class MatchDao {
 		return sqlSessionTemplate.selectList(mapperRoot+"matchSelectListfullcalendar", map);
 	}
 	
-	//
-	public Integer isTeamMember(Map<String, Object> map) {
-		logger.debug("isTeamMember() matchNoticeNo = {}", map.get("matchNoticeNo"));
+	//매치에 참가중인 맴버인지 조회하는 메서드
+	public MatchJoinMember isMatchJoinMember(Map<String, Object> map) {
+		logger.debug("isMatchJoinMember() matchNoticeNo = {}", map.get("matchNoticeNo"));
 		
-		return sqlSessionTemplate.selectOne(mapperRoot+"matchNoticeIsTeamMember", map);
+		return sqlSessionTemplate.selectOne(mapperRoot+"isMatchJoinMember", map);
 	}
 	
-	//
+	//매치에 참가 취소하는 메서드
 	public Integer matchJoinMemberDelete(Map<String, Object> map) {
 		logger.debug("matchJoinMemberDelete() matchNoticeNo = {}", map.get("matchNoticeNo"));
 		

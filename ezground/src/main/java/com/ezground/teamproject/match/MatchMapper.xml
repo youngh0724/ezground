@@ -110,7 +110,7 @@
 			<if test="matchMemberCount != 0">
 				AND match_member_count = #{matchMemberCount}
 			</if>
-			<if test="teamNo != null">
+			<if test="teamNo != 0">
 				AND team_no = #{teamNo}
 			</if>
 		
@@ -143,7 +143,10 @@
 			m.member_no AS memberNo	
 		FROM t_match_join_member j INNER JOIN t_member m
 		ON j.member_no = m.member_no
-		WHERE j.match_notice_no = #{matchNoticeNo} AND j.home_away = #{homeAway}
+		WHERE j.match_notice_no = #{matchNoticeNo}
+		<if test="homeAway != null">
+				AND j.home_away = #{homeAway}
+		</if>
 		<if test="teamNo != 0">
 				AND j.team_no = #{teamNo}
 		</if>
@@ -175,11 +178,13 @@
 	</select>
 	
 	<!-- 매치공고에 자신이 참가 신청을 햇는지  판별 쿼리문 -->
- 	<select id="matchNoticeIsTeamMember" 
+ 	<select id="isMatchJoinMember" 
  			parameterType="java.util.Map"				
- 			resultType="Integer">
+ 			resultType="com.ezground.teamproject.match.dto.MatchJoinMember">
 		SELECT			
-			member_no AS memberNo
+			member_no AS memberNo,
+			team_no AS teamNo,
+			home_away AS homeAway
 		FROM t_match_join_member
 		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}
 	</select>
