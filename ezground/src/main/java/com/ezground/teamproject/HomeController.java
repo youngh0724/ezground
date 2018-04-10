@@ -58,7 +58,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/teamMemberInfo/teamMemberInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/views/projectMember", method = RequestMethod.GET)
 	public String teamMemberInfo() {
 		logger.info("팀 맴버 정보 화면으로으 요청 처리 메서드 호출 성공");
 		

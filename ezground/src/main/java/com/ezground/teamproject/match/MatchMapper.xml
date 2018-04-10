@@ -113,6 +113,7 @@
 			<if test="teamNo != 0">
 				AND team_no = #{teamNo}
 			</if>
+			GROUP BY matchNoticeNo
 		
 	</select>
 	
@@ -188,5 +189,14 @@
 		FROM t_match_join_member
 		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}
 	</select>
+	
+	<!-- 매치공고에 자신이 참가 신청을 햇는지  판별 쿼리문 -->
+	<update id="matchNoticeNotice">
+		update t_match_notice
+		set
+			match_notice_status = 'awayTeamWating',
+			match_notice_update_date = now()
+		where match_notice_no = #{matchNoticeNo}
+	</update>
 		
  </mapper>

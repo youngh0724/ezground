@@ -96,5 +96,12 @@ public class MatchDao {
 		return sqlSessionTemplate.delete(mapperRoot+"matchJoinMemberDelete", map);
 	}
 	
+	// 매치 공고 정보를 다른팀이 검색할수 있도로 상태값을 바꾸는 메서드
+	public int matchNoticeNotice(int matchNoticeNo) {
+		logger.debug("matchNoticeNotice() matchNoticeNo = {}", matchNoticeNo);
+		
+		return sqlSessionTemplate.update(mapperRoot+"matchNoticeNotice", matchNoticeNo);
+		
+	}
 	
 }

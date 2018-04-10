@@ -112,30 +112,35 @@
 	</c:if>
 	
 	<!-- 매치에 참가 되어있는지  -->
-            <c:set var="memberLevel" value="${conditionInfo.memberLevel}"></c:set>
+            <c:set var="isMatchJoinMember" value="${conditionInfo.isMatchJoinMember}"></c:set>
             <c:choose>
             	
-            	<c:when test="${empty memberLevel}">
+            	<c:when test="${!empty isMatchJoinMember}">
 	
 	<!-- 매치에 참가 되어있는지  -->
-            <c:set var="isTeamMember" value="${conditionInfo.isTeamMember}"></c:set>
+            <c:set var="MatchJoinMemberLevel" value="${conditionInfo.MatchJoinMemberLevel}"></c:set>
             <c:choose>
             	
-            	<c:when test="${empty isTeamMember}">
-	
-	<a href ="${pageContext.request.contextPath}/match/matchJoin?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 맴버 참가 신청</a>
+            	<c:when test="${MatchJoinMemberLevel eq 'maker'}">
+    <a href ="${pageContext.request.contextPath}/match/matchNoticeDelete?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 공고 삭제</a><br>	
+    		<c:set var="MatchJoinMemberLevel" value="${conditionInfo.MatchJoinMemberLevel}"></c:set>
+    		<c:if test="${conditionInfo.MatchJoinMemberCount eq 'count'}">
+	<a href ="${pageContext.request.contextPath}/match/matchNoticeNotice?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 공고  개방하기</a>	
+			</c:if>	
 				</c:when>
 				<c:otherwise>
 	<br>
-	<a href ="${pageContext.request.contextPath}/match/matchJoinCancel?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 맴버 참가 취소</a>			
-				
+			<c:set var="MatchJoinMemberLevel" value="${conditionInfo.MatchJoinMemberLevel}"></c:set>
+    		<c:if test="${conditionInfo.MatchJoinMemberCount eq 'count'}">
+    <a href ="${pageContext.request.contextPath}/match/matchJoinTeam?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 요청하기</a><br>
+	<a href ="${pageContext.request.contextPath}/match/matchJoinCancel?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 맴버 참가 취소</a>	
+			</c:if>
 				</c:otherwise>
 				</c:choose>
 				</c:when>
 				<c:otherwise>
 	<br>
-	<a href ="${pageContext.request.contextPath}/match/matchNoticeDelete?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 공고 삭제</a>				
-				
+	<a href ="${pageContext.request.contextPath}/match/matchJoin?matchNoticeNo=${conditionInfo.matchNotice.matchNoticeNo}" >매치 맴버 참가 신청</a>
 				</c:otherwise>
 				</c:choose>
 	<br>
@@ -145,9 +150,12 @@
 <script type="text/javascript">
 
 	console.log('${conditionInfo.matchNotice}');
-	console.log('${conditionInfo.memberLevel}');
-	console.log('${conditionInfo.isTeamMember}');
-
+	console.log('${conditionInfo.isMatchJoinMember}');
+	console.log('${conditionInfo.MatchJoinMemberLevel}');
+	console.log('${conditionInfo.homeTeamMember}');
+	console.log('${conditionInfo.awayTeamMember}');
+	console.log('${conditionInfo.joinAwayTeamMember}');
+	console.log('${conditionInfo.MatchJoinMemberCount}');
 </script>
 
 

@@ -36,7 +36,7 @@
 													<div class="panel-body">
 														<div class="row">
 															<div class="col-lg-12">
-																<form role="form" action="${pageContext.request.contextPath}/memberInsert" method="post">
+																<form role="form" action="${pageContext.request.contextPath}/memberInsert" method="post" id="memberInfo">
 																	<p id='help' class="help-block"></p>
 																	<div class="form-group">
 							                                            <label>아이디<button id="idOverlapCheck" type="button">중복체크</button></label>							                                           
@@ -57,12 +57,14 @@
 							                                        <div class="form-group">
 							                                            <label>나이</label>							                                           
 							                                            <input id="memberAge" name="memberAge" type="text" class="form-control" placeholder="">
-							                                        </div>
+							                                        </div>    
 							                                        <div class="form-group">
-							                                        	<label>성별</label>
-								                                        <label class="radio-inline"><input type="radio" name="memberGender" id="memberGender1" value="남" checked>남자</label>
-								                                        <label class="radio-inline"><input type="radio" name="memberGender" id="memberGender2" value="여">여자</label>
-								                                    </div>
+							                                            <label>성별</label>
+							                                            <select class="form-control" name="memberGender" id="memberGender">
+							                                                <option value="남">남자</option>
+							                                                <option value="여">여자</option>							                                                
+							                                            </select>
+							                                        </div>
 								                                    <div class="form-group">
 							                                            <label>전화번호</label>							                                           
 							                                            <input id="memberPhone" name="memberPhone" type="text" class="form-control" placeholder="">
@@ -155,7 +157,7 @@
 				} else if ($("#memberPw").val() == $("#memberPwCheck").val()) {
 					//입력받은 비밀번호의 값이 일치하면
 					alert("회원가입 성공!");
-					$('form').submit();
+					$('#memberInfo').submit();
 
 				}
 			}

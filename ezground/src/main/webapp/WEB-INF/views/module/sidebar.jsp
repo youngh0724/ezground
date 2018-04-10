@@ -47,7 +47,8 @@
 											<span class="opener">매치</span>
 											<ul>
 												<li><a href="${pageContext.request.contextPath}/creatMatch?entryNo=${currentSportEntry.getSportEntriesNo()}">매치 생성</a></li>
-												<li><a href="${pageContext.request.contextPath}/match/matchSelect">매치 검색</a></li>																				
+												<li><a href="${pageContext.request.contextPath}/match/matchSelect">매치 검색</a></li>
+												<li><a href="${pageContext.request.contextPath}/match/matchSelectTeam">팀 소속 매치 검색</a></li>																					
 											</ul>
 										</li>
 										<li>

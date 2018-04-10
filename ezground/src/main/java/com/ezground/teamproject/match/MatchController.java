@@ -238,11 +238,15 @@ public class MatchController {
 		SportEntries sportEntries = (SportEntries) session.getAttribute("currentSportEntry");
 		int sportEntriesNo = sportEntries.getSportEntriesNo();
 		logger.debug("matchNoticeSelectTeam() entryNo = {}", sportEntriesNo);
-
+				
 		// 종목번호와 맴버번호로 팀번호를 조회한다.
 		Integer teamNo = matchService.teamNoSelectOne(sportEntriesNo, memberLogin.getMemberNo());
 		logger.debug("matchNoticeSelectTeam() teamNo = {}", teamNo);
 
+		if(teamNo == null) {
+			return "team/teamInsert";
+		}
+		
 		// 매치 상태값을 미리 지정한 값으로 초기화
 		matchNoticeAndMatchJoinMember.setTeamNo(teamNo);
 		logger.debug("matchNoticeSelectTeam() NoticeStatus = {}", matchNoticeAndMatchJoinMember.getMatchNoticeStatus());
@@ -327,7 +331,7 @@ public class MatchController {
 		return "redirect:/match/matchNoticeInfomation";
 	}
 
-	// 매치 상세보기에서 매치에 참가신청을 하는 요청 처리
+	// 매치 상세보기에서 매치에 참가신청을 추소하는 요청 처리
 	@RequestMapping(value = "/match/matchJoinCancel", method = RequestMethod.GET)
 	public String matchJoinMemberDelete(HttpSession session, RedirectAttributes redirectAttributes,
 			@RequestParam(value = "matchNoticeNo", required = true) int matchNoticeNo) {
@@ -382,6 +386,42 @@ public class MatchController {
 			return "redirect:/";
 		}
 		return "match/matchSelect";
+	}
+	
+	// 매치 공고 정보 조회 화면에서 공고 정보를 다름팀이 검색할수 있도록 검색제한을 푸는 요청 처리
+	@RequestMapping(value = "/match/matchNoticeNotice", method = RequestMethod.GET)
+	public String matchNoticeNotice(HttpSession session, Model model, 
+			@RequestParam(value = "matchNoticeNo", required = true) int matchNoticeNo) {
+		logger.debug("matchNoticeDelete() matchNoticeNo = {}", matchNoticeNo);
+
+		// 세션검사 로그인되어있지 않으면 홈화면으로
+		if (session.getAttribute("MemberLogin") == null) {
+			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
+			return "redirect:/";
+		}
+		
+		// 매치공고  다른팀이 검색할수 있도록 공개하기
+		matchService.matchNoticeNotice(matchNoticeNo);
+
+		return "redirect:/match/matchSelectTeam";
+	}
+	
+	// 매치 공고 정보 조회화면에서 원정팀 신청 맴버가 조건달성되어 홈팀에 매치 요청을 하는 요청 처리
+	@RequestMapping(value = "/match/matchJoinTeam", method = RequestMethod.GET)
+	public String matchNoticeJoinTeam(HttpSession session, Model model,
+			@RequestParam(value = "matchNoticeNo", required = true) int matchNoticeNo) {
+		logger.debug("matchNoticeDelete() matchNoticeNo = {}", matchNoticeNo);
+
+		// 세션검사 로그인되어있지 않으면 홈화면으로
+		if (session.getAttribute("MemberLogin") == null) {
+			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
+			return "redirect:/";
+		}
+
+		// 매치공고 다른팀이 검색할수 있도록 공개하기
+		matchService.matchNoticeNotice(matchNoticeNo);
+
+		return "redirect:/match/matchSelectTeam";
 	}
 
 }
