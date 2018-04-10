@@ -42,7 +42,7 @@ public class FacilityController {
 		return "facility/facilityInsertForm";
 	}
 	
-	// facilityInsert 요청
+	// facilityInsert요청
 		/**
 		@RequestMapping(value="facility/facilityInsert", method = RequestMethod.POST)
 		public String facilityInsert(HttpSession session, Facility facility) {
