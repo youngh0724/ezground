@@ -54,23 +54,20 @@
 					</tr>
 					<!--SELECT COUNT OPTION 끝 -->
 				</table>
-														
-						<c:forEach var="field" items="${fieldlist}">
-						
-							<div id="main">	
-								<div id="image">						
-								<td><img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" width="380" height="260"  style="display:block"/>
-								${field.fieldName}								
-								</td>
+											
+						<c:forEach var="field" items="${fieldlist}">						
+								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 33%; height:295px; padding:10px;">
+									<img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" width="380" height="260">
+									${field.fieldName}
 								</div>
-							</div>			
-								<td>${field.fieldSize}</td>
-								<td>${field.fieldPeopleNumber}</td>
-								<td>${field.facilityAddress}</td>	
-								<td><a href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a></td>						
-							
+								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 55%; height:295px; padding:10px;">
+									${field.fieldSize}
+									${field.fieldPeopleNumber}
+									${field.facilityAddress}
+									<a href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>										
+								</div>								
 						</c:forEach>
-				
+		
 		
 
 				<!-- 이전, 다음 버튼 시작 -->

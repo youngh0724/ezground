@@ -29,8 +29,7 @@ public class TeamController {
 	private TeamMemberService teamMemberService;
 	
 
-	
-	//입력값과 리턴값을 확인 하기 위한 로거 기능 
+
 	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
 	
 	@RequestMapping(value="/team/teamList", method = RequestMethod.GET)
@@ -46,14 +45,14 @@ public class TeamController {
 		logger.debug("teamSelectList() rowPerPage = {}", rowPerPage);
 		logger.debug("teamSelectPage() searchWord = {}", searchWord);
 		Map map = teamService.teamSelectListByPage(currentPage, rowPerPage, searchWord, sportEntriesNo);
-		//list에 들어있는 값을 확인해본다.
+
 		logger.debug("teamSeletList() map = {}", map);
 		
 		List<Team> list = (List<Team>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
 		
 		int lastPage = (totalCount/rowPerPage)+1;
-		//db에서 받아온 결과값을 model에 세팅한다.
+
 		model.addAttribute("list", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("rowPerPage", rowPerPage);
@@ -72,20 +71,19 @@ public class TeamController {
 		return "team/teamDetail";
 	}	
 	
-	//teamInserForm 입력폼  view파일을 요청
+
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.GET)
     public String teamInsert(HttpSession session) {
-		//처리하는 내용이 없기때문에 메서드가 실행되었는지 확인하기위해 문자열을 출력해본다.
-		logger.debug("teamInsert() 실행확인"); 
+	
+		logger.debug("teamInsert() 占쏙옙占쏙옙확占쏙옙"); 
 			
         return "team/teamInsert";
     }
-	
-	//teamInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드를 호출
+
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.POST)
     public String teamInsert(Team team, HttpSession session) {			
 		logger.debug("teamInsert() teamName = {}", team.getTeamName());		
-		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
+		
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
 		
@@ -94,7 +92,7 @@ public class TeamController {
 		
 		teamService.teamInsert(team, memberNo, sportEntryNo);			
 		
-        //리스트페이지로 리다이렉트 시킨다.
+
         return "redirect:/team/teamList";
         
     }
@@ -103,26 +101,26 @@ public class TeamController {
 	public String teamSelectOne( Model model, HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
 		logger.debug("teamSelectOne() teamNo = {}", teamNo);		
 	
-		//매개변수로 받은 teamId값을 이요하여 하나의 team객체를 리턴받는다.
+		
 		Team team = teamService.teamSelectOne(teamNo);		
 		logger.debug("teamSelectOne() teamName = {}", team.getTeamName());
-		//리턴받은 team객체를 model에 세팅한다.
+
 		model.addAttribute("team", team);
-		//업데이트폽으로 포워드 시킨다.
+
 		return "team/teamUpdate";
 	}
 	
-	//업데이트 action요청
+
 	@RequestMapping(value="/team/teamUpdate", method = RequestMethod.POST)
     public String teamUpdate(HttpSession session, Team team) {		
 		logger.debug("teamUpdate() teamName = {}", team.getTeamName());		
 	
-		//입력받은 정보를 매개변수로하여 db정보를 update시킨다.
+
 		teamService.teamUpdate(team);
-        //리스트페이지로 리다이렉트 시킨다.
+
         return "redirect:/team/teamList";
     }
-//삭제 action 요청
+
 	@RequestMapping(value="/team/teamDelete", method = RequestMethod.GET)
 	public String teamDelete(Model model, HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
 		logger.debug("teamDelete() teamNo = {}", teamNo);	
@@ -130,8 +128,7 @@ public class TeamController {
 		int memberNo = memberLogin.getMemberNo();
 		teamService.teamMemberDelete(teamNo, memberNo);					
 
-		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출			
-		//리스트페이지로 리다이렉트 시킨다.
+	
 		return "redirect:/team/teamList";
 	}
 	
@@ -148,14 +145,14 @@ public class TeamController {
 		int memberNo = memberLogin.getMemberNo();
 		logger.debug("myTeamSelectPage() memberNo = {}", memberNo);
 		Map map = teamService.teamSelectMyTeam(currentPage, rowPerPage, searchWord, memberNo);
-		//list에 들어있는 값을 확인해본다.
+	
 		logger.debug("myTeamSeletList() map = {}", map);			
 		
 		List<Team> list = (List<Team>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
 		
 		int lastPage = (totalCount/rowPerPage)+1;
-		//db에서 받아온 결과값을 model에 세팅한다.
+
 		model.addAttribute("list", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("rowPerPage", rowPerPage);

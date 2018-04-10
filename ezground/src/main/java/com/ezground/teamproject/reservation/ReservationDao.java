@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.facility.dto.Facility;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.team.TeamDao;
+import com.ezground.teamproject.team.dto.Team;
 
 @Repository
 public class ReservationDao {
@@ -32,5 +34,9 @@ public class ReservationDao {
 	public int fieldSelectTotalCount() {
 		logger.debug("fieldtotalCount() 실행확인"); 
 		return sqlSessionTemplate.selectOne(mapperRoot+"fieldSelectCount");	
+	}
+	public FacilityAndFacilityField fieldSelectListDetail(int fieldNo) {
+		logger.debug("fieldSelectListDetail() fieldNo = {}", fieldNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"fieldSelectListDetail", fieldNo);
 	}
 }

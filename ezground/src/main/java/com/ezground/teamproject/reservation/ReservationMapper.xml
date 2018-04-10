@@ -23,7 +23,7 @@
 			WHERE field_name LIKE CONCAT('%',#{searchWord},'%')
 		</if>
 		ORDER BY a.field_no
-		LIMIT #{startRow}, #{rowPerPage}		
+		LIMIT #{startRow}, #{rowPerPage}	
 	</select>
 	
 	<select id="fieldSelectCount"
@@ -33,4 +33,25 @@
   		FROM t_facility_field
   	</select>
   
+  	<select id="fieldSelectListDetail"
+  			parameterType="int"
+  			resultType="com.ezground.teamproject.facility.dto.FacilityAndFacilityField">
+  		SELECT
+  			a.field_no AS fieldNo
+  			,a.field_name AS fieldName
+  			,a.field_size AS fieldSize
+  			,a.field_people_number AS fieldPeopleNumber
+  			,a.field_price AS fieldPrice
+  			,b.facility_no AS facilityNo
+  			,b.facility_address AS facilityAddress
+  			,b.facility_notice AS facilityNotice
+  			,b.facility_detail AS facilityDetail
+  			,b.facility_price AS facilityPrice
+  			,b.facility_refund AS facilityRefund
+  			,b.facility_rule AS facilityRule
+  		FROM t_facility_field a INNER JOIN t_facility b
+  		ON a.facility_no = b.facility_no
+  		WHERE field_no = #{fieldNo}  					
+  	</select>
+  	
   </mapper>

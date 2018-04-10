@@ -6,8 +6,13 @@ public class FacilityAndFacilityField {
 	private String fieldName;
 	private String fieldPeopleNumber;
 	private String fieldSize;
-	private String facilityAddress;
 	private String fieldPrice;
+	private String facilityAddress;	
+	private String facilityNotice;
+	private String facilityDetail;
+	private String facilityPrice;
+	private String facilityRefund;
+	private String facilityRule;
 	public int getFieldNo() {
 		return fieldNo;
 	}
@@ -38,24 +43,55 @@ public class FacilityAndFacilityField {
 	public void setFieldSize(String fieldSize) {
 		this.fieldSize = fieldSize;
 	}
-	public String getFacilityAddress() {
-		return facilityAddress;
-	}
-	public void setFacilityAddress(String facilityAddress) {
-		this.facilityAddress = facilityAddress;
-	}
 	public String getFieldPrice() {
 		return fieldPrice;
 	}
 	public void setFieldPrice(String fieldPrice) {
 		this.fieldPrice = fieldPrice;
 	}
+	public String getFacilityAddress() {
+		return facilityAddress;
+	}
+	public void setFacilityAddress(String facilityAddress) {
+		this.facilityAddress = facilityAddress;
+	}
+	public String getFacilityNotice() {
+		return facilityNotice;
+	}
+	public void setFacilityNotice(String facilityNotice) {
+		this.facilityNotice = facilityNotice;
+	}
+	public String getFacilityDetail() {
+		return facilityDetail;
+	}
+	public void setFacilityDetail(String facilityDetail) {
+		this.facilityDetail = facilityDetail;
+	}
+	public String getFacilityPrice() {
+		return facilityPrice;
+	}
+	public void setFacilityPrice(String facilityPrice) {
+		this.facilityPrice = facilityPrice;
+	}
+	public String getFacilityRefund() {
+		return facilityRefund;
+	}
+	public void setFacilityRefund(String facilityRefund) {
+		this.facilityRefund = facilityRefund;
+	}
+	public String getFacilityRule() {
+		return facilityRule;
+	}
+	public void setFacilityRule(String facilityRule) {
+		this.facilityRule = facilityRule;
+	}
 	@Override
 	public String toString() {
 		return "FacilityAndFacilityField [fieldNo=" + fieldNo + ", facilityNo=" + facilityNo + ", fieldName="
-				+ fieldName + ", fieldPeopleNumber=" + fieldPeopleNumber + ", fieldSize=" + fieldSize
-				+ ", fieldAddress=" + facilityAddress + ", fieldPrice=" + fieldPrice + "]";
+				+ fieldName + ", fieldPeopleNumber=" + fieldPeopleNumber + ", fieldSize=" + fieldSize + ", fieldPrice="
+				+ fieldPrice + ", facilityAddress=" + facilityAddress + ", facilityNotice=" + facilityNotice
+				+ ", facilityDetail=" + facilityDetail + ", facilityPrice=" + facilityPrice + ", facilityRefund="
+				+ facilityRefund + ", facilityRule=" + facilityRule + "]";
 	}
 	
-
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.facility.FacilityDao;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.team.dto.Team;
 import com.ezground.teamproject.teamMember.TeamMemberDao;
 import com.ezground.teamproject.teamMember.TeamMemberService;
@@ -47,5 +48,11 @@ public class ReservationService {
 		
 		return returnMap;
 	}
-
+	
+	public FacilityAndFacilityField fieldSelectListDetail(int fieldNo) {
+		logger.debug("facilityFieldSelectListDetail() FieldNo = {}", fieldNo);	
+		FacilityAndFacilityField facilityAndFacilityField = reservationDao.fieldSelectListDetail(fieldNo);
+		
+		return facilityAndFacilityField;
+	}
 }

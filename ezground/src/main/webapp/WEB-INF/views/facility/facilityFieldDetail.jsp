@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE HTML>
 <html>
 <head>
+<title>Insert title here</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -10,19 +12,20 @@
 	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
-
-<title>Insert title here</title>
 </head>
-
 <body>
 	<!-- Wrapper -->
-			<div id="wrapper">
+<div id="wrapper">
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+			<jsp:include page="/WEB-INF/views/module/header.jsp" />
+		
+		<!-- Banner -->
+		<section id = "banner">
+			<div class="content">
+				<h2>Team List</h2>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-						<jsp:include page="/WEB-INF/views/module/header.jsp" />
-		<h2>Team List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-12 col-lg-12">
 				
@@ -30,7 +33,7 @@
 			
 					<thead>
 						<tr>
-							<th>예약 </th>
+							<th>팀 번호</th>
 							<th>종목</th>
 							<th>팀 이름</th>
 						</tr>
@@ -86,20 +89,15 @@
 				</table>
 				<a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamList">리스트로 돌아가기</a>
 				
-				<script type = "text/javascript">
-					function btn_team_join() {
-						if(confirm("가입 신청 메세지를 보내시겠습니까?") == true) {
-						   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert?teamNo=${team.teamNo}"
-						}else{
-						   return;
-						}
-					}
-				</script>
+
 				<input type="button" value="팀 가입하기" onclick="btn_team_join();">
 			</div>
 		</div>
 
+</div>
+</section>
 	</div>
+
 		</div>	
 		
 					<!-- Sidebar -->
@@ -114,5 +112,15 @@
 			
 	</body>
 	</html>
+	
+<script type = "text/javascript">
+function btn_team_join() {
+	if(confirm("가입 신청 메세지를 보내시겠습니까?") == true) {
+	   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert?teamNo=${team.teamNo}"
+	}else{
+	   return;
+	}
+}
+</script>
 
 		

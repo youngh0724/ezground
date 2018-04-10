@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.team.TeamController;
 import com.ezground.teamproject.team.TeamService;
 import com.ezground.teamproject.team.dto.Team;
@@ -54,6 +55,17 @@ public class ReservationController {
 		return "facility/facilityFieldList";
 	}	
 	
+	
+	@RequestMapping(value="/facility/facilityFieldDetail", method = RequestMethod.GET)
+	public String fieldSelectListDetail(Model model, HttpSession session, 
+										@RequestParam(value="fieldNo", required=true) int fieldNo) {
+		logger.debug("fieldSelectListDetail() fieldNo = {}", fieldNo);
+		FacilityAndFacilityField facilityAndFacilityField = reservationService.fieldSelectListDetail(fieldNo);		
+			
+		model.addAttribute("field", facilityAndFacilityField);
+		
+		return "facility/facilityFieldDetail";
+	}	
 }
 
 
