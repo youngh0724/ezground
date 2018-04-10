@@ -226,6 +226,17 @@ public class FacilityService {
 			facilityDao.facilitySubInsert(facilityAndFacilitySub);
 		}		
 	}
-
+	// 회원 번호로 시설 이름 꺼내오기
+	public List<Facility> facilitySelect(int memberNo){
+		logger.debug("FacilityService facilitySelect memberNo = {}", memberNo);
+		List<Facility> list = facilityDao.facilitySelect(memberNo);
+		return list;
+	}
+	// 시설 이름 클릭시 시설 번호로 구장 조회
+	public List<FacilityField> facilityInfieldList(int facilityNo){
+		logger.debug("FacilityService facilityInfieldList facilityNo = {}", facilityNo);
+		List<FacilityField> list = facilityDao.facilityInfieldList(facilityNo);
+		return list;
+	}
 	
 }

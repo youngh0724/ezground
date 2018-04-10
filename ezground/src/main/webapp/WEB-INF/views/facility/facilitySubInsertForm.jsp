@@ -24,7 +24,7 @@
 				<td>${subList.subNo}</td>
 				<td>${subList.subName}</td>
 				<td><a id = "insert" href ="${pageContext.request.contextPath}/facility/facilitySubInsert?facilitySubNo=${subList.subNo}&facilityNo=${Facility.facilityNo}&facilitySubName=${subList.subName}">등록</a></td>
-				<td><a href ="${pageContext.request.contextPath}/facility/facilitySubDelete?facilitySubNo=${subList.subNo}&facilityNo=${facility.facilityNo}" >삭제</a></td>
+				<td><a href ="${pageContext.request.contextPath}/facility/facilitySubDelete?facilityNo=${facility.facilityNo}" >삭제</a></td>
 			</tr>
 			</c:forEach>
 			</tbody>

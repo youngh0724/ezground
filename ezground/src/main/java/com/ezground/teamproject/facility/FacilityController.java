@@ -229,15 +229,40 @@ public class FacilityController {
 			redirectAttributes.addAttribute("facilityNo", facilityNo);
 					return "redirect:/facility/facilitySubInsertForm";
 		}
-		
+		// 일정 등록 페이지 요정(보류중)
 		@RequestMapping(value="facility/facilityCalendarForm", method = RequestMethod.GET)
-		public String facilityCalendarForm(HttpSession session) {
+		public String facilityCalendarForm(HttpSession session,Model model) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
 			}
 			return "facility/facilityCalendarForm";
-			
 		}
-	
+		// 회원 번호로 시설 이름 AND 시설 번호 가져오기
+		@RequestMapping(value="facility/facilityAndFieldListForm", method = RequestMethod.GET)
+		public String facilityFieldList(HttpSession session, Model model) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			int memberNo = memberLogin.getMemberNo();
+			logger.debug("FacilityController facilityFieldList memberNo = {}", memberNo);
+			List<Facility> list = facilityService.facilitySelect(memberNo);
+			model.addAttribute("List", list);
+			return "facility/facilityAndFieldListForm";
+		}
+			
+		// 시설 이름 클릭시 해당 시설의 구장 리스트
+		@RequestMapping(value="facility/facilityInFieldListForm", method = RequestMethod.GET)
+		public String facilityInfieldList(HttpSession session, Model model
+				,@RequestParam(value="facilityNo", required=true) int facilityNo) {
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLogin.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+			logger.debug("FacilityController facilityInfieldList facilityNo = {}", facilityNo);
+			List<FacilityField> list = facilityService.facilityInfieldList(facilityNo);
+			model.addAttribute("List", list);
+					return "facility/fieldListForm";
+		}
 }

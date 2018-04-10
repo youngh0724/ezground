@@ -80,8 +80,9 @@
    </SCRIPT>
 
 <body onload = "init(this.form);">	
+
 										<h2>구장 등록 페이지</h2>		
-											<form name="form" action = "${pageContext.request.contextPath}/facility/fieldInsert" method="post">>
+											<form name="form" action = "${pageContext.request.contextPath}/facility/fieldInsert" method="post">
 												<table class="table table-striped">
 													<tr>
 													<td>종목</td>

@@ -1,6 +1,7 @@
 package com.ezground.teamproject.facility.dto;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class FacilityField {
 	
@@ -11,8 +12,7 @@ public class FacilityField {
 	private String fieldSize;
 	private String fieldPrice;
 	private String fieldPeopleNumber;
-	private Timestamp fieldWriteDate;
-	
+	private Date fieldWriteDate;
 	public int getFieldNo() {
 		return fieldNo;
 	}
@@ -55,11 +55,13 @@ public class FacilityField {
 	public void setFieldPeopleNumber(String fieldPeopleNumber) {
 		this.fieldPeopleNumber = fieldPeopleNumber;
 	}
-	public Timestamp getFieldWriteDate() {
+	public Date getFieldWriteDate() {
 		return fieldWriteDate;
 	}
-	public void setFieldWriteDate(Timestamp fieldWriteDate) {
+	public void setFieldWriteDate(Date fieldWriteDate) {
 		this.fieldWriteDate = fieldWriteDate;
 	}
+	
+	
 	
 }

@@ -114,4 +114,12 @@ public class FacilityDao {
 	public List<Integer> subNoSelect(int facilityNo) {
 		return sqlSessionTemplate.selectList(mapperRoot+"subNoSelect", facilityNo);
 	}
+	// 회원 번호로 시설 이름 가져오기
+	public List<Facility> facilitySelect(int memberNo){
+		return sqlSessionTemplate.selectList(mapperRoot+"facilitySelect", memberNo);
+	}
+	// 시설 이름 클릭시 시설 번호로 구장 조회
+	public List<FacilityField> facilityInfieldList(int facilityNo){
+		return sqlSessionTemplate.selectList(mapperRoot+"facilityInfieldList", facilityNo);
+	}
 }

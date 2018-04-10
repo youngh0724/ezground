@@ -226,5 +226,34 @@
 						sub_no AS subNo
 				FROM t_facility_and_facility_sub
 				WHERE facility_no = #{facilityNo}
-		</select>		
+		</select>	
+		
+		<!-- 회원 번호로 회원 시설 번호 가져오기 -->
+		<select id = "facilitySelect"	
+			resultType="com.ezground.teamproject.facility.dto.Facility">
+			SELECT
+				facility_no AS facilityNo
+				,member_no AS memberNo
+				,facility_name AS facilityName
+				,facility_Phone AS facilityPhone
+				,facility_address AS facilityAddress
+			FROM t_facility
+			WHERE member_no = #{memberNo}	
+		</select>
+		
+		<!-- 시설 이름 클릭시 시설 번호로 구장 조회 -->
+		<select id = "facilityInfieldList"
+			resultType="com.ezground.teamproject.facility.dto.FacilityField">
+			SELECT
+				field_no AS fieldNo
+				,facility_no AS facilityNo
+				,sport_entries_name AS sportEntriesName
+				,field_name AS fieldName
+				,field_size AS fieldSize
+				,field_price AS fieldPrice
+				,field_people_number AS fieldPeopleNumber
+				,field_write_date AS fieldWriteDate
+			FROM t_facility_field
+			WHERE facility_no = #{facilityNo}
+		</select>
   </mapper>

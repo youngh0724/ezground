@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE HTML>
 
@@ -30,31 +29,28 @@
 				<!-- Banner -->
 				<section id="banner">
 					<div class="content">
-						<h2>시설 내 구장 리스트</h2>
-						<table>
-							<thead>
-								<tr>
-									<th>종목</th>
-									<th>구장이름</th>
-									<th>구장크기</th>
-									<th>구장사용가격</th>
-									<th>구장적정인원</th>
-									<th>구장 등록 날</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="List" items="${List}">
+						<h2>시설 목록</h2>
+						<form>
+							<table>
+								<thead>
 									<tr>
-										<td>${List.sportEntriesName}</td>
-										<td>${List.fieldName}</td>
-										<td>${List.fieldSize}</td>
-										<td>${List.fieldPrice}</td>
-										<td>${List.fieldPeopleNumber}</td>
-										<td><fmt:formatDate value="${List.fieldWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+										<th>시설 이름</th>
+										<th>시설 전화번호</th>
+										<th>시설 주소</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach var="List" items="${List}">
+										<tr>
+											<td><a
+												href="${pageContext.request.contextPath}/facility/facilityInFieldListForm?facilityNo=${List.facilityNo}">${List.facilityName}</a></td>
+											<td>${List.facilityPhone}</td>
+											<td>${List.facilityAddress}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</form>
 					</div>
 				</section>
 			</div>
