@@ -1,7 +1,6 @@
 package com.ezground.teamproject.reservation;
 
-import java.util.HashMap;import java.util.List;
-import java.util.Map;
+import java.util.HashMap;import java.util.List;import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.facility.FacilityDao;
-import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
 import com.ezground.teamproject.team.dto.Team;
 import com.ezground.teamproject.teamMember.TeamMemberDao;
 import com.ezground.teamproject.teamMember.TeamMemberService;
@@ -22,13 +21,13 @@ public class ReservationService {
 	@Autowired
 	private ReservationDao reservationDao;
 	
-	private static final Logger logger = LoggerFactory.getLogger(TeamMemberService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 	
 	public Map<String, Object> fieldSelectListByPage(int currentPage, int rowPerPage, String searchWord, String sportEntriesName){
 		
-		logger.debug("facilitySelectListByPage() currentPage = {}", currentPage);
-		logger.debug("facilitySelectListByPage() rowPerPage = {}", rowPerPage);
-		logger.debug("facilitySelectListByPage() searchWord = {}", searchWord);
+		logger.debug("fieldSelectListByPage() currentPage = {}", currentPage);
+		logger.debug("fieldSelectListByPage() rowPerPage = {}", rowPerPage);
+		logger.debug("fieldSelectListByPage() searchWord = {}", searchWord);
 		
 		int startRow = (currentPage-1)*rowPerPage;
 		Map map = new HashMap();
@@ -37,10 +36,10 @@ public class ReservationService {
 		map.put("searchWord", searchWord);
 		map.put("sportEntriesName", sportEntriesName);
 		
-		List<FacilityField> list = reservationDao.fieldSelectListByPage(map);
-		logger.debug("teamSelectListByPage() list = {}", list);
+		List<FacilityAndFacilityField> list = reservationDao.fieldSelectListByPage(map);
+		logger.debug("fieldSelectListByPage() list = {}", list);
 		int totalCount = reservationDao.fieldSelectTotalCount();
-		logger.debug("teamSelectListByPage() totalCount = {}", totalCount);
+		logger.debug("fieldSelectListByPage() totalCount = {}", totalCount);
 		
 		Map returnMap = new HashMap();
 		returnMap.put("list", list);

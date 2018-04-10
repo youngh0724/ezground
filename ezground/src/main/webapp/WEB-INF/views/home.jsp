@@ -50,7 +50,7 @@
 										</ul>
 									</div>
 									<span class="image object">
-										<img src="${pageContext.request.contextPath}/resources/images/image01.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/resources/images/admin/image01.jpg" alt="" />
 									</span>
 								</section>
 
@@ -93,6 +93,7 @@
 							</div>
 						</div>
 						<!-- main End -->
+						
 						
 					<!-- Sidebar -->
 					<div id="sidebar">

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ezground.teamproject.facility.dto.Facility;
-import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
 import com.ezground.teamproject.team.TeamDao;
 
 @Repository
@@ -22,15 +22,15 @@ public class ReservationDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TeamDao.class);
 	
-	public List<FacilityField> fieldSelectListByPage(Map map) {
-		logger.debug("facilitySelectListByPage() map.startRow = {}", map.get("startRow"));
-		logger.debug("facilitySelectListByPage() map.rowPerPage = {}", map.get("rowPerPage"));
-		logger.debug("facilitySelectListByPage() map.searchWord = {}", map.get("searchWord"));
-		logger.debug("facilitySelectListByPage() map.sportEntriesName = {}", map.get("sportEntriesName"));
+	public List<FacilityAndFacilityField> fieldSelectListByPage(Map map) {
+		logger.debug("fieldSelectListByPage() map.startRow = {}", map.get("startRow"));
+		logger.debug("fieldSelectListByPage() map.rowPerPage = {}", map.get("rowPerPage"));
+		logger.debug("fieldSelectListByPage() map.searchWord = {}", map.get("searchWord"));
+		logger.debug("fieldSelectListByPage() map.sportEntriesName = {}", map.get("sportEntriesName"));
 		return sqlSessionTemplate.selectList(mapperRoot+"fieldSelectPage", map);
 	}
 	public int fieldSelectTotalCount() {
-		logger.debug("totalCount() 실행확인"); 
+		logger.debug("fieldtotalCount() 실행확인"); 
 		return sqlSessionTemplate.selectOne(mapperRoot+"fieldSelectCount");	
 	}
 }

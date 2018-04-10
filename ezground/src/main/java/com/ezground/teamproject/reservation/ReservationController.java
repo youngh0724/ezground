@@ -1,7 +1,6 @@
 package com.ezground.teamproject.reservation;
 
-import java.util.List;
-import java.util.Map;
+import java.util.List;import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.dto.SportEntries;
-import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
 import com.ezground.teamproject.team.TeamController;
 import com.ezground.teamproject.team.TeamService;
 import com.ezground.teamproject.team.dto.Team;
@@ -23,13 +22,11 @@ import com.ezground.teamproject.team.dto.Team;
 @Controller
 public class ReservationController {
 	@Autowired
-	private ReservationService reservationService; //
-	//�ü� ��� ��ȸ������ views�� facilityList.jsp ȣ��
+	private ReservationService reservationService; 	
 	
-	//�Է°��� ���ϰ��� Ȯ�� �ϱ� ���� �ΰ� ��� 
 	private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 	
-	@RequestMapping(value="/field/fieldList", method = RequestMethod.GET)
+	@RequestMapping(value="/facility/facilityFieldList", method = RequestMethod.GET)
 	public String fieldSelectList(Model model, HttpSession session, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
 			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
@@ -45,16 +42,16 @@ public class ReservationController {
 		
 		logger.debug("fieldSeletList() map = {}", map);
 		
-		List<FacilityField> list = (List<FacilityField>)map.get("list");
+		List<FacilityAndFacilityField> list = (List<FacilityAndFacilityField>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
 		
 		int lastPage = (totalCount/rowPerPage)+1;
 	
-		model.addAttribute("list", list);
+		model.addAttribute("fieldlist", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("currentPage", currentPage);
-		return "field/fieldList";
+		return "facility/facilityFieldList";
 	}	
 	
 }

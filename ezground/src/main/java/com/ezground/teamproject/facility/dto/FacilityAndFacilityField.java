@@ -6,7 +6,7 @@ public class FacilityAndFacilityField {
 	private String fieldName;
 	private String fieldPeopleNumber;
 	private String fieldSize;
-	private String fieldAddress;
+	private String facilityAddress;
 	private String fieldPrice;
 	public int getFieldNo() {
 		return fieldNo;
@@ -38,11 +38,11 @@ public class FacilityAndFacilityField {
 	public void setFieldSize(String fieldSize) {
 		this.fieldSize = fieldSize;
 	}
-	public String getFieldAddress() {
-		return fieldAddress;
+	public String getFacilityAddress() {
+		return facilityAddress;
 	}
-	public void setFieldAddress(String fieldAddress) {
-		this.fieldAddress = fieldAddress;
+	public void setFacilityAddress(String facilityAddress) {
+		this.facilityAddress = facilityAddress;
 	}
 	public String getFieldPrice() {
 		return fieldPrice;
@@ -54,7 +54,7 @@ public class FacilityAndFacilityField {
 	public String toString() {
 		return "FacilityAndFacilityField [fieldNo=" + fieldNo + ", facilityNo=" + facilityNo + ", fieldName="
 				+ fieldName + ", fieldPeopleNumber=" + fieldPeopleNumber + ", fieldSize=" + fieldSize
-				+ ", fieldAddress=" + fieldAddress + ", fieldPrice=" + fieldPrice + "]";
+				+ ", fieldAddress=" + facilityAddress + ", fieldPrice=" + fieldPrice + "]";
 	}
 	
 

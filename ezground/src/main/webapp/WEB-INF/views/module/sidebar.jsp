@@ -27,11 +27,11 @@
 										<li>
 											<span class="opener">시설 이용</span>
 											<ul>
-												<li><a href="${pageContext.request.contextPath}/reservation/facilList">예약 하기</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldList">예약 하기</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertListForm">구장 등록가능 리스트</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/facilityCalendarForm">시설 일정</a></li>
+												
 											</ul>
 										</li>
 										<li>
