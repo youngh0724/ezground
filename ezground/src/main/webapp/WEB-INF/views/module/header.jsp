@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- Header -->
 <header id="header">
@@ -16,9 +17,22 @@
 <div class="row">
 	<div class="col-sm-12">
 		<ul class="nav nav-pills">
-			<c:forEach var="entry" items="${sportEntry}">
-				<li><a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></li>		
+			<c:forEach var="entry" items="${sportEntry}">				
+				<c:if test="${entry.sportEntriesNo == currentSportEntry.sportEntriesNo}">
+					<li class="active"><a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></li>						
+				</c:if>				
+				<c:if test="${entry.sportEntriesNo != currentSportEntry.sportEntriesNo}">
+					<li><a href="${pageContext.request.contextPath}/?entryNo=${entry.sportEntriesNo-1}">${entry.sportEntriesName}</a></li>						
+				</c:if>
+			
 			</c:forEach>
 		</ul>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	console.log("sportEntry", '${sportEntry}');
+	console.log("currentSportEntry", '${currentSportEntry}');
+
+</script>

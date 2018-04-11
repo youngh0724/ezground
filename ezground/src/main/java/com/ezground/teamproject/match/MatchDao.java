@@ -96,12 +96,32 @@ public class MatchDao {
 		return sqlSessionTemplate.delete(mapperRoot+"matchJoinMemberDelete", map);
 	}
 	
-	// 매치 공고 정보를 다른팀이 검색할수 있도로 상태값을 바꾸는 메서드
+	// 매치 공고 정보를 다른팀이 검색할수 있도록 상태값을 바꾸는 메서드
 	public int matchNoticeNotice(int matchNoticeNo) {
 		logger.debug("matchNoticeNotice() matchNoticeNo = {}", matchNoticeNo);
 		
-		return sqlSessionTemplate.update(mapperRoot+"matchNoticeNotice", matchNoticeNo);
+		return sqlSessionTemplate.update(mapperRoot+"matchNoticeNotice", matchNoticeNo);		
+	}
+	
+	// 매치 공고 정보를 매치 완료로  상태값을 바꾸는 메서드
+	public int matchNoticePermit(int matchNoticeNo) {
+		logger.debug("matchNoticePermit() matchNoticeNo = {}", matchNoticeNo);
+
+		return sqlSessionTemplate.update(mapperRoot + "matchNoticePermit", matchNoticeNo);
+	}
+	
+	//원정팀 신청 맴버의 상태값을 바꾸는 매서드
+	public int matchRequestHomeTeam(MatchJoinMember matchJoinMember) {
+		logger.debug("matchRequestHomeTeam() matchJoinMember = {}", matchJoinMember);
 		
+		return sqlSessionTemplate.update(mapperRoot+"matchRequestHomeTeam", matchJoinMember);
+	}
+	
+	//
+	public int matchRequestedAwayTeamNo(MatchJoinMember matchJoinMember) {
+		logger.debug("matchRequestedAwayTeamNo() matchJoinMember = {}", matchJoinMember);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"matchRequestedAwayTeamNo", matchJoinMember);
 	}
 	
 }

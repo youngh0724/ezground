@@ -183,11 +183,19 @@ public class MatchService {
 	}
 	
 	//매치 에 맴버 참가 신청을 한다.(디비에 입력)
-	public void matchJoinMemberInsert(int matchNoticeNo, int memberNo, String homeAway, int sportEntriesNo) {
+	public int matchJoinMemberInsert(int matchNoticeNo, int memberNo, String homeAway, int sportEntriesNo) {
 		logger.debug("matchJoinMemberInsert() matchNoticeNo = {}", matchNoticeNo);
 		logger.debug("matchJoinMemberInsert() memberNo = {}", memberNo);
 		logger.debug("matchJoinMemberInsert() sportEntriesNo = {}", sportEntriesNo);
 		logger.debug("matchJoinMemberInsert() homeAway = {}", homeAway);
+		
+		//매치공고의 상태가 매치 완료 상태면 참가 요청 처리를 하지 않고 매서드 종료		
+		MatchNotice matchNotice = matchDao.matchSelectOne(matchNoticeNo);
+		logger.debug("matchJoinMemberInsert() matchNotice = {}", matchNotice);
+		
+		if(matchNotice.getMatchNoticeStatus().equals("matchComplete")) {
+			return 0;
+		}
 		
 		//매치공고 번호로 선택한 매치의 호스트 팀 번호를 확인하는 메서드
 		int matchTeamNo = matchDao.matchNoticeSelectHomeAway(matchNoticeNo);
@@ -221,7 +229,10 @@ public class MatchService {
 		}			
 		
 		//매치에 맴버참가 신청을 한다.
-		matchDao.matchJoinMemberInsert(matchJoinMember);		
+		int row = matchDao.matchJoinMemberInsert(matchJoinMember);
+		logger.debug("matchJoinMemberInsert() row = {}", row);
+		
+		return row;
 	}
 	
 	//매치 종류(팀전 or 자유)선택 혹은 미선택시 매치공고정보 리스트 조회 요청 처리
@@ -303,18 +314,24 @@ public class MatchService {
 		logger.debug("matchNoticeInfomationHome() homeTeamMember = {}", homeTeamMember);		
 						
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		//매치에 참가자이면
 		if(isMatchJoinMember != null) {
 			returnMap.put("isMatchJoinMember", isMatchJoinMember);
+			//매치 생성자 맴버번호와 나의 맴버번호가 같다면
 			if(matchNotice.getMemberNo() == memberNo) {
+				//매치 권한 설정 'maker'
 				returnMap.put("MatchJoinMemberLevel", "maker");
 				logger.debug("matchNoticeInfomationHome() 권한 설정 매치 생성자");	
 			} else {
+				//같지 않다면 매치 권한 설정 'teamwon'
 				returnMap.put("MatchJoinMemberLevel", "teamwon");
-			}
-			logger.debug("matchNoticeInfomationHome() 권한 설정 매치 참여자");
+				logger.debug("matchNoticeInfomationHome() 권한 설정 매치 참여자");
+			}			
 		}
 		
+		//현재 매치 상태가 홈팀맴버 기다림 상태일때
 		if(matchNotice.getMatchNoticeStatus().equals("homeTeamWating")) {
+			//홈팀 참가자가 매치 참가조건보다 많거나 같을때
 			if(matchNotice.getMatchMemberCount() <= homeTeamMember.size()) {
 				returnMap.put("MatchJoinMemberCount", "count");
 				logger.debug("matchNoticeInfomationHome() 최소 참여자수 만족 공고조건 달성");
@@ -354,7 +371,8 @@ public class MatchService {
 		logger.debug("matchNoticeInfomationAway() isMatchJoinMember = {}", isMatchJoinMember);
 		
 		List<MemberLogin> myTeamMember = matchJoinMemberSelectList(matchNotice.getMatchNoticeNo(), myTeamNo);
-				
+		
+		//화면에 필요한 정보를 맵에 담아 리턴한다.
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("matchNotice", matchNotice);
 		returnMap.put("myTeamMember", myTeamMember);
@@ -368,9 +386,17 @@ public class MatchService {
 		
 		if(matchNotice.getMatchNoticeStatus().equals("awayTeamWating")) {
 			if(matchNotice.getMatchMemberCount() <= myTeamMember.size()) {
-				returnMap.put("MatchJoinMemberCount", "count");
-				logger.debug("matchNoticeInfomationHome() 최소 참여자수 만족 매치 신청 조건 달성");
+				if(!isMatchJoinMember.getHomeAway().equals("joinAway")) {
+					returnMap.put("MatchJoinMemberCount", "count");
+					logger.debug("matchNoticeInfomationHome() 최소 참여자수 만족 매치 신청 조건 달성");
+				}
 			}	
+		} else if(matchNotice.getMatchNoticeStatus().equals("matchComplete")) {
+			// 홈팀 맵버정보 리스트를 받아온다.
+			String homeAway = "away";
+			List<MemberLogin> awayTeamMember = matchJoinMemberSelectList(matchNotice.getMatchNoticeNo(), homeAway);
+			logger.debug("matchNoticeInfomationHome() awayTeamMember = {}", awayTeamMember);
+			returnMap.put("awayTeamMember", awayTeamMember);
 		}
 		
 		// 홈팀 맵버정보 리스트를 받아온다.
@@ -389,5 +415,52 @@ public class MatchService {
 		
 		matchDao.matchNoticeNotice(matchNoticeNo);		
 	}
+	
+	//원정팀에서 홈팀에 매치 신청을 하는 메서드
+	public int matchRequestHomeTeam(int matchNoticeNo, int teamNo) {
+		logger.debug("matchRequestHomeTeam() matchNoticeNo = {}", matchNoticeNo);
+		logger.debug("matchRequestHomeTeam() teamNo = {}", teamNo);
+		
+		matchJoinMember.setMatchNoticeNo(matchNoticeNo);
+		matchJoinMember.setTeamNo(teamNo);
+		matchJoinMember.setHomeAway("joinAway");
+		logger.debug("matchRequestHomeTeam() matchJoinMember = {}", matchJoinMember);
+		
+		int row = matchDao.matchRequestHomeTeam(matchJoinMember);
+		logger.debug("matchRequestHomeTeam() row = {}", row);
+		
+		return row;
+	}
+	
+	//
+	public int matchRequestPermit(int matchNoticeNo, int memberNo) {
+		logger.debug("matchRequestPermit() matchNoticeNo = {}", matchNoticeNo);
+		logger.debug("matchRequestPermit() memberNo = {}", memberNo);
+		
+		matchJoinMember.setMatchNoticeNo(matchNoticeNo);
+		matchJoinMember.setMemberNo(memberNo);
+		logger.debug("matchRequestPermit() matchJoinMember = {}", matchJoinMember);
+		
+		//원정팀 맴버번호를 통해 팀 번호를 확인한다.
+		int teamNo = matchDao.matchRequestedAwayTeamNo(matchJoinMember);
+		logger.debug("matchRequestPermit() teamNo = {}", teamNo);
+	
+		matchJoinMember.setTeamNo(teamNo);
+		matchJoinMember.setHomeAway("away");
+		logger.debug("matchRequestPermit() matchJoinMember = {}", matchJoinMember);
+		
+		//승낙된 팀번호의 맴버 상태값을 away로 바꾼다.
+		int row = matchDao.matchRequestHomeTeam(matchJoinMember);
+		logger.debug("matchRequestPermit() row = {}", row);
+		
+		//매치공고의 정보를 매치완료 상태로 바꾼다.
+		int noticeRow = matchDao.matchNoticePermit(matchNoticeNo);
+		logger.debug("matchRequestPermit() noticeRow = {}", noticeRow);
+		
+		return row;
+	}
+	
+	
+	
 	
 }

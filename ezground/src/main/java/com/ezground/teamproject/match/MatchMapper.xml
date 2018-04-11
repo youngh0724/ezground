@@ -190,7 +190,7 @@
 		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}
 	</select>
 	
-	<!-- 매치공고에 자신이 참가 신청을 햇는지  판별 쿼리문 -->
+	<!-- 매치공고를 다른팀이 검색할수 있도로 상태값을 바꾸어주는  쿼리문 -->
 	<update id="matchNoticeNotice">
 		update t_match_notice
 		set
@@ -198,5 +198,33 @@
 			match_notice_update_date = now()
 		where match_notice_no = #{matchNoticeNo}
 	</update>
+	
+	<!-- 매치공고를 다른팀이 검색할수 있도로 상태값을 바꾸어주는  쿼리문 -->
+	<update id="matchNoticePermit">
+		update t_match_notice
+		set
+			match_notice_status = 'matchComplete',
+			match_notice_update_date = now()
+		where match_notice_no = #{matchNoticeNo}
+	</update>
+	
+	<!-- 원정팀 신청 맴버의 상태값을 바꾸는 쿼리문 -->
+	<update id="matchRequestHomeTeam">
+		update t_match_join_member
+		set
+			home_away = #{homeAway}			
+		where match_notice_no = #{matchNoticeNo} AND team_no = #{teamNo}
+	</update>
+	
+	<!-- 매치공고에 자신이 참가 신청을 햇는지  판별 쿼리문 -->
+ 	<select id="matchRequestedAwayTeamNo" 
+ 			parameterType="com.ezground.teamproject.match.dto.MatchJoinMember"				
+ 			resultType="int">
+		SELECT					
+			team_no AS teamNo			
+		FROM t_match_join_member
+		WHERE match_notice_no = #{matchNoticeNo} AND member_no = #{memberNo}
+		GROUP BY team_no
+	</select>
 		
  </mapper>
