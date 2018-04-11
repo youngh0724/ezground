@@ -121,6 +121,7 @@ public class FacilityService {
 		int facilityNo = facility.getFacilityNo();
 		logger.debug("FacilityService facilityAndFaiclityImageInsert facilityNo = {}", facility.getFacilityNo());
 		
+		
 		for(MultipartFile files : facilityAndFacilityImage.getFiles()) {
 			FacilityImage facilityImage = new FacilityImage();
 			// 겹치지 않는 값을 사용하기위해 랜덤UUID메서드를 사용하여 오리지널 파일이름 대신 사용한다.
@@ -147,7 +148,7 @@ public class FacilityService {
 			logger.debug("FacilityService facilityAndFaiclityImageInsert imageExt = {}", facilityImage.getImageExt());
 			
 			//지정한 경로의 디렉토리 객체 생성
-			File directory = new File(path+"/facilityImageFileUpload/");
+			File directory = new File(path+"/field/");
 			if(!directory.exists()) {
 				directory.mkdirs();
 			} else {

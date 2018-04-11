@@ -139,7 +139,7 @@ public class FacilityController {
 				return "redirect:/";
 			}
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", facilityAndFaiclityImage.getFacilityNo());
-			String path = session.getServletContext().getRealPath("/resources");
+			String path = session.getServletContext().getRealPath("/resources/images");
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", path);
 			facilityService.facilityAndFaiclityImageInsert(facilityAndFaiclityImage, path);
 			return "redirect:/facility/memberFacilityInsertStatusListForm";
@@ -230,12 +230,14 @@ public class FacilityController {
 					return "redirect:/facility/facilitySubInsertForm";
 		}
 		// 일정 등록 페이지 요정(보류중)
-		@RequestMapping(value="facility/facilityCalendarForm", method = RequestMethod.GET)
-		public String facilityCalendarForm(HttpSession session,Model model) {
+		@RequestMapping(value="facility/fieldCalendarForm", method = RequestMethod.GET)
+		public String facilityCalendarForm(HttpSession session,Model model,
+				@RequestParam(value="fieldNo", required=true) int fieldNo) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
 			}
+			model.addAttribute("FieldNo", fieldNo);
 			return "facility/facilityCalendarForm";
 		}
 		// 회원 번호로 시설 이름 AND 시설 번호 가져오기
@@ -265,4 +267,5 @@ public class FacilityController {
 			model.addAttribute("List", list);
 					return "facility/fieldListForm";
 		}
+		
 }

@@ -40,6 +40,8 @@
 									<th>구장사용가격</th>
 									<th>구장적정인원</th>
 									<th>구장 등록 날</th>
+									<th>구장 일정 관리</th>
+									<th>삭제 </th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,6 +53,8 @@
 										<td>${List.fieldPrice}</td>
 										<td>${List.fieldPeopleNumber}</td>
 										<td><fmt:formatDate value="${List.fieldWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+										<td><a href="${pageContext.request.contextPath}/facility/fieldCalendarForm?fieldNo=${List.fieldNo}">구장 일정 관리</a></td>
+										<td><a href="${pageContext.request.contextPath}/facility/fieldDelete?facilityNo=${List.facilityNo}">삭제</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
