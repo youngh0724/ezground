@@ -1,5 +1,6 @@
 package com.ezground.teamproject.facility;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +34,13 @@ public class FacilityController {
 	// facilityInsertForm.jsp 페이지 요청
 	@RequestMapping(value="/facility/facilityInsertForm", method = RequestMethod.GET)
 	public String facility(HttpSession session) {
-		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-		logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
-		logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberLevel());
-		if(!memberLogin.getMemberLevel().equals("business")) {
+		logger.debug("FacilityController 세션 생성 안됨");
+		if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+			MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+			if(!memberLoginSession.getMemberLevel().equals("business")) {
+				return "redirect:/";
+			}
+		}else if(session.getAttribute("MemberLogin") == null) {
 			return "redirect:/";
 		}
 		return "facility/facilityInsertForm";
@@ -78,11 +82,15 @@ public class FacilityController {
 		@RequestMapping(value="facility/memberFacilityInsertStatusListForm")
 		public String memberFacilityInsertStatusSelectList(Model model, HttpSession session) {
 			// 세션에서 뽑아낸 회원 번호 값을 멤버로 형변환 후 데이터 타입 바꿈
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			// 멤버 로그인 변수 안에서 회원 번호를 뽑아내 int 멤버 변수에 담아줌
 			int memberNo = memberLogin.getMemberNo();
 			// 변수 memberNo 에 값이 잘 들어가있는지 확인
@@ -98,7 +106,15 @@ public class FacilityController {
 		
 		// 사업자 자신이 시설 등록요청한 글 수정화면페이지 요청
 		@RequestMapping(value="facility/facilityInsertUpdateForm", method = RequestMethod.GET)
-		public String memberFacilityInsertUpdateForm(Model model, @RequestParam(value="facilityNo", required=true) int facilityNo) {
+		public String memberFacilityInsertUpdateForm(HttpSession session,Model model, @RequestParam(value="facilityNo", required=true) int facilityNo) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
+				return "redirect:/";
+			}
 			// 전달 받은 값 확인
 			logger.debug("FacilityController memberFacilityInsertUpdateForm facilityNo = {}", facilityNo);
 			// 매개변수 값을 이용해 facilityService.facilitySelectOne 호출후 리턴 받은 값을 변수에 담아줌
@@ -121,7 +137,14 @@ public class FacilityController {
 		// 관리자용 시설 등록 신청 리스트 조회
 		@RequestMapping(value="facility/masterFacilityInsertStatusListForm", method = RequestMethod.GET)
 		public String masterFacilityInsertStatusListForm(Model model, HttpSession session) {
-			
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
+				return "redirect:/";
+			}
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			return null;
 		}
@@ -133,9 +156,12 @@ public class FacilityController {
 			logger.debug("FacilityController facilityInsert memberNo = {}", memberLogin.getMemberNo());
 			int memberNo = memberLogin.getMemberNo();
 			facilityAndFaiclityImage.setMemberNo(memberNo);
-			
-			
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", facilityAndFaiclityImage.getFacilityNo());
@@ -148,10 +174,15 @@ public class FacilityController {
 		// 구장 등록이 가능한 시설 리스트  페이지 요청
 		@RequestMapping(value="facility/facilityFieldInsertListForm", method = RequestMethod.GET)
 		public String facilityFieldPage(HttpSession session, Model model) {
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			int memberNo = memberLogin.getMemberNo();
 			logger.debug("FacilityController facilityFieldPage memberNo = {}", memberNo);
 			List<Facility> list = facilityService.facilityFieldPage(memberNo);
@@ -164,7 +195,12 @@ public class FacilityController {
 		public String facilityFieldInsrtPage(HttpSession session, Model model,
 				 @RequestParam(value="facilityNo", required=true) int facilityNo) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
 			logger.debug("FacilityController facilityFieldInsrtPage facilityNo = {}", facilityNo);
@@ -182,6 +218,14 @@ public class FacilityController {
 			logger.debug("FacilityController fieldInsert FieldSize = {}", field.getFieldSize());
 			logger.debug("FacilityController fieldInsert FieldPrice = {}", field.getFieldPrice());
 			logger.debug("FacilityController fieldInsert FieldPeopleNumber = {}", field.getFieldPeopleNumber());
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
+				return "redirect:/";
+			}
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
@@ -195,6 +239,14 @@ public class FacilityController {
 		@RequestMapping(value="facility/facilitySubInsertForm", method = RequestMethod.GET)
 		public String facilitySubInsertPage(HttpSession session, Model model,
 				@RequestParam(value="facilityNo", required=true) int facilityNo) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
+				return "redirect:/";
+			}
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 			if(!memberLogin.getMemberLevel().equals("business")) {
 				return "redirect:/";
@@ -221,6 +273,7 @@ public class FacilityController {
 			logger.debug("FacilityController facilitySubInsert facilityNo = {}", facilityNo);
 			logger.debug("FacilityController facilitySubInsert facilitySubName = {}", facilitySubName);
 			
+			
 			FacilityAndFacilitySub facilityAndFacilitySub = new FacilityAndFacilitySub();
 			facilityAndFacilitySub.setSubNo(facilitySubNo);
 			facilityAndFacilitySub.setFacilityNo(facilityNo);
@@ -233,8 +286,13 @@ public class FacilityController {
 		@RequestMapping(value="facility/fieldCalendarForm", method = RequestMethod.GET)
 		public String facilityCalendarForm(HttpSession session,Model model,
 				@RequestParam(value="fieldNo", required=true) int fieldNo) {
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
 			model.addAttribute("FieldNo", fieldNo);
@@ -244,7 +302,12 @@ public class FacilityController {
 		@RequestMapping(value="facility/facilityAndFieldListForm", method = RequestMethod.GET)
 		public String facilityFieldList(HttpSession session, Model model) {
 			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
 			int memberNo = memberLogin.getMemberNo();
@@ -258,14 +321,34 @@ public class FacilityController {
 		@RequestMapping(value="facility/facilityInFieldListForm", method = RequestMethod.GET)
 		public String facilityInfieldList(HttpSession session, Model model
 				,@RequestParam(value="facilityNo", required=true) int facilityNo) {
-			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
-			if(!memberLogin.getMemberLevel().equals("business")) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
 			logger.debug("FacilityController facilityInfieldList facilityNo = {}", facilityNo);
 			List<FacilityField> list = facilityService.facilityInfieldList(facilityNo);
 			model.addAttribute("List", list);
 					return "facility/fieldListForm";
+		}
+		
+		@RequestMapping(value="facility/FieldCalendarInsertForm", method = RequestMethod.GET)
+		public String facilityCalendarInsertForm(HttpSession session, Model model,
+					@RequestParam(value="date", required=true) Date date) {
+			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
+				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
+				if(!memberLoginSession.getMemberLevel().equals("business")) {
+					return "redirect:/";
+				}
+			}else if(session.getAttribute("MemberLogin") == null) {
+				return "redirect:/";
+			}
+			logger.debug("FacilityController facilityCalendarInsertForm date = {}", date);
+			
+			return "facility/facilityCalendarForm";
 		}
 		
 }

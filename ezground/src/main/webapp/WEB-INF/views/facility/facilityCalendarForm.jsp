@@ -107,6 +107,8 @@ body {
 				</div>
 			</div>
 		</div>
+		<input type="hidden" name = "${fieldNo}" id = "${car-date}" value="${date}">
+		<input type="hidden" name = "${fieldNo}" id = "${fieldNo}" value="${fieldNo}">
 	</form>
 	<div id='calendar'></div>
 </body>
