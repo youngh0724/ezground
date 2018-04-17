@@ -93,7 +93,7 @@ public class MatchController {
 
 		// 세션검사 로그인되어있지 않으면 홈화면으로
 		if (session.getAttribute("MemberLogin") == null) {
-			logger.debug("logout() 세션값 없으면 홈으로 리다이렉트 ");
+			logger.debug("matchNoticeInfomation() 세션값 없으면 홈으로 리다이렉트 ");
 			return "redirect:/";
 		}
 
