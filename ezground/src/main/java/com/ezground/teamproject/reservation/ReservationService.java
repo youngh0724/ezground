@@ -56,8 +56,8 @@ public class ReservationService {
 	}
 	
 	public List<Reservation> reservationSelect(int fieldNo, int calendarNo) {
-		logger.debug("reservationInsert() FieldNo = {}", fieldNo);
-		logger.debug("reservationInsert() FieldNo = {}", calendarNo);
+		logger.debug("reservationSelect() FieldNo = {}", fieldNo);
+		logger.debug("reservationSelect() FieldNo = {}", calendarNo);
 		
 		reservation.setCalendarNo(calendarNo);
 		reservation.setFieldNo(fieldNo);
