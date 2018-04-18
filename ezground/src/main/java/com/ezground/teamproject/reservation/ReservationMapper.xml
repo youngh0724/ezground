@@ -52,6 +52,21 @@
   		FROM t_facility_field a INNER JOIN t_facility b
   		ON a.facility_no = b.facility_no
   		WHERE field_no = #{fieldNo}  					
-  	</select>
+  	</select>  	
+  	
+  	<select id="reservationSelect"
+  			parameterType="com.ezground.teamproject.reservation.dto.Reservation"
+  			resultType="com.ezground.teamproject.reservation.dto.Reservation">
+  		SELECT
+  			a.field_name AS fieldName
+  			,a.field_price AS fieldPrice
+  			,b.facility_address AS facilityAddress
+  			,c.calendar_start_time AS calendarStartTime
+  			,c.calendar_end_time AS calendarEndTime
+  			,c.calendar_date AS calendarDate
+  		FROM t_facility_field a INNER JOIN t_facility b ON a.field_no = b.facility_no
+  			 					INNER JOIN t_facility_calendar c ON a.field_no = c. field_no 
+  		WHERE a.field_no = #{fieldNo}	  			
+  	</select>	
   	
   </mapper>

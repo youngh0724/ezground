@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,9 +65,9 @@ public class TeamService {
 	
 
 	public void teamInsert(Team team, int memberNo, int sportEntryNo) {
-		//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº °ªÀ» È®ÀÎÇØº»´Ù.
+		//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.
 		logger.debug("teamInsert() teamName = {}", team.getSportEntriesNo());		
-		//À§¿¡¼­ »Ì¾Æ³½ teamÅ¸ÀÔÀ» insertÇÑ´Ù.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ³ï¿½ teamÅ¸ï¿½ï¿½ï¿½ï¿½ insertï¿½Ñ´ï¿½.
 		
 		teamDao.teamInsert(team);		
 		logger.debug("teamInsert() teamNo = {}", team.getTeamNo());
@@ -79,31 +80,31 @@ public class TeamService {
 		
 	}
 	
-	//ÄÁÆ®·Ñ·¯¿¡¼­ ¼öÁ¤È­¸é¿¡ »ç¿ëµÉ ÇÏ³ªÀÇ ·¹ÄÚµå°ªÀ» Á¶È¸ÇÒ¶§ »ç¿ëµÇ¾îÁö´Â ¸Þ¼­µå
+	//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµå°ªï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public Team teamSelectOne(int teamNo) {
-		//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº °ªÀ» È®ÀÎÇØº»´Ù.
+		//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.
 		logger.debug("teamSelectOne() teamId = {}", teamNo);
-		//dao¿¡ ÀÖ´Â ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº°ª°ú Á¶°ÇÀÌ ÀÏÄ¡ÇÏ´Â Á¤º¸¸¦ Á¶È¸ÇÏ´Â ¸Þ¼­µå¸¦ È£ÃâÇÏ¿© team¿¡ ÇÒ´çÇÑ´Ù.
+		//daoï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ È£ï¿½ï¿½ï¿½Ï¿ï¿½ teamï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ñ´ï¿½.
 		Team team = teamDao.teamSelectOneForUpdate(teamNo);
-		//team¿¡ µé¾îÀÖ´Â °ªÀ» È®ÀÎÇØº»´Ù.
+		//teamï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.
 		logger.debug("teamSelectOne() team = {}", team);
 		return team;
 	}
-	//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº Á¤º¸·Î dbÁ¤º¸¸¦ ¼öÁ¤ÇÒ¶§ »ç¿ëµÇ¾îÁö´Â ¸Þ¼­µå
+	//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public int teamUpdate(Team team) {
-		//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº °ªÀ» È®ÀÎÇØº»´Ù.
+		//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.
 		logger.debug("teamUpdate() team = {}", team);
-		//dao¿¡ ÀÖ´Â ¼öÁ¤±â´ÉÀÇ ¸Þ¼­µå¸¦ È£ÃâÇÏ°í °á°ú(db¿¡ º¯µ¿ÀÌ ÀÏ¾î³­ Çà¼ö)¸¦ row¿¡ ÇÒ´çÇÑ´Ù.
+		//daoï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ È£ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½(dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³­ ï¿½ï¿½ï¿½)ï¿½ï¿½ rowï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ñ´ï¿½.
 		int row = teamDao.teamUpdate(team); 
-		//row¿¡ µé¾îÀÖ´Â °ªÀ» È®ÀÎÇØº»´Ù.
+		//rowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.
 		logger.debug("teamUpdate() row = {}", row);
 		return row;
 	}	
 	
 		
-	//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº Á¤º¸·Î dbÁ¤º¸¸¦ »èÁ¦ÇÒ¶§ »ç¿ëµÇ¾îÁö´Â ¸Þ¼­µå
+	//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
 	public int teamMemberDelete(int teamNo, int memberNo) {
-		//ÄÁÆ®·Ñ·¯¿¡¼­ ³Ñ°Ü¹ÞÀº °ªÀ» È®ÀÎÇØº»´Ù.		
+		//ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½.		
 		logger.debug("teamMemberSelect() TeamNo = {}", teamNo);	
 		Map map = new HashMap();
 		map.put("teamNo", teamNo);
@@ -121,7 +122,7 @@ public class TeamService {
 			}
 			else {
 				
-				logger.debug("»èÁ¦ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");	
+				logger.debug("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");	
 				return 0;
 			}
 		

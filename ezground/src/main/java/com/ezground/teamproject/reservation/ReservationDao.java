@@ -1,18 +1,17 @@
 package com.ezground.teamproject.reservation;
 
 import java.util.List;import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ezground.teamproject.facility.dto.Facility;
+
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
-import com.ezground.teamproject.facility.dto.FacilityField;
+import com.ezground.teamproject.reservation.dto.Reservation;
 import com.ezground.teamproject.team.TeamDao;
-import com.ezground.teamproject.team.dto.Team;
+
 
 @Repository
 public class ReservationDao {
@@ -38,5 +37,10 @@ public class ReservationDao {
 	public FacilityAndFacilityField fieldSelectListDetail(int fieldNo) {
 		logger.debug("fieldSelectListDetail() fieldNo = {}", fieldNo);
 		return sqlSessionTemplate.selectOne(mapperRoot+"fieldSelectListDetail", fieldNo);
+	}
+	
+	public List<Reservation> reservationSelect(Reservation reservation) {
+		logger.debug("reservationSelect() fieldNo = {}", reservation);
+		return sqlSessionTemplate.selectList(mapperRoot+"reservationSelect", reservation);
 	}
 }

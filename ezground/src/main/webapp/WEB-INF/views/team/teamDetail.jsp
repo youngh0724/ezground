@@ -111,7 +111,7 @@
 			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
 			
 	</body>
-	</html>
+	
 	
 <script type = "text/javascript">
 function btn_team_join() {
@@ -122,5 +122,7 @@ function btn_team_join() {
 	}
 }
 </script>
+
+</html>
 
 		

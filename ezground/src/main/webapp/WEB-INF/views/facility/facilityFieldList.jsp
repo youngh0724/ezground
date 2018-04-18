@@ -3,8 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML>
-
 <html>
+
+
+
 	<head>
 		<title>EZ Ground</title>
 		<meta charset="utf-8" />
@@ -53,19 +55,22 @@
 						</td>
 					</tr>
 					<!--SELECT COUNT OPTION 끝 -->
-				</table>
+				</table>				
+
 											
-						<c:forEach var="field" items="${fieldlist}">						
-								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 33%; height:295px; padding:10px;">
-									<img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" width="380" height="260">
+						<c:forEach var="field" items="${fieldlist}">
+							    													
+								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 33%; height:295px; padding:10px; text-align:center;">
+									<img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" style='height: 100%; width: 100%; object-fit: contain; vertical-align: bottom;'>
 									${field.fieldName}
 								</div>
 								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 55%; height:295px; padding:10px;">
-									${field.fieldSize}
-									${field.fieldPeopleNumber}
-									${field.facilityAddress}
+									구장 위치 : ${field.facilityAddress} <br>
+									구장 크기 : ${field.fieldSize} <br>
+									적정 인원 : ${field.fieldPeopleNumber} <br>									
 									<a href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>										
-								</div>								
+								</div>	
+													
 						</c:forEach>
 		
 		
@@ -101,6 +106,7 @@
 </div>		
 </div>	
 <!-- end main -->
+
 <!-- Sidebar -->
 					<div id="sidebar">
 						<div class="inner">

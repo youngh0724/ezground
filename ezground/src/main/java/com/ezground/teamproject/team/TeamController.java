@@ -75,7 +75,7 @@ public class TeamController {
 	@RequestMapping(value="/team/teamInsert", method = RequestMethod.GET)
     public String teamInsert(HttpSession session) {
 	
-		logger.debug("teamInsert() ����Ȯ��"); 
+		logger.debug("teamInsert() 실행확인"); 
 			
         return "team/teamInsert";
     }
