@@ -1,5 +1,6 @@
 package com.ezground.teamproject.matchRecode;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList;
 
 
 @Repository
@@ -21,14 +24,11 @@ public class MatchRecodeDao {
 	private final String mapperRoot = "com.ezground.teamproject.matchRecode.MatchRecodeMapper.";
 	
 	//매개변수 값과 일치하는 하나의 팀 번호를 조회한다.
-	public Integer facilityNoSelectOne(int memberNo) {		
-		logger.debug("facilityNoSelectOne() memberNo = {}", memberNo);	
+	public List<MatchRecodeFieldList> matchRecodeBusinessSelectList(Map<String, Object> map) {		
+		logger.debug("matchRecodeBusinessSelectList() map = {}", map);	
 			
-		return sqlSessionTemplate.selectOne(mapperRoot+"facilityNoSelectOne", memberNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"matchRecodeBusinessSelectList", map);
 	}
 	
-	public Map<String, Object> matchRecodeSelectList() {			
-			
-		return sqlSessionTemplate.selectList(mapperRoot+"facilityNoSelectOne", memberNo);
-	}
+
 }

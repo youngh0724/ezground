@@ -7,9 +7,30 @@
  <mapper namespace="com.ezground.teamproject.matchRecode.MatchRecodeMapper">
  
  	<!--  -->
- 	<select id="">
- 		
- 	
+ 	<select id="matchRecodeBusinessSelectList"
+ 			parameterType="java.util.Map"
+ 			resultType="com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList">
+ 		SELECT
+			f.facility_no as facilityNo,
+			f.facility_name as facilityName,
+			t.field_no as fieldNo,
+			t.field_name as fieldName,
+			f.member_no as memberNo,
+			r.match_notice_no as matchNoticeNo,
+			r.reservation_no as reservationNo,
+			r.calendar_date as calendarDate,
+			r.calendar_start_time as calendarStartTime,
+			r.calendar_end_time as calendarEndTime
+		FROM t_facility f INNER JOIN t_facility_field t INNER JOIN t_reservation r
+		ON f.facility_no = t.facility_no AND t.field_no = r.field_no
+		WHERE f.member_no = #{memberNo}
+		<if test="reservationDay != null">
+			AND r.calendar_date = #{reservationDay}
+		</if>
+		<if test="reservationDay == null">
+			AND r.calendar_date = CURDATE()
+		</if>			
+		ORDER BY r.calendar_start_time DESC							
  	</select>
  
  </mapper>
