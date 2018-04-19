@@ -256,4 +256,37 @@
 			FROM t_facility_field
 			WHERE facility_no = #{facilityNo}
 		</select>
+		
+		<!-- 구장 일정 조회 모달 버전  -->
+		<select id="fieldCalendarList1"
+			resultType="com.ezground.teamproject.facility.dto.FacilityCalendar">
+			SELECT
+				calendar_no AS calendarNo
+				,facility_no AS facilityNo
+				,field_no AS fieldNo
+				,calendar_start_time AS calendarStartTime
+				,calendar_end_time AS calendarEndTime
+				,calendar_date AS calendarDate
+				,calendar_status AS calendarStatus
+				,calendar_write_date AS calendarWriteDate
+			FROM t_facility_calendar
+			WHERE field_no = #{fieldNo}	
+		</select>
+		
+		<!-- 구장 일정조회 페이지 버전 -->
+		<select id = "fieldCalendarList"
+			resultType="com.ezground.teamproject.facility.dto.FacilityCalendar"
+			parameterType="com.ezground.teamproject.facility.dto.FacilityCalendar">
+			SELECT
+				calendar_no AS calendarNo
+				,facility_no AS facilityNo
+				,field_no AS fieldNo
+				,calendar_start_time AS calendarStartTime
+				,calendar_end_time AS calendarEndTime
+				,calendar_date AS calendarDate
+				,calendar_status AS calendarStatus
+				,calendar_write_date AS calendarWriteDate
+			FROM t_facility_calendar
+			WHERE field_no = #{fieldNo} AND calendar_date = #{calendarDate}
+		</select>		
   </mapper>

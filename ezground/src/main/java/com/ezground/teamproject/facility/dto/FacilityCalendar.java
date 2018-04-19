@@ -3,17 +3,16 @@ package com.ezground.teamproject.facility.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class FacilityCalender {
+public class FacilityCalendar {
 
 	private int calendarNo;
 	private int facilityNo;
 	private int fieldNo;
 	private Time calendarStartTime;
 	private Time calendarEndTime;
-	private Date calendarDate;
+	private String calendarDate;
 	private String calendarStatus;
 	private Date calendarWriteDate;
-	
 	public int getCalendarNo() {
 		return calendarNo;
 	}
@@ -44,10 +43,10 @@ public class FacilityCalender {
 	public void setCalendarEndTime(Time calendarEndTime) {
 		this.calendarEndTime = calendarEndTime;
 	}
-	public Date getCalendarDate() {
+	public String getCalendarDate() {
 		return calendarDate;
 	}
-	public void setCalendarDate(Date calendarDate) {
+	public void setCalendarDate(String calendarDate) {
 		this.calendarDate = calendarDate;
 	}
 	public String getCalendarStatus() {
@@ -62,7 +61,4 @@ public class FacilityCalender {
 	public void setCalendarWriteDate(Date calendarWriteDate) {
 		this.calendarWriteDate = calendarWriteDate;
 	}
-	
-	
-	
 }

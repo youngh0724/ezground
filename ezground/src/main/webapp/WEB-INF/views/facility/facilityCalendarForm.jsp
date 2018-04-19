@@ -47,7 +47,6 @@
 		header: {
 	        left: 'prev,next today',
 	        center: 'title',
-	        right: 'month,agendaWeek,agendaDay,list'
 	      },
 	      locale: 'ko',
 	      lang : 'ko',
@@ -55,16 +54,13 @@
 	      navLinks: false, //
 	      eventLimit: true, // 
 	      dayClick: function(date, jsEvent, view) {
-	    	  $('#myModal').modal();
-	    	 var yy=date.format("YYYY");
-	    	 var mm=date.format("MM");
-	    	 var dd=date.format("DD");
-	    	 var date=yy+'.'+mm+'.'+dd;
-	    	  console.log(yy);
-	    	  console.log(mm);
-	    	  console.log(dd);
-	    	  console.log(date);
-	    	  $('#car-date').text(date);
+   		      var fieldNo = '${FieldNo}';
+   		      var facilityNo = '${FacilityNo}';
+
+	    	  alert('Clicked on: ' + date.format());
+	    	  
+	    	  location.href = '${pageContext.request.contextPath}/facility/fieldCalendarList?date='+date.format()+'&fieldNo='+fieldNo+'&facilityNo='+facilityNo;
+	    	  $('#car-date').text(date.format());
 	    	    // change the day's background color just for fun
 	    	    $(this).css('background-color', 'red');
 	    	  } 
@@ -86,7 +82,7 @@ body {
 </style>
 </head>
 <body>
-	<!-- Modal -->
+	<%-- <!-- Modal -->
 	<form action="${pageContext.request.contextPath}/facility/FieldCalendarInsertForm" method="get">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -99,6 +95,14 @@ body {
 					</div>
 					<div class="modal-body">
 						<div id="car-date"></div>
+							<table>
+								<thead>
+									<tr>
+										<th>시작 시간</th>
+										<th>종료 시간</th>									
+									</tr>
+								</thead>						
+							</table>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">일정 등록</button>
@@ -107,9 +111,11 @@ body {
 				</div>
 			</div>
 		</div>
-		<input type="hidden" name = "${fieldNo}" id = "${car-date}" value="${date}">
-		<input type="hidden" name = "${fieldNo}" id = "${fieldNo}" value="${fieldNo}">
+		<input type="hidden" name = "${car-date}" id = "${car-date}" value="${date}"> <!-- 날짜 값 -->
+		<input type="hidden" name = "${facilityNo}" id = "facilityNo" value="${facilityNo}"> <!-- 시설번호 -->
+		<input type="hidden" name = "${fieldNo}" id = "${fieldNo}" value="${fieldNo}"> <!-- 구장번호 -->
 	</form>
+	 --%>
 	<div id='calendar'></div>
 </body>
 </html>

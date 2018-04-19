@@ -20,6 +20,7 @@ import com.ezground.teamproject.facility.dto.Facility;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
 import com.ezground.teamproject.facility.dto.FacilityAndMember;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.facility.dto.FacilityImage;
 import com.ezground.teamproject.facility.dto.FacilitySub;
@@ -238,6 +239,19 @@ public class FacilityService {
 		logger.debug("FacilityService facilityInfieldList facilityNo = {}", facilityNo);
 		List<FacilityField> list = facilityDao.facilityInfieldList(facilityNo);
 		return list;
+	}
+	//modal.일정리스트(보류)
+	public List<FacilityCalendar> fieldCalendarList(int fieldNo){
+		logger.debug("FacilityService fieldCalendarList fieldNo = {}", fieldNo);
+		List<FacilityCalendar> list = facilityDao.fieldCalendarList(fieldNo);
+		return list;
+	}
+	//구장 일정리스트 페이지 화면
+	public List<FacilityCalendar> fieldCalendarList(int fieldNo, String date){
+		logger.debug("FacilityService fieldCalendarList fieldNo = {}", fieldNo);
+		List<FacilityCalendar> list= facilityDao.fieldCalendarList(fieldNo, date);
+		return list;
+		
 	}
 	
 }

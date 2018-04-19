@@ -13,6 +13,7 @@ import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.Facility;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
 import com.ezground.teamproject.facility.dto.FacilityAndMember;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.facility.dto.FacilityImage;
 import com.ezground.teamproject.facility.dto.FacilitySub;
@@ -121,5 +122,15 @@ public class FacilityDao {
 	// 시설 이름 클릭시 시설 번호로 구장 조회
 	public List<FacilityField> facilityInfieldList(int facilityNo){
 		return sqlSessionTemplate.selectList(mapperRoot+"facilityInfieldList", facilityNo);
+	}
+	//
+	public List<FacilityCalendar> fieldCalendarList(int fieldNo){
+		return sqlSessionTemplate.selectList(mapperRoot+"fieldCalendarList1", fieldNo);
+	}
+	public List<FacilityCalendar> fieldCalendarList(int fieldNo, String date){
+		FacilityCalendar facilityCalendar = new FacilityCalendar();
+		facilityCalendar.setCalendarDate(date);
+		facilityCalendar.setFieldNo(fieldNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"fieldCalendarList", facilityCalendar);
 	}
 }

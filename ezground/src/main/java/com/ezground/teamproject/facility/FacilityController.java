@@ -14,11 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.facility.dto.Facility;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityImage;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.facility.dto.FacilitySub;
 import com.ezground.teamproject.member.dto.MemberLogin;
@@ -282,22 +284,6 @@ public class FacilityController {
 			redirectAttributes.addAttribute("facilityNo", facilityNo);
 					return "redirect:/facility/facilitySubInsertForm";
 		}
-		// 일정 등록 페이지 요정(보류중)
-		@RequestMapping(value="facility/fieldCalendarForm", method = RequestMethod.GET)
-		public String facilityCalendarForm(HttpSession session,Model model,
-				@RequestParam(value="fieldNo", required=true) int fieldNo) {
-			
-			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
-				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
-				if(!memberLoginSession.getMemberLevel().equals("business")) {
-					return "redirect:/";
-				}
-			}else if(session.getAttribute("MemberLogin") == null) {
-				return "redirect:/";
-			}
-			model.addAttribute("FieldNo", fieldNo);
-			return "facility/facilityCalendarForm";
-		}
 		// 회원 번호로 시설 이름 AND 시설 번호 가져오기
 		@RequestMapping(value="facility/facilityAndFieldListForm", method = RequestMethod.GET)
 		public String facilityFieldList(HttpSession session, Model model) {
@@ -331,13 +317,16 @@ public class FacilityController {
 			}
 			logger.debug("FacilityController facilityInfieldList facilityNo = {}", facilityNo);
 			List<FacilityField> list = facilityService.facilityInfieldList(facilityNo);
+			model.addAttribute("FacilityNo", facilityNo);
 			model.addAttribute("List", list);
 					return "facility/fieldListForm";
 		}
 		
-		@RequestMapping(value="facility/FieldCalendarInsertForm", method = RequestMethod.GET)
-		public String facilityCalendarInsertForm(HttpSession session, Model model,
-					@RequestParam(value="date", required=true) Date date) {
+		// 일정 등록 페이지 요정(보류중)
+		@RequestMapping(value="facility/fieldCalendarForm", method = RequestMethod.GET)
+		public String facilityCalendarForm(HttpSession session,Model model,
+				@RequestParam(value="fieldNo", required=true) int fieldNo,
+				@RequestParam(value="facilityNo", required=true) int facilityNo) {
 			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
 				MemberLogin memberLoginSession = (MemberLogin)session.getAttribute("MemberLogin");
 				if(!memberLoginSession.getMemberLevel().equals("business")) {
@@ -346,9 +335,39 @@ public class FacilityController {
 			}else if(session.getAttribute("MemberLogin") == null) {
 				return "redirect:/";
 			}
-			logger.debug("FacilityController facilityCalendarInsertForm date = {}", date);
+			List<FacilityCalendar> list = facilityService.fieldCalendarList(fieldNo);
+			model.addAttribute("FieldNo", fieldNo);
+			model.addAttribute("FacilityNo", facilityNo);
+			model.addAttribute("List", list);
 			
 			return "facility/facilityCalendarForm";
+		}
+		
+		// 일정 클릭시 구장 일정리스트 보여주기
+		@RequestMapping(value="facility/fieldCalendarList", method = RequestMethod.GET)
+		public String fieldList(HttpSession session, Model model,				
+				@RequestParam(value="date", required=true) String date,
+				@RequestParam(value="fieldNo", required=true) int fieldNo,
+				@RequestParam(value="facilityNo", required=true) int facilityNo){
+			logger.debug("FacilityController fieldList date = {}", date);
+			logger.debug("FacilityController fieldList fieldNo = {}", fieldNo);
+			logger.debug("FacilityController fieldList facilityNo = {}", facilityNo);
+			List<FacilityCalendar> list = facilityService.fieldCalendarList(fieldNo, date);
+			model.addAttribute("List", list);
+			model.addAttribute("FieldNo", fieldNo);
+			model.addAttribute("FacilityNo", facilityNo);
+			model.addAttribute("Date", date);
+					return "facility/fieldCalendarListForm";
+		}
+		// 일정 등록 페이지
+		@RequestMapping(value="facility/fieldCalendarInsertForm", method = RequestMethod.POST)
+		public String fieldCalendarInsertForm(HttpSession session, Model model,
+				@RequestParam(value="fieldNo", required=true) int fieldNo,
+				@RequestParam(value="facilityNo", required=true) int facilityNo,
+				@RequestParam(value="date", required=true) String date) {
+					
+			return "facility/fieldCalendarInsertForm";
+			
 		}
 		
 }
