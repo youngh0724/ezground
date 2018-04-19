@@ -6,7 +6,7 @@
 
  <mapper namespace="com.ezground.teamproject.matchRecode.MatchRecodeMapper">
  
- 	<!--  -->
+ 	<!-- 날짜와 접속한 사업자(시설관리자)로 진행된 경기를 조회하여 리스트화한다. -->
  	<select id="matchRecodeBusinessSelectList"
  			parameterType="java.util.Map"
  			resultType="com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList">
@@ -31,6 +31,30 @@
 			AND r.calendar_date = CURDATE()
 		</if>			
 		ORDER BY r.calendar_start_time DESC							
+ 	</select>
+ 	
+ 	<!-- -->
+ 	<select id="matchNoticeSelectOne"
+ 			resultType="com.ezground.teamproject.reservation.dto.Reservation">
+ 		SELECT 
+			match_notice_no AS matchNoticeNo,
+			sport_entries_no AS sportEntriesNo,
+			team_no AS teamNo
+		FROM t_reservation
+		WHERE reservation_no = #{reservationNo} 	
+ 	</select>
+ 	
+ 	<!--  -->
+ 	<select id="matchJoinMemberSelectList"
+ 			resultType="com.ezground.teamproject.match.dto.MatchJoinMember">
+ 		SELECT 
+			match_notice_no AS matchNoticeNo,
+			member_no AS memberNo,
+			team_no AS teamNo,
+			home_away AS homeAway
+		FROM t_match_join_member
+		WHERE match_notice_no = #{matchJoinMemberNo} AND (home_away = 'home' or home_away = 'away')
+ 	
  	</select>
  
  </mapper>

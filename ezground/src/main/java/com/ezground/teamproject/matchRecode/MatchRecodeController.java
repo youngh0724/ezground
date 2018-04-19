@@ -91,13 +91,17 @@ public class MatchRecodeController {
 			return "matchRecode/matchRecodeBusinessSelectList";
 		}
 	
-
+	//날짜별 진행된 경기를 선택하여 경기 내용을 기록하기위한 폼화면으로의 이동요청을 처리
 	@RequestMapping(value = "/matchRecode/matchRecodeBusinessInsert", method = RequestMethod.GET)
 	public String matchRecodeBusinessInsert(Model model, HttpSession session,
 			@RequestParam(value = "reservationNo", required = true) int reservationNo) {
 		logger.debug("matchRecodeBusinessInsert() reservationNo = {}", reservationNo);
 		
-		return "redirect:/matchRecode/matchRecodeBusinessSelectList";
+		Map<String, Object> map = matchRecodeService.matchRecodeBusinessInsert(reservationNo);
+		logger.debug("matchRecodeBusinessInsert() map = {}", map);
+		
+		model.addAttribute("reservationInfo", map);	
+		return "matchRecode/matchRecodeBusinessInsert";
 	}
 	
 	
