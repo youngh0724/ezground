@@ -62,8 +62,15 @@ public class ReservationService {
 		reservation.setCalendarNo(calendarNo);
 		reservation.setFieldNo(fieldNo);
 		
-		List<Reservation> list = reservationDao.reservationSelect(reservation);
-		
+		List<Reservation> list = reservationDao.reservationSelect(reservation);		
 		return list;
 	}
+	
+	public void reservationInsert(Reservation reservation, int memberNo, int sportEntryNo) {
+		logger.debug("reservationInsert() teamName = {}", reservation.getFieldName());
+		
+		reservationDao.reservationInsert(reservation);
+		
+	}
+	
 }

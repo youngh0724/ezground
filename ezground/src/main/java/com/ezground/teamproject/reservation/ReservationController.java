@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
 @Controller
@@ -79,6 +80,20 @@ public class ReservationController {
         return "reservation/reservationInsert";
     }
 	
+	@RequestMapping(value="reservation/reservationInsert", method=RequestMethod.POST)
+	public String reservationInsert(Reservation reservation, HttpSession session) {
+		logger.debug("reservationInsert() fieldName = {}", reservation.getFieldName());
+		
+		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+		int memberNo = memberLogin.getMemberNo();
+		
+		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
+		int sportEntryNo = sportEntries.getSportEntriesNo();
+		
+		reservationService.reservationInsert(reservation, memberNo, sportEntryNo);	
+		
+		return "redirect:/reservation/reservationInsert";
+	}
 	
 }
 

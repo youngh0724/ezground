@@ -43,4 +43,9 @@ public class ReservationDao {
 		logger.debug("reservationSelect() fieldNo = {}", reservation);
 		return sqlSessionTemplate.selectList(mapperRoot+"reservationSelect", reservation);
 	}
+	
+	public int reservationInsert(Reservation reservation) {
+		logger.debug("reservationInsert() reservation = {}", reservation);
+		return sqlSessionTemplate.insert(mapperRoot+"reservationInsert", reservation);
+	}
 }

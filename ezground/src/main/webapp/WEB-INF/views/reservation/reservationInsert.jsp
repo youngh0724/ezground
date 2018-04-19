@@ -43,9 +43,8 @@
 									
 								<div class="panel panel-default">
 									<div class="panel-body">
-								    	<form name="frmJoin" action=""  onSubmit="return CheckForm(this)">
-								  	
-											<div class="col-sm-6"><h4>개인정보 제 3자 제공 방침 및 시설 이용 약관</h4> 									
+								    	<form id="reservForm" name="reservForm" method="post" action="${pageContext.request.contextPath}/reservation/reservationInsert"  onSubmit="return CheckForm(this)">
+								  			<div class="col-sm-6"><h4>개인정보 제 3자 제공 방침 및 시설 이용 약관</h4> 									
 												<textarea id="appointment1" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">											
 												</textarea>
 												<input type="checkbox" id="agree1" name="agree1" />
@@ -57,18 +56,19 @@
 												</textarea>	
 												<input type="checkbox" id="agree2" name="agree2" />
 		   										<label for="agree2"><span></span>위의 시설 이용 약관에 동의합니다.</label>									
-											</div>
+											</div>												
 								
 											<div class="col-sm-6">
-												<br><h4>예약 정보 확인</h4><br>										
-												구장 이름 : ${reserv.get(0).fieldName} <br>
-												위치 : ${reserv.get(0).facilityAddress} <br>
-												예약 일자 : <fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" /> <br>
-												경기 시간 : ${reserv.get(0).calendarStartTime}~${reserv.get(0).calendarEndTime}	
+												<br><h4>시설 정보 확인</h4><br>	
+												<span name="facilityName">시설 이름 : ${reserv.get(0).facilityName}</span> <br>								
+												<span name="fieldName">구장 이름 : ${reserv.get(0).fieldName}</span> <br>
+												<span name="facilityAddress">위치 : ${reserv.get(0).facilityAddress}</span> <br>												
 																						
 											</div>
 											<div class="col-sm-6">
-												<br><h4>결제 정보 확인</h4><br>
+												<br><h4>이용 정보 확인</h4><br>
+												예약 일자 : <fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" /> <br>
+												경기 시간 : ${reserv.get(0).calendarStartTime}~${reserv.get(0).calendarEndTime}	<br>
 												이용 비용 : ${reserv.get(0).fieldPrice} <br>												
 											</div>										
 								</form>								
@@ -104,18 +104,18 @@
 	
 	
 	function btn_reserv() {	
-		var chk1=document.frmJoin.agree1.checked;
-		var chk2=document.frmJoin.agree2.checked;
+		var chk1=document.reservForm.agree1.checked;
+		var chk2=document.reservForm.agree2.checked;
 		if(!chk1){
-            alert('약관1에 동의해 주세요');
+            alert('개인정보 취급 방침에 동의해 주세요');
             return false;
         } 
         if(!chk2) {
-            alert('약관2에 동의해 주세요');
+            alert('시설 이용 약관에 동의해 주세요');
             return false;
         }	
-		if (confirm("예약 화면으로 이동하시겠습니까?") == true) {
-			location.href = "${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}&calendar"
+		if (confirm("예약 하시겠습니까?") == true) {
+			document.getElementById("reservForm").submit();
 		} else {
 			return;
 		}

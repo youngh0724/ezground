@@ -30,7 +30,7 @@ public class TeamDao {
 	}
 	
 	public int teamSelectTotalCount() {
-		logger.debug("totalCount() ����Ȯ��"); 
+		logger.debug("totalCount() 실행 확인"); 
 		return sqlSessionTemplate.selectOne(mapperRoot+"teamSelectCount");	
 	}
 	

@@ -13,6 +13,7 @@ public class Reservation {
 	private int calendarNo;
 	private int matchNoticeNo;
 	private int teamNo;
+	private String facilityName;
 	private String fieldName;
 	private String fieldPrice;
 	private String facilityAddress;
@@ -64,6 +65,12 @@ public class Reservation {
 	}
 	public void setTeamNo(int teamNo) {
 		this.teamNo = teamNo;
+	}
+	public String getFacilityName() {
+		return facilityName;
+	}
+	public void setFacilityName(String facilityName) {
+		this.facilityName = facilityName;
 	}
 	public String getFieldName() {
 		return fieldName;
@@ -129,8 +136,8 @@ public class Reservation {
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", memberNo=" + memberNo + ", facilityNo=" + facilityNo
 				+ ", fieldNo=" + fieldNo + ", calendarNo=" + calendarNo + ", matchNoticeNo=" + matchNoticeNo
-				+ ", teamNo=" + teamNo + ", fieldName=" + fieldName + ", fieldPrice=" + fieldPrice
-				+ ", facilityAddress=" + facilityAddress + ", calendarStartTime=" + calendarStartTime
+				+ ", teamNo=" + teamNo + ", facilityName=" + facilityName + ", fieldName=" + fieldName + ", fieldPrice="
+				+ fieldPrice + ", facilityAddress=" + facilityAddress + ", calendarStartTime=" + calendarStartTime
 				+ ", calendarEndTime=" + calendarEndTime + ", calendarDate=" + calendarDate + ", sportEntriesNo="
 				+ sportEntriesNo + ", reservationStatus=" + reservationStatus + ", reservationDate=" + reservationDate
 				+ ", reservationCancelDate=" + reservationCancelDate + "]";

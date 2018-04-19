@@ -58,9 +58,13 @@
   			parameterType="com.ezground.teamproject.reservation.dto.Reservation"
   			resultType="com.ezground.teamproject.reservation.dto.Reservation">
   		SELECT
-  			a.field_name AS fieldName
+  			a.field_no AS fieldNo
+  			,a.field_name AS fieldName
   			,a.field_price AS fieldPrice
+  			,b.facility_no AS facilityNo
+  			,b.facility_name AS facilityName
   			,b.facility_address AS facilityAddress
+  			,c.calendar_no AS calendarNo
   			,c.calendar_start_time AS calendarStartTime
   			,c.calendar_end_time AS calendarEndTime
   			,c.calendar_date AS calendarDate
@@ -68,4 +72,10 @@
   								INNER JOIN t_facility_calendar c ON a.field_no = c.field_no  			 					 
   		WHERE a.field_no = #{fieldNo} AND c.calendar_no = #{calendarNo}  			
   	</select>	  	
+  	
+  	<insert id="reservationInsert"
+  			parameterType="com.ezground.teamproject.reservation.dto.Reservation">
+  		INSERT INTO t_reservation(facility_name, field_name, facility_address)		
+  		VALUES (#{facilityName}, #{fieldName}, #{facilityAddress})
+  	</insert>
   </mapper>
