@@ -2,9 +2,16 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EZ Ground</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <!-- 부트스트랩 -->
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -40,33 +47,44 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
+	$(document)
+			.ready(
+					function() {
+						$('#calendar')
+								.fullCalendar(
+										{
 
-  $(document).ready(function() {
-	    $('#calendar').fullCalendar({
-	    	
-		header: {
-	        left: 'prev,next today',
-	        center: 'title',
-	      },
-	      locale: 'ko',
-	      lang : 'ko',
-	      editable: true,
-	      navLinks: false, //
-	      eventLimit: true, // 
-	      dayClick: function(date, jsEvent, view) {
-   		      var fieldNo = '${FieldNo}';
-   		      var facilityNo = '${FacilityNo}';
+											header : {
+												left : 'prev,next',
+												center : 'title',
+											},
+											locale : 'ko',
+											lang : 'ko',
+											editable : true,
+											navLinks : false, //
+											eventLimit : true, // 
+											dayClick : function(date, jsEvent,
+													view) {
+												var fieldNo = '${FieldNo}';
+												var facilityNo = '${FacilityNo}';
 
-	    	  alert('Clicked on: ' + date.format());
-	    	  
-	    	  location.href = '${pageContext.request.contextPath}/facility/fieldCalendarList?date='+date.format()+'&fieldNo='+fieldNo+'&facilityNo='+facilityNo;
-	    	  $('#car-date').text(date.format());
-	    	    // change the day's background color just for fun
-	    	    $(this).css('background-color', 'red');
-	    	  } 
-	    });
-	  });
-	  
+												alert('Clicked on: '
+														+ date.format());
+
+												location.href = '${pageContext.request.contextPath}/facility/fieldCalendarList?date='
+														+ date.format()
+														+ '&fieldNo='
+														+ fieldNo
+														+ '&facilityNo='
+														+ facilityNo;
+												$('#car-date').text(
+														date.format());
+												// change the day's background color just for fun
+												$(this).css('background-color',
+														'red');
+											}
+										});
+					});
 </script>
 <style type='text/css'>
 body {
@@ -82,42 +100,37 @@ body {
 </style>
 </head>
 <body>
-	<%-- <!-- Modal -->
-	<form action="${pageContext.request.contextPath}/facility/FieldCalendarInsertForm" method="get">
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">일정 관리</h4>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<jsp:include page="/WEB-INF/views/module/header.jsp" />
+
+				<!-- Banner -->
+				<section id="banner">
+					<div class="content">
+						<div id='calendar'></div>
 					</div>
-					<div class="modal-body">
-						<div id="car-date"></div>
-							<table>
-								<thead>
-									<tr>
-										<th>시작 시간</th>
-										<th>종료 시간</th>									
-									</tr>
-								</thead>						
-							</table>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-default">일정 등록</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
+				</section>
 			</div>
 		</div>
-		<input type="hidden" name = "${car-date}" id = "${car-date}" value="${date}"> <!-- 날짜 값 -->
-		<input type="hidden" name = "${facilityNo}" id = "facilityNo" value="${facilityNo}"> <!-- 시설번호 -->
-		<input type="hidden" name = "${fieldNo}" id = "${fieldNo}" value="${fieldNo}"> <!-- 구장번호 -->
-	</form>
-	 --%>
-	<div id='calendar'></div>
+		<!-- main End -->
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div class="inner">
+				<jsp:include page="/WEB-INF/views/module/sidebar.jsp" />
+			</div>
+		</div>
+	</div>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/skel.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
 </body>
 </html>
+
 
 
