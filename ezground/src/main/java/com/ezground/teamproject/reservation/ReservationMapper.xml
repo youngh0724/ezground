@@ -66,6 +66,6 @@
   			,c.calendar_date AS calendarDate
   		FROM t_facility_field a INNER JOIN t_facility b ON a.facility_no = b.facility_no
   								INNER JOIN t_facility_calendar c ON a.field_no = c.field_no  			 					 
-  		  			
+  		WHERE a.field_no = #{fieldNo} AND c.calendar_no = #{calendarNo}  			
   	</select>	  	
   </mapper>

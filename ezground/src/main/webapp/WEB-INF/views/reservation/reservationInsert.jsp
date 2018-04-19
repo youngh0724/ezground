@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -26,7 +27,6 @@
 </head>
 
 <body>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
@@ -41,38 +41,39 @@
 						<div class="row" style="margin-bottom: 30;">
 							<div class="col-sm-12 col-lg-12">	
 									
-								  <form name="frmJoin" action=""  onSubmit="return CheckForm(this)">
-									<div class="col-sm-6"><h4>개인정보 제 3자 제공 방침 및 시설 이용 약관</h4> 									
-										<textarea id="appointment1" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">											
-										</textarea>
-										<input type="checkbox" id="agree1" name="agree1" />
-   										<label for="agree1"><span></span>위의 개인정보 취급 방침에 동의합니다.</label>
-									</div>
+								<div class="panel panel-default">
+									<div class="panel-body">
+								    	<form name="frmJoin" action=""  onSubmit="return CheckForm(this)">
+								  	
+											<div class="col-sm-6"><h4>개인정보 제 3자 제공 방침 및 시설 이용 약관</h4> 									
+												<textarea id="appointment1" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">											
+												</textarea>
+												<input type="checkbox" id="agree1" name="agree1" />
+   												<label for="agree1"><span></span>위의 개인정보 취급 방침에 동의합니다.</label>
+											</div>
 																			
-									<div class="col-sm-6"><h4>&nbsp;</h4>
-										<textarea id="appointment2" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">										
-										</textarea>	
-										<input type="checkbox" id="agree2" name="agree2" />
-   										<label for="agree2"><span></span>위의 시설 이용 약관에 동의합니다.</label>									
-									</div>
-									
-									<div class="col-sm-6">
-										<br><h4>예약 정보 확인</h4><br>
-										구장 이름 : ${reserv.fieldName } <br>
-										위치 : ${reserv.facilityAddress }<br>
-										예약 일자 : ${reserv.calendarDate}<br>
-										경기 시간 : ${reserv.calendarStartTime}~${reserv.calendarEndTime}
-										
-									</div>
-									<div class="col-sm-6">
-										<br><h4>결제 정보 확인</h4><br>
-										구장 이용 : ${reserv.fieldPrice}<br>
-										기타 : 0원<br>
-										합계 : 40,000원<br>
-										
-									</div>
-								</form>								
+											<div class="col-sm-6"><h4>&nbsp;</h4>
+												<textarea id="appointment2" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">										
+												</textarea>	
+												<input type="checkbox" id="agree2" name="agree2" />
+		   										<label for="agree2"><span></span>위의 시설 이용 약관에 동의합니다.</label>									
+											</div>
 								
+											<div class="col-sm-6">
+												<br><h4>예약 정보 확인</h4><br>										
+												구장 이름 : ${reserv.get(0).fieldName} <br>
+												위치 : ${reserv.get(0).facilityAddress} <br>
+												예약 일자 : <fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" /> <br>
+												경기 시간 : ${reserv.get(0).calendarStartTime}~${reserv.get(0).calendarEndTime}	
+																						
+											</div>
+											<div class="col-sm-6">
+												<br><h4>결제 정보 확인</h4><br>
+												이용 비용 : ${reserv.get(0).fieldPrice} <br>												
+											</div>										
+								</form>								
+									</div>
+								</div>
 								
 								<a class="btn btn-default"
 									href="${pageContext.request.contextPath}/facility/facilityFieldList">리스트로 돌아가기</a> 
@@ -114,7 +115,7 @@
             return false;
         }	
 		if (confirm("예약 화면으로 이동하시겠습니까?") == true) {
-			location.href = "${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}"
+			location.href = "${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}&calendar"
 		} else {
 			return;
 		}
