@@ -75,7 +75,7 @@
   	
   	<insert id="reservationInsert"
   			parameterType="com.ezground.teamproject.reservation.dto.Reservation">
-  		INSERT INTO t_reservation(facility_name, field_name, facility_address)		
-  		VALUES (#{facilityName}, #{fieldName}, #{facilityAddress})
+  		INSERT INTO t_reservation(facility_name, field_name, facility_address, calendar_start_time, calendar_end_time, calendar_date)		
+  		VALUES (#{facilityName}, #{fieldName}, #{facilityAddress}, #{calendarStartTime}, #{calendarEndTime}, #{calendarDate})
   	</insert>
   </mapper>

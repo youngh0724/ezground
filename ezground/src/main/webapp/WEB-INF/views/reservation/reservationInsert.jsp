@@ -60,16 +60,27 @@
 								
 											<div class="col-sm-6">
 												<br><h4>시설 정보 확인</h4><br>	
-												<span name="facilityName">시설 이름 : ${reserv.get(0).facilityName}</span> <br>								
-												<span name="fieldName">구장 이름 : ${reserv.get(0).fieldName}</span> <br>
-												<span name="facilityAddress">위치 : ${reserv.get(0).facilityAddress}</span> <br>												
+												시설 이름 : <input type="text" name="facilityName" value="${reserv.get(0).facilityName}"><br>								
+												구장 이름 : <input type="text" name="fieldName" value="${reserv.get(0).fieldName}"> <br>
+												위치 : <input type="text" name="facilityAddress" value="${reserv.get(0).facilityAddress}"><br>												
 																						
 											</div>
 											<div class="col-sm-6">
 												<br><h4>이용 정보 확인</h4><br>
-												예약 일자 : <fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" /> <br>
-												경기 시간 : ${reserv.get(0).calendarStartTime}~${reserv.get(0).calendarEndTime}	<br>
-												이용 비용 : ${reserv.get(0).fieldPrice} <br>												
+												예약 일자 : <input type="hidden" name="calendarDate" value="${reserv.get(0).calendarDate}">
+														<input type="text" value="<fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" />"><br> 
+												
+												경기 시간 : <br>
+												<div class="col-sm-5" style="padding-left: 0px;">
+														<input type="text" name="calendarStartTime" value="${reserv.get(0).calendarStartTime}">
+												</div>
+												<div class="col-sm-2" align="center">
+												~
+												</div>
+												<div class="col-sm-5" style="padding-right: 0px;">
+														<input type="text" name="calendarEndTime" value="${reserv.get(0).calendarEndTime}"><br>
+												</div>
+												이용 비용 : <input type="text" name="fieldPrice" value="${reserv.get(0).fieldPrice}"><br>											
 											</div>										
 								</form>								
 									</div>
