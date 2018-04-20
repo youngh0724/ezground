@@ -44,6 +44,12 @@
 								<div class="panel panel-default">
 									<div class="panel-body">
 								    	<form id="reservForm" name="reservForm" method="post" action="${pageContext.request.contextPath}/reservation/reservationInsert"  onSubmit="return CheckForm(this)">
+								  			<input type="hidden" name="facilityNo" value="${reserv.get(0).facilityNo}">
+								  			<input type="hidden" name="fieldNo" value="${reserv.get(0).fieldNo}">
+								  			<input type="hidden" name="teamNo" value="${reserv.get(0).teamNo}">
+								  			<input type="hidden" name="matchNoticeNo" value="${reserv.get(0).matchNoticeNo}">
+								  			<input type="hidden" name="calendarNo" value="${calendarNo}">
+								  			<input type="hidden" name="reservationStatus" value="사용불가">
 								  			<div class="col-sm-6"><h4>개인정보 제 3자 제공 방침 및 시설 이용 약관</h4> 									
 												<textarea id="appointment1" style="width:75%;height:200px;border:1;overflow:visible;text-overflow:ellipsis;">											
 												</textarea>
@@ -67,9 +73,7 @@
 											</div>
 											<div class="col-sm-6">
 												<br><h4>이용 정보 확인</h4><br>
-												예약 일자 : <input type="hidden" name="calendarDate" value="${reserv.get(0).calendarDate}">
-														<input type="text" value="<fmt:formatDate value="${reserv.get(0).calendarDate}" pattern="yyyy-MM-dd" />"><br> 
-												
+												예약 일자 : <input type="text" name="calendarDate" value="${reserv.get(0).calendarDate}"><br> 												
 												경기 시간 : <br>
 												<div class="col-sm-5" style="padding-left: 0px;">
 														<input type="text" name="calendarStartTime" value="${reserv.get(0).calendarStartTime}">

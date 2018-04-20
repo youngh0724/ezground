@@ -75,7 +75,8 @@
   	
   	<insert id="reservationInsert"
   			parameterType="com.ezground.teamproject.reservation.dto.Reservation">
-  		INSERT INTO t_reservation(facility_name, field_name, facility_address, calendar_start_time, calendar_end_time, calendar_date)		
-  		VALUES (#{facilityName}, #{fieldName}, #{facilityAddress}, #{calendarStartTime}, #{calendarEndTime}, #{calendarDate})
+  		INSERT INTO t_reservation(member_no, facility_no, field_no, calendar_no, match_notice_no, team_no, field_name, field_price, facility_name, facility_address, calendar_start_time, calendar_end_time, calendar_date, sport_entries_no, reservation_date, reservation_status)		
+  		VALUES (#{memberNo}, #{facilityNo}, #{fieldNo}, #{calendarNo}, #{matchNoticeNo}, #{teamNo}, #{fieldName}, #{fieldPrice}, #{facilityName}, #{facilityAddress}, #{calendarStartTime}, #{calendarEndTime}, #{calendarDate}, #{sportEntriesNo}, now(), #{reservationStatus})
+  		  	
   	</insert>
   </mapper>

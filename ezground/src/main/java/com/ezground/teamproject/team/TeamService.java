@@ -61,8 +61,7 @@ public class TeamService {
 		Team team = teamDao.teamSelectListDetail(teamNo);
 		
 		return team;
-	}
-	
+	}	
 
 	public void teamInsert(Team team, int memberNo, int sportEntryNo) {
 		
@@ -77,7 +76,6 @@ public class TeamService {
 		teamMemberDao.teamMemberInsert(teamMember);
 		
 	}
-	
 
 	public Team teamSelectOne(int teamNo) {
 		

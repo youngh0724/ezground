@@ -1,6 +1,5 @@
 package com.ezground.teamproject.reservation.dto;
 
-import java.util.Date;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +18,8 @@ public class Reservation {
 	private String facilityAddress;
 	private String calendarStartTime;
 	private String calendarEndTime;	
-	private Date calendarDate;
-	private String sportEntriesNo;
+	private String calendarDate;
+	private int sportEntriesNo;
 	private String reservationStatus;
 	private String reservationDate;
 	private String reservationCancelDate;
@@ -102,16 +101,16 @@ public class Reservation {
 	public void setCalendarEndTime(String calendarEndTime) {
 		this.calendarEndTime = calendarEndTime;
 	}
-	public Date getCalendarDate() {
+	public String getCalendarDate() {
 		return calendarDate;
 	}
-	public void setCalendarDate(Date calendarDate) {
+	public void setCalendarDate(String calendarDate) {
 		this.calendarDate = calendarDate;
 	}
-	public String getSportEntriesNo() {
+	public int getSportEntriesNo() {
 		return sportEntriesNo;
 	}
-	public void setSportEntriesNo(String sportEntriesNo) {
+	public void setSportEntriesNo(int sportEntriesNo) {
 		this.sportEntriesNo = sportEntriesNo;
 	}
 	public String getReservationStatus() {

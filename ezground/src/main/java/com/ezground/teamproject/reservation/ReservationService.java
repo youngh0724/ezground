@@ -1,13 +1,18 @@
 package com.ezground.teamproject.reservation;
 
 import java.util.HashMap;import java.util.List;import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
 
@@ -66,11 +71,14 @@ public class ReservationService {
 		return list;
 	}
 	
-	public void reservationInsert(Reservation reservation, int memberNo, int sportEntryNo) {
+	public void reservationInsert(Reservation reservation, int memberNo, int sportEntriesNo) {
 		logger.debug("reservationInsert() teamName = {}", reservation.getFieldName());
+				
+		reservation.setMemberNo(memberNo);
+		reservation.setSportEntriesNo(sportEntriesNo);
 		
-		reservationDao.reservationInsert(reservation);
-		
+		reservationDao.reservationInsert(reservation);	
+	
 	}
 	
 }

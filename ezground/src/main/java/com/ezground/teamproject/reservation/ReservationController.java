@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
@@ -68,7 +69,7 @@ public class ReservationController {
 	@RequestMapping(value="/reservation/reservationInsert", method = RequestMethod.GET)
     public String reservationSelect(Model model, HttpSession session,
     								@RequestParam(value="fieldNo", required=true) int fieldNo,
-    								@RequestParam(value="calendarNo", required=true) int calendarNo) {
+    								@RequestParam(value="calendarNo", required=false) Integer calendarNo) {
 		
 		logger.debug("reservationSelect() 실행확인"); 
 	
@@ -76,23 +77,23 @@ public class ReservationController {
 		List<Reservation> list = reservationService.reservationSelect(fieldNo, calendarNo);
 		
 		model.addAttribute("reserv", list);
-			
+		model.addAttribute("calendarNo", calendarNo);	
         return "reservation/reservationInsert";
     }
 	
 	@RequestMapping(value="reservation/reservationInsert", method=RequestMethod.POST)
-	public String reservationInsert(Reservation reservation, HttpSession session) {
+	public String reservationInsert(Reservation reservation, HttpSession session, RedirectAttributes redirectAttributes) {
 		logger.debug("reservationInsert() fieldName = {}", reservation.getFieldName());
 		
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
 		
 		SportEntries sportEntries = (SportEntries)session.getAttribute("currentSportEntry");
-		int sportEntryNo = sportEntries.getSportEntriesNo();
+		int sportEntriesNo = sportEntries.getSportEntriesNo();
 		
-		reservationService.reservationInsert(reservation, memberNo, sportEntryNo);	
-		
-		return "redirect:/reservation/reservationInsert";
+		reservationService.reservationInsert(reservation, memberNo, sportEntriesNo);
+		redirectAttributes.addAttribute("fieldNo", reservation.getFieldNo());
+		return "redirect:/facility/facilityFieldDetail";
 	}
 	
 }
