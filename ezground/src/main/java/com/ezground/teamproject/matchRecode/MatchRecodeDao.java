@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ezground.teamproject.match.dto.MatchJoinMember;
+
 import com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList;
+import com.ezground.teamproject.matchRecode.dto.MatchRecodeInfo;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
 
@@ -33,13 +34,13 @@ public class MatchRecodeDao {
 	}
 	
 	//예약 번호로 매치공고번호를 조회한다.
-	public Reservation matchNoticeSelectOne(int reservationNo) {
+	public Reservation reservationSelectOne(int reservationNo) {
 		logger.debug("matchNoticeSelectOne() reservationNo = {}", reservationNo);
 		
-		return sqlSessionTemplate.selectOne(mapperRoot+"matchNoticeSelectOne", reservationNo);
+		return sqlSessionTemplate.selectOne(mapperRoot+"reservationSelectOne", reservationNo);
 	}
 	
-	public List<MatchJoinMember> matchJoinMemberSelectList(int matchNoticeNo){
+	public List<MatchRecodeInfo> matchJoinMemberSelectList(int matchNoticeNo){
 		logger.debug("matchJoinMemberSelectList() matchNoticeNo = {}", matchNoticeNo);
 		
 		return sqlSessionTemplate.selectList(mapperRoot+"matchJoinMemberSelectList", matchNoticeNo);

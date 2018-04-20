@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ezground.teamproject.match.dto.MatchJoinMember;
 import com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList;
+import com.ezground.teamproject.matchRecode.dto.MatchRecodeInfo;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
 @Service
@@ -60,11 +60,11 @@ public class MatchRecodeService {
 		logger.debug("matchRecodeBusinessInsert() reservationNo = {}", reservationNo);
 		
 		//예약 번호로 예약 정보 조회
-		Reservation reservation = matchRecodeDao.matchNoticeSelectOne(reservationNo);
+		Reservation reservation = matchRecodeDao.reservationSelectOne(reservationNo);
 		logger.debug("matchRecodeBusinessInsert() reservation = {}", reservation);
 		
 		//예약정보중 매치공고번호로 매치참여맴버 리스트조회
-		List<MatchJoinMember> matchJoinMemberList = matchRecodeDao.matchJoinMemberSelectList(reservation.getMatchNoticeNo());
+		List<MatchRecodeInfo> matchJoinMemberList = matchRecodeDao.matchJoinMemberSelectList(reservation.getMatchNoticeNo());
 		logger.debug("matchRecodeBusinessInsert() matchJoinMemberList = {}", matchJoinMemberList);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

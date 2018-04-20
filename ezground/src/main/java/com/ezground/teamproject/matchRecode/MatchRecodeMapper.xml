@@ -34,26 +34,30 @@
  	</select>
  	
  	<!-- -->
- 	<select id="matchNoticeSelectOne"
+ 	<select id="reservationSelectOne"
  			resultType="com.ezground.teamproject.reservation.dto.Reservation">
  		SELECT 
 			match_notice_no AS matchNoticeNo,
 			sport_entries_no AS sportEntriesNo,
-			team_no AS teamNo
+			team_no AS teamNo,
+			reservation_no AS reservationNo			
 		FROM t_reservation
 		WHERE reservation_no = #{reservationNo} 	
  	</select>
  	
  	<!--  -->
  	<select id="matchJoinMemberSelectList"
- 			resultType="com.ezground.teamproject.match.dto.MatchJoinMember">
+ 			resultType="com.ezground.teamproject.matchRecode.dto.MatchRecodeInfo">
  		SELECT 
-			match_notice_no AS matchNoticeNo,
-			member_no AS memberNo,
-			team_no AS teamNo,
-			home_away AS homeAway
-		FROM t_match_join_member
-		WHERE match_notice_no = #{matchJoinMemberNo} AND (home_away = 'home' or home_away = 'away')
+ 			j.match_join_member_no AS matchJoinMemberNo,
+			j.match_notice_no AS matchNoticeNo,
+			j.member_no AS memberNo,
+			j.team_no AS teamNo,
+			j.home_away AS homeAway,
+			m.member_name AS memberName
+		FROM t_match_join_member j INNER JOIN t_member m
+		ON j.member_no = m.member_no
+		WHERE match_notice_no = #{matchNoticeNo} AND (home_away = 'home' or home_away = 'away')
  	
  	</select>
  

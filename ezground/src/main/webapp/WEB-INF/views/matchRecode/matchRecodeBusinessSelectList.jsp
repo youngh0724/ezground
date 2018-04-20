@@ -29,11 +29,18 @@
 									<div class="content">
 										<h2>사업자용 자신의 시설구장 날짜별 예약 리스트</h2>
 										
+										<c:set var="matchRecode" value="${matchRecodeFieldList}"></c:set>
+										<c:if test = "${!empty matchRecode}">
 										<p>${matchRecodeFieldList.get(0).calendarDate }일 구장별 열린 경기 일정</p>
+										</c:if>
+										<c:if test = "${empty matchRecode}">
+										<p>찾으시는 날짜의 구장별 열린 경기 일정이 없습니다.</p>
+										</c:if>
 										<form action="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessSelectList" method="post">
 											<input type="date" name="reservationDay">
 											<button type="submit">경기 조회</button>
 										</form> 
+										
 										<table border="1">
 										<thead>
 											<tr>

@@ -27,10 +27,10 @@
 						<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-										<h2>?구장 ?일 ?경기 기록등록 페이지 </h2>
-																			
+										<h2>경기 기록등록 페이지 </h2>
+											<input id="addRecodeLine" type="button" value="추가">								
 										<form action="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessInsert" method="post">
-											<table border="1">
+											<table id="recodeLine" border="1">
 												<thead>
 													<tr>
 														<th>세트</th>
@@ -38,26 +38,33 @@
 														<th>시간</th>
 														<th>점수</th>																							
 														<th>득점 맴버</th>
+														<th>폼 삭제</th>
 													</tr>	
 												</thead>
 												<tbody>												
 														<tr>
-															<td>1</td>
-															<td>2</td>
-															<td>3</td>
-															<td>4</td>													
-															<td><select name="matchJoinMember">
+															<td><input id="" name="scoreSet" type="text"></td>
+															<td><input id="" name="scoreGame" type="text"></td>
+															<td><input id="" name="scoreTime" type="text"></td>
+															<td><input id="" name="scoreRecode" type="text"></td>													
+															<td>
+																<select name="matchJoinMemberNo">
 																	<c:forEach var="memberList" items="${reservationInfo.matchJoinMemberList}">
-																	    <option value="${memberList.memberNo}">
-																	        ${memberList.memberNo}
+																	    <option value="${memberList.matchJoinMemberNo}">
+																	        ${memberList.memberName}
 																	    </option>
 																 	</c:forEach>
-																</select></td>
+																</select>
+																<input id="" name="matchNoticeNo" type="hidden" value="${reservationInfo.reservation.matchNoticeNo }">
+																<input id="" name="sportEntriesNo" type="hidden" value="${reservationInfo.reservation.sportEntriesNo }">
+																<input id="" name="teamNo" type="hidden" value="${reservationInfo.reservation.teamNo }">
+																<input id="" name="reservationNo" type="hidden" value="${reservationInfo.reservation.reservationNo }">
+															</td>
+															<td></td>
 														</tr>													
 												</tbody>
 												</table>									
-											
-											<button type="submit">경기 기록 등록</button>
+											<input type="submit" value="경기 기록 등록">
 										</form> 
 																	
 									</div>									
@@ -77,19 +84,38 @@
 			</div>
 			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
 			
-	</body>
+	</body>	
 	
+	<script type="text/javascript">
 	
+		$('#addRecodeLine').click(function(){
+			var inputForm = '<tr>'
+								+'<td><input id="" name="scoreSet" type="text"></td>'
+								+'<td><input id="" name="scoreGame" type="text"></td>'
+								+'<td><input id="" name="scoreTime" type="text"></td>'
+								+'<td><input id="" name="scoreRecode" type="text"></td>'											
+								+'<td>'
+									+'<select name="matchJoinMemberNo">'
+										+'<c:forEach var="memberList" items="${reservationInfo.matchJoinMemberList}">'
+										    +'<option value="${memberList.matchJoinMemberNo}">'
+										        +'{memberList.memberName}'
+										    +'</option>'
+									 	+'</c:forEach>'
+									+'</select>'
+									+'<input id="" name="matchNoticeNo" type="hidden" value="${reservationInfo.reservation.matchNoticeNo }">'
+									+'<input id="" name="sportEntriesNo" type="hidden" value="${reservationInfo.reservation.sportEntriesNo }">'
+									+'<input id="" name="teamNo" type="hidden" value="${reservationInfo.reservation.teamNo }">'
+									+'<input id="" name="reservationNo" type="hidden" value="${reservationInfo.reservation.reservationNo }">'
+								+'</td>'
+								+'<td><input id="deleteRecodeLine" type="button" value="삭제"></td>'
+							+'</tr>';
+			$('#"recodeLine" > tbody:last').append(inputForm);
+		});
+		
+		$('#deleteRecodeLine').click(function(){
+			$('#"recodeLine" > tbody:last > tr:last').remove();
+		});
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	</script>
 	
 	</html>

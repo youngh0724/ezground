@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ezground.teamproject.matchRecode.dto.MatchRecodeFieldList;
+import com.ezground.teamproject.matchRecode.dto.MatchScoreRecode;
 import com.ezground.teamproject.member.dto.MemberLogin;
 
 
@@ -103,6 +104,15 @@ public class MatchRecodeController {
 		model.addAttribute("reservationInfo", map);	
 		return "matchRecode/matchRecodeBusinessInsert";
 	}
+	
+	//날짜별 진행된 경기를 선택하여 경기 내용을 기록하기위한 폼화면으로의 이동요청을 처리
+		@RequestMapping(value = "/matchRecode/matchRecodeBusinessInsert", method = RequestMethod.POST)
+		public String matchRecodeBusinessInsert(Model model, HttpSession session, MatchScoreRecode matchScoreRecode) {
+			logger.debug("matchRecodeBusinessInsert() matchScoreRecode = {}", matchScoreRecode);
+			
+				
+			return "matchRecode/matchRecodeBusinessInsert";
+		}
 	
 	
 }
