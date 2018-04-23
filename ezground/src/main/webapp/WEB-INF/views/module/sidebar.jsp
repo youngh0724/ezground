@@ -64,7 +64,7 @@
 												<li><a href="#">매치게시판</a></li>																				
 											</ul>
 										</li>										
-										<li><a href="#">MYPAGE</a></li>																	
+										<li><a href="${pageContext.request.contextPath}/mypage/mypage">MYPAGE</a></li>																
 									</ul>
 								</nav>
 

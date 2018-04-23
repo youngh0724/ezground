@@ -41,7 +41,7 @@
 		</insert>
 		
 	<!-- 사업자 자신이 신청한 시설등록 요청내역 조회  -->
-		<select id = "memberfacilitySelectList"
+		<select id = "facilityInsertStatusList"
 				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_name AS facilityName
@@ -66,6 +66,7 @@
 				resultType="com.ezground.teamproject.facility.dto.Facility">
 				SELECT
 					facility_name AS facilityName
+					,member_no AS memberNo
 					,facility_no AS facilityNo				
 					,facility_phone AS facilityPhone
 					,facility_address AS facilityAddress
@@ -289,4 +290,10 @@
 			FROM t_facility_calendar
 			WHERE field_no = #{fieldNo} AND calendar_date = #{calendarDate}
 		</select>		
+		
+		<delete id="facilityDelete"
+				parameterType="com.ezground.teamproject.facility.dto.Facility">
+			DELETE FROM t_facility
+			WHERE facility_no = #{facilityNo}		
+		</delete>
   </mapper>

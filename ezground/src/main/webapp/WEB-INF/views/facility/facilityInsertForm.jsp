@@ -15,6 +15,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<jsp:include page="/WEB-INF/views/module/headLink.jsp" />
 </head>
+
 <body>
 
 		<!-- Wrapper -->
@@ -28,27 +29,27 @@
 								<section id="banner">
 									<div class="content">
 										<h2>시설 등록 페이지</h2>		
-											<form action="${pageContext.request.contextPath}/facility/facilityInsert" method="post" enctype="multipart/form-data">
-												<table class="table table-striped">
+											<form id="facil_insert" action="${pageContext.request.contextPath}/facility/facilityInsert" method="post" enctype="multipart/form-data">
+												<table class="table table-striped">													
 													<tr>
 														<td>시설 이름</td>
 														<td><input type = "text" id = "facilityName" name = "facilityName"></td>
 													</tr>
 													<tr>
-														<td>시설 전화번호</td>
+														<td>전화번호</td>
 														<td><input type =  "text" id = "facilityPhone" name = "facilityPhone"></td>
 													</tr>
 													<tr>
-														<td>시설 주소</td>
+														<td>주소</td>
 														<td><input type = "text" id = "facilityAddress" name = "facilityAddress"></td>
 													</tr>	
 													<tr>
 														<td>공지사항</td>
-														<td><input type = "text" id = "facilityNotice" name = "facilityNotice"></td>
+														<td><textarea id = "facilityNotice" name = "facilityNotice"></textarea></td>
 													</tr>
 													<tr>
 														<td>상세정보</td>
-														<td><input type = "text" id = "facilityDetail" name = "facilityDetail"></td>
+														<td><textarea id = "facilityDetail" name = "facilityDetail"></textarea></td>
 													</tr>
 													<tr>
 														<td>가격정보</td>
@@ -56,11 +57,11 @@
 													</tr>
 													<tr>	
 														<td>환불규정</td>
-														<td><input type = "text" id = "facilityRefund" name = "facilityRefund"></td>
+														<td><textarea id = "facilityRefund" name = "facilityRefund"></textarea></td>
 													</tr>
 													<tr>	
 														<td>이용규칙</td>
-														<td><input type = "text" id = "facilityRule" name = "facilityRule"></td>
+														<td><textarea id = "facilityRule" name = "facilityRule"></textarea></td>
 													</tr>
 													<tr>	
 														<td>사업자 번호</td>
@@ -75,7 +76,7 @@
 														<td><input type = "file" name = "files" multiple = "multiple"></td>
 													</tr>
 													<tr>
-													<td><input Type = "submit" value = "등록요청"></td>
+													<td><input type="button" class="btn btn-defalut" value="등록하기" onclick="btn_insert();"></td>
 													</tr>
 												</table>
 											</form>
@@ -95,5 +96,32 @@
 			</div>
 			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
 											
+
+
+<script>
+
+	function btn_insert() {
+		var str = $('#facilityNotice').val();
+		var str1 = $('#facilityDetail').val();
+		var str2 = $('#facilityRefund').val();
+		var str3 = $('#facilityRule').val();
+		str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		str1 = str1.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		str2 = str2.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		str3 = str3.replace(/(?:\r\n|\r|\n)/g, '<br />');		
+		$('#facilityNotice').val(str);
+		$('#facilityDetail').val(str1);
+		$('#facilityRefund').val(str2);
+		$('#facilityRule').val(str3);		
+		$('#facil_insert').submit();
+		str = str.split('<br />').join("\r\n");
+		$('#facilityNotice').val(str);
+		$('#facilityDetail').val(str1);
+		$('#facilityRefund').val(str2);
+		$('#facilityRule').val(str3);
+	};
+	
+
+</script>
 </body>
 </html>

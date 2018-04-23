@@ -49,9 +49,9 @@ public class FacilityDao {
 		return sqlSessionTemplate.insert(mapperRoot+"facilityInsert", facility);
 	}
 	// 사업자가 신청한 시설 등록신청 요청 리스트 조회
-	public List<Facility> memberFacilityInsertStatusList(int memberNo) {
-		logger.debug("FacilityDao memberFacilityInsertStatusList memberNo = {}", memberNo);
-		return sqlSessionTemplate.selectList(mapperRoot+"memberfacilitySelectList", memberNo);
+	public List<Facility> facilityInsertStatusList(int memberNo) {
+		logger.debug("FacilityDao facilityInsertStatusList memberNo = {}", memberNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"facilityInsertStatusList", memberNo);
 	}
 	// 사업자가 신청한 시설등록 신청 요청 수정화면페이지 처리
 	public Facility facilitySelectOne(int facilityNo) {
@@ -133,4 +133,9 @@ public class FacilityDao {
 		facilityCalendar.setFieldNo(fieldNo);
 		return sqlSessionTemplate.selectList(mapperRoot+"fieldCalendarList", facilityCalendar);
 	}
+	
+	public int facilityDelete(int facilityNo) {
+		return sqlSessionTemplate.delete(mapperRoot+"facilityDelete", facilityNo);
+	}
+
 }
