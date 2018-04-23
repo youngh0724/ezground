@@ -29,14 +29,14 @@
 									<div class="content">
 										<h2>사업자용 자신의 시설구장 날짜별 예약 리스트</h2>
 										
-										<c:set var="matchRecode" value="${matchRecodeFieldList}"></c:set>
-										<c:if test = "${!empty matchRecode}">
-										<p>${matchRecodeFieldList.get(0).calendarDate }일 구장별 열린 경기 일정</p>
+										<c:set var="matchRecord" value="${matchRecordFieldList}"></c:set>
+										<c:if test = "${!empty matchRecord}">
+										<p>${matchRecordFieldList.get(0).calendarDate }일 구장별 열린 경기 일정</p>
 										</c:if>
-										<c:if test = "${empty matchRecode}">
+										<c:if test = "${empty matchRecord}">
 										<p>찾으시는 날짜의 구장별 열린 경기 일정이 없습니다.</p>
 										</c:if>
-										<form action="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessSelectList" method="post">
+										<form action="${pageContext.request.contextPath}/matchRecord/matchRecordBusinessSelectList" method="post">
 											<input type="date" name="reservationDay">
 											<button type="submit">경기 조회</button>
 										</form> 
@@ -52,13 +52,13 @@
 											</tr>	
 										</thead>
 										<tbody>
-											<c:forEach var="matchRecodeFieldList" items="${matchRecodeFieldList}">
+											<c:forEach var="matchRecordFieldList" items="${matchRecordFieldList}">
 												<tr>
-													<td>${matchRecodeFieldList.facilityName }</td>
-													<td>${matchRecodeFieldList.fieldName }</td>
-													<td>${matchRecodeFieldList.reservationNo }</td>
-													<td>${matchRecodeFieldList.calendarStartTime } ~ ${matchRecodeFieldList.calendarEndTime }</td>													
-													<td><a href ="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessInsert?reservationNo=${matchRecodeFieldList.reservationNo }" >기록 작성하기</a></td>
+													<td>${matchRecordFieldList.facilityName }</td>
+													<td>${matchRecordFieldList.fieldName }</td>
+													<td>${matchRecordFieldList.reservationNo }</td>
+													<td>${matchRecordFieldList.calendarStartTime } ~ ${matchRecordFieldList.calendarEndTime }</td>													
+													<td><a href ="${pageContext.request.contextPath}/matchRecord/matchRecordBusinessInsert?reservationNo=${matchRecordFieldList.reservationNo }" >기록 작성하기</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

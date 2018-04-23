@@ -1,6 +1,6 @@
-package com.ezground.teamproject.matchRecode.dto;
+package com.ezground.teamproject.matchRecord.dto;
 
-public class MatchRecodeFieldList {
+public class MatchRecordFieldList {
 	
 	private int facilityNo;
 	private String facilityName;

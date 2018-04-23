@@ -1,8 +1,8 @@
-package com.ezground.teamproject.matchRecode.dto;
+package com.ezground.teamproject.matchRecord.dto;
 
 import java.util.Date;
 
-public class MatchScoreRecode {
+public class MatchScoreRecord {
 	
 	private int scoreNo;
 	private int reservationNo;
@@ -13,7 +13,7 @@ public class MatchScoreRecode {
 	private String scoreSet;
 	private String scoreGame;
 	private String scoreTime;
-	private String scoreRecode;
+	private String scoreRecord;
 	private int writeMemberNo;
 	private Date scoreWriteTime;
 	
@@ -23,7 +23,7 @@ public class MatchScoreRecode {
 		return "MatchScoreRecode [scoreNo=" + scoreNo + ", reservationNo=" + reservationNo + ", matchNoticeNo="
 				+ matchNoticeNo + ", sportEntriesNo=" + sportEntriesNo + ", teamNo=" + teamNo + ", matchJoinMemberNo="
 				+ matchJoinMemberNo + ", scoreSet=" + scoreSet + ", scoreGame=" + scoreGame + ", scoreTime=" + scoreTime
-				+ ", scoreRecode=" + scoreRecode + ", writeMemberNo=" + writeMemberNo + ", scoreWriteTime="
+				+ ", scoreRecode=" + scoreRecord + ", writeMemberNo=" + writeMemberNo + ", scoreWriteTime="
 				+ scoreWriteTime + "]";
 	}
 	public int getScoreNo() {
@@ -80,11 +80,11 @@ public class MatchScoreRecode {
 	public void setScoreTime(String scoreTime) {
 		this.scoreTime = scoreTime;
 	}
-	public String getScoreRecode() {
-		return scoreRecode;
+	public String getScoreRecord() {
+		return scoreRecord;
 	}
-	public void setScoreRecode(String scoreRecode) {
-		this.scoreRecode = scoreRecode;
+	public void setScoreRecord(String scoreRecord) {
+		this.scoreRecord = scoreRecord;
 	}
 	public int getWriteMemberNo() {
 		return writeMemberNo;

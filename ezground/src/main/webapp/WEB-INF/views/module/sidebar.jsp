@@ -50,6 +50,13 @@
 											</ul>
 										</li>
 										<li>
+											<span class="opener">매치 기록</span>
+											<ul>												
+												<li><a href="${pageContext.request.contextPath}/matchRecord/matchRecordBusinessSelectList">진행된 경기 리스트</a></li>
+												<li><a href="${pageContext.request.contextPath}/matchRecord/matchRecord">자신의 매치 기록</a></li>																					
+											</ul>
+										</li>
+										<li>
 											<span class="opener">게시판</span>
 											<ul>
 												<li><a href="#">공지사항</a></li>

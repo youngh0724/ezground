@@ -1,6 +1,6 @@
-package com.ezground.teamproject.matchRecode.dto;
+package com.ezground.teamproject.matchRecord.dto;
 
-public class MatchRecodeInfo {
+public class MatchRecordInfo {
 	
 	private int matchJoinMemberNo;
 	private int matchNoticeNo;

@@ -28,8 +28,7 @@
 								<section id="banner">
 									<div class="content">
 										<h2>경기 기록등록 페이지 </h2>
-											<input id="addRecodeLine" type="button" value="추가">								
-										<form action="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessInsert" method="post">
+											
 											<table id="recodeLine" border="1">
 												<thead>
 													<tr>
@@ -38,7 +37,34 @@
 														<th>시간</th>
 														<th>점수</th>																							
 														<th>득점 맴버</th>
-														<th>폼 삭제</th>
+														<th>기록 삭제</th>
+													</tr>	
+												</thead>
+												<tbody>
+													<c:forEach var="scoreRecord" items="${reservationInfo.MatchScoreRecordList}">												
+														<tr>
+															<td>${scoreRecord.scoreSet}</td>
+															<td>${scoreRecord.scoreGame}</td>
+															<td>${scoreRecord.scoreTime}</td>
+															<td>${scoreRecord.scoreRecord}</td>													
+															<td>${scoreRecord.memberName}</td>
+															<td><a href="${pageContext.request.contextPath}/matchRecode/matchRecodeBusinessDelete?
+																	scoreNo=${scoreRecord.scoreNo}&reservationNo=${scoreRecord.reservationNo}">삭제</a>
+															</td>
+														</tr>
+													</c:forEach>													
+												</tbody>
+												</table>
+																		
+										<form action="${pageContext.request.contextPath}/matchRecord/matchRecordBusinessInsert" method="post">
+											<table id="recodeLine" border="1">
+												<thead>
+													<tr>
+														<th>세트</th>
+														<th>게임</th>
+														<th>시간</th>
+														<th>점수</th>																							
+														<th>득점 맴버</th>														
 													</tr>	
 												</thead>
 												<tbody>												
@@ -46,27 +72,26 @@
 															<td><input id="" name="scoreSet" type="text"></td>
 															<td><input id="" name="scoreGame" type="text"></td>
 															<td><input id="" name="scoreTime" type="text"></td>
-															<td><input id="" name="scoreRecode" type="text"></td>													
+															<td><input id="" name="scoreRecord" type="text"></td>													
 															<td>
-																<select name="matchJoinMemberNo">
+																<select id="matchJoinMemberList">
 																	<c:forEach var="memberList" items="${reservationInfo.matchJoinMemberList}">
-																	    <option value="${memberList.matchJoinMemberNo}">
+																	    <option data-memberNo="${memberList.matchJoinMemberNo}" data-teamNo="${memberList.teamNo}">
 																	        ${memberList.memberName}
-																	    </option>
+																	    </option>																	 
 																 	</c:forEach>
 																</select>
 																<input id="" name="matchNoticeNo" type="hidden" value="${reservationInfo.reservation.matchNoticeNo }">
-																<input id="" name="sportEntriesNo" type="hidden" value="${reservationInfo.reservation.sportEntriesNo }">
-																<input id="" name="teamNo" type="hidden" value="${reservationInfo.reservation.teamNo }">
+																<input id="" name="sportEntriesNo" type="hidden" value="${reservationInfo.reservation.sportEntriesNo }">														
 																<input id="" name="reservationNo" type="hidden" value="${reservationInfo.reservation.reservationNo }">
-															</td>
-															<td></td>
+																<input id="teamNo" name="teamNo" type="hidden" >
+																<input id="matchJoinMemberNo" name="matchJoinMemberNo" type="hidden" >
+															</td>														
 														</tr>													
 												</tbody>
 												</table>									
 											<input type="submit" value="경기 기록 등록">
-										</form> 
-																	
+										</form> 														
 									</div>									
 								</section>												
 							</div>
@@ -84,37 +109,22 @@
 			</div>
 			<jsp:include page="/WEB-INF/views/module/footLink.jsp" />
 			
-	</body>	
-	
-	<script type="text/javascript">
-	
-		$('#addRecodeLine').click(function(){
-			var inputForm = '<tr>'
-								+'<td><input id="" name="scoreSet" type="text"></td>'
-								+'<td><input id="" name="scoreGame" type="text"></td>'
-								+'<td><input id="" name="scoreTime" type="text"></td>'
-								+'<td><input id="" name="scoreRecode" type="text"></td>'											
-								+'<td>'
-									+'<select name="matchJoinMemberNo">'
-										+'<c:forEach var="memberList" items="${reservationInfo.matchJoinMemberList}">'
-										    +'<option value="${memberList.matchJoinMemberNo}">'
-										        +'{memberList.memberName}'
-										    +'</option>'
-									 	+'</c:forEach>'
-									+'</select>'
-									+'<input id="" name="matchNoticeNo" type="hidden" value="${reservationInfo.reservation.matchNoticeNo }">'
-									+'<input id="" name="sportEntriesNo" type="hidden" value="${reservationInfo.reservation.sportEntriesNo }">'
-									+'<input id="" name="teamNo" type="hidden" value="${reservationInfo.reservation.teamNo }">'
-									+'<input id="" name="reservationNo" type="hidden" value="${reservationInfo.reservation.reservationNo }">'
-								+'</td>'
-								+'<td><input id="deleteRecodeLine" type="button" value="삭제"></td>'
-							+'</tr>';
-			$('#"recodeLine" > tbody:last').append(inputForm);
-		});
+	</body>
 		
-		$('#deleteRecodeLine').click(function(){
-			$('#"recodeLine" > tbody:last > tr:last').remove();
-		});
+	<script type="text/javascript">
+	$("#matchJoinMemberList").change(function () { 
+	
+		var info = $('#matchJoinMemberList option:selected');
+		
+		var teamNo = info.attr('data-teamNo');
+		var memberNo = info.attr('data-memberNo');
+		
+		$('#teamNo').val(teamNo);
+		$('#matchJoinMemberNo').val(memberNo);
+		console.log($('#teamNo').val());
+		console.log($('#matchJoinMemberNo').val());
+
+	}).change();	
 	
 	</script>
 	

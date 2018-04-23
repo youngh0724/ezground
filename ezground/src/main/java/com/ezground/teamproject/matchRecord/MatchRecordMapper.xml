@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.ezground.teamproject.matchRecord.MatchRecordMapper">
+ 
+ 	<!-- 날짜와 접속한 사업자(시설관리자)로 진행된 경기를 조회하여 리스트화한다. -->
+ 	<select id="matchRecordBusinessSelectList"
+ 			parameterType="java.util.Map"
+ 			resultType="com.ezground.teamproject.matchRecord.dto.MatchRecordFieldList">
+ 		SELECT
+			f.facility_no as facilityNo,
+			f.facility_name as facilityName,
+			t.field_no as fieldNo,
+			t.field_name as fieldName,
+			f.member_no as memberNo,
+			r.match_notice_no as matchNoticeNo,
+			r.reservation_no as reservationNo,
+			r.calendar_date as calendarDate,
+			r.calendar_start_time as calendarStartTime,
+			r.calendar_end_time as calendarEndTime
+		FROM t_facility f INNER JOIN t_facility_field t INNER JOIN t_reservation r
+		ON f.facility_no = t.facility_no AND t.field_no = r.field_no
+		WHERE f.member_no = #{memberNo}
+		<if test="reservationDay != null">
+			AND r.calendar_date = #{reservationDay}
+		</if>
+		<if test="reservationDay == null">
+			AND r.calendar_date = CURDATE()
+		</if>			
+		ORDER BY r.calendar_start_time DESC							
+ 	</select>
+ 	
+ 	<!-- -->
+ 	<select id="reservationSelectOne"
+ 			resultType="com.ezground.teamproject.reservation.dto.Reservation">
+ 		SELECT 
+			match_notice_no AS matchNoticeNo,
+			sport_entries_no AS sportEntriesNo,
+			team_no AS teamNo,
+			reservation_no AS reservationNo			
+		FROM t_reservation
+		WHERE reservation_no = #{reservationNo} 	
+ 	</select>
+ 	
+ 	<!--  -->
+ 	<select id="matchJoinMemberSelectList"
+ 			resultType="com.ezground.teamproject.matchRecord.dto.MatchRecordInfo">
+ 		SELECT 
+ 			j.match_join_member_no AS matchJoinMemberNo,
+			j.match_notice_no AS matchNoticeNo,
+			j.member_no AS memberNo,
+			j.team_no AS teamNo,
+			j.home_away AS homeAway,
+			m.member_name AS memberName
+		FROM t_match_join_member j INNER JOIN t_member m
+		ON j.member_no = m.member_no
+		WHERE match_notice_no = #{matchNoticeNo} AND (home_away = 'home' or home_away = 'away')
+ 	
+ 	</select>
+ 	
+ 	<!--  -->
+ 	<insert id="matchRecordBusinessInsert"
+ 			parameterType="com.ezground.teamproject.matchRecord.dto.MatchScoreRecord">
+ 		INSERT INTO t_score_record(
+ 			reservation_no,
+ 			match_notice_no,
+ 			sport_entries_no,
+ 			team_no,
+ 			match_join_member_no,
+ 			score_set,
+ 			score_game,
+ 			score_time,
+ 			score_record,
+ 			write_member_no,
+ 			score_write_time)
+ 		VALUES (
+ 			#{reservationNo},
+			#{matchNoticeNo},
+			#{sportEntriesNo},	 
+			#{teamNo}, 
+			#{matchJoinMemberNo},
+			#{scoreSet},
+			#{scoreGame},
+			#{scoreTime},
+			#{scoreRecord},
+			#{writeMemberNo},
+			now())	 	
+ 	</insert>	
+ 	
+ 	<!--  -->
+ 	<select id="matchScoreRecordSelectList"
+ 			resultType="com.ezground.teamproject.matchRecord.dto.MatchScoreRecordSelectList">
+ 		SELECT
+			s.score_no AS scoreNo,
+			s.reservation_no AS reservationNo,
+		 	s.match_notice_no AS matchNoticeNo,
+		 	s.score_set AS scoreSet,
+		 	s.score_game AS scoreGame,
+		 	s.score_time AS scoreTime,
+		 	s.score_record AS scoreRecord,
+		 	m.member_name AS memberName
+		FROM t_score_record s INNER JOIN t_match_join_member j INNER JOIN t_member m
+		ON s.match_join_member_no = j.match_join_member_no AND j.member_no = m.member_no
+		WHERE s.reservation_no = #{reservationNo}		
+ 	</select>
+ 	
+ 	<!--  -->
+ 	<delete id="matchRecordBusinessDelete">
+ 		DELETE FROM t_score_record
+ 		WHERE score_no = #{scoreNo} 	
+ 	</delete>
+ 	
+ 	<!--  -->
+ 	<select id="matchRecordListMatchNoticeNoByTeam"
+ 			parameterType="java.util.Map"
+ 			resultType="Integer">
+ 		SELECT 
+			n.match_notice_no	
+		FROM t_match_notice n INNER JOIN t_score_record r INNER JOIN t_match_join_member j
+		ON n.match_notice_no = r.match_notice_no AND n.match_notice_no = j.match_notice_no
+		WHERE n.match_notice_status = 'matchComplete' 
+			AND (j.home_away = 'home' or j.home_away = 'away') 
+			AND j.team_no = #{teamNo}
+		<if test="memberNo != null">
+			AND j.member_no = #{memberNo}
+		</if>
+		GROUP BY j.team_no	
+ 	</select>	
+ 	
+ 	<!--  -->
+ 	<select id="matchRecordListTeamNo"
+ 			resultType="Integer">
+ 		SELECT 
+			team_no
+		FROM t_score_record 
+		WHERE match_notice_no = #{matchNoticeNo}		 	
+ 	</select>
+
+ 	<!--  -->
+ 	<select id="matchTeamNameSelect"
+ 			resultType="String">
+ 		SELECT 
+			team_name
+		FROM t_team
+		WHERE team_no = #{yourTeamNo}		 	
+ 	</select> 	
+ </mapper>
