@@ -31,10 +31,19 @@
 				<h4>내 예약 정보</h4>		
 				<table border="1">
 				<tr>
-					<th>구장 이름</th>					
-						<tr>
-							<td></td>							
-						</tr>				
+					<th>구장</th>
+					<th>예약 날짜</th>	
+					<th>예약 시간</th>		
+					<th>예약 취소</th>				
+				</tr>	
+				<c:forEach var="reserv" items="${reserv}">
+					<tr>
+						<td>${reserv.fieldName}</td>
+						<td>${reserv.calendarDate}</td>
+						<td>${reserv.calendarStartTime}~${reserv.calendarEndTime}</td>																			
+						<td><a class="btn btn-default" href="${pageContext.request.contextPath}/reservation/reservationDelete?reservationNo=${reserv.reservationNo}">예약 취소</a></td>
+					</tr>	
+				</c:forEach>			
 				</table>				
 			</div>
 			<div class="col-sm-6 col-lg-6">
@@ -42,10 +51,14 @@
 				<table border="1">
 					<tr>
 						<th>팀 이름</th>
+						<th>수정</th>
+						<th>삭제</th>
 					</tr>
-					<c:forEach var="team" items="${list}">
+					<c:forEach var="team" items="${team}">
 						<tr>
-							<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}&sportEntriesNo=${sportEntriesNo}">${team.teamName}</a></td>							
+							<td><a href="${pageContext.request.contextPath}/team/teamDetail?teamNo=${team.teamNo}&sportEntriesNo=${sportEntriesNo}">${team.teamName}</a></td>
+							<td><a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamUpdate?teamNo=${team.teamNo}">수정</a></td>
+							<td><a class="btn btn-default" href="${pageContext.request.contextPath}/team/teamDelete?teamNo=${team.teamNo}">삭제</a></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -88,13 +101,14 @@
 	
 	
 <script type = "text/javascript">
-function btn_team_join() {
-	if(confirm("가입 신청 메세지를 보내시겠습니까?") == true) {
-	   location.href = "${pageContext.request.contextPath}/teamMember/teamMemberInsert?teamNo=${team.teamNo}&calendarNo=2"
+function btn_reserv_delete() {
+	if(confirm("정말 예약을 취소 하시겠습니까?") == true) {
+	   location.href="
 	}else{
 	   return;
-	}
+	}	
 }
+
 </script>
 
 </html>

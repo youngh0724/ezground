@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.reservation.dto.Reservation;
 import com.ezground.teamproject.team.TeamDao;
 
@@ -47,5 +48,15 @@ public class ReservationDao {
 	public int reservationInsert(Reservation reservation) {
 		logger.debug("reservationInsert() reservation = {}", reservation);
 		return sqlSessionTemplate.insert(mapperRoot+"reservationInsert", reservation);
+	}
+	
+	public int reservationDelete(int reservationNo) {
+		logger.debug("reservationDelete() reservationNo = {}", reservationNo);
+		return sqlSessionTemplate.delete(mapperRoot+"reservationDelete", reservationNo);
+	}
+	
+	public List<FacilityCalendar> fieldCalendarSelect(int fieldNo) {
+		logger.debug("fieldCalendarSelect() fieldNo = {}", fieldNo);
+		return sqlSessionTemplate.selectList(mapperRoot+"fieldCalendarSelect", fieldNo);
 	}
 }

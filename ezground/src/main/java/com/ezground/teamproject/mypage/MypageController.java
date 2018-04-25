@@ -29,23 +29,28 @@ public class MypageController {
 	@RequestMapping(value="/mypage/mypage", method = RequestMethod.GET)
 	public String myPage(Model model, HttpSession session,
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
-			@RequestParam(value="rowPerPage", defaultValue="5") int rowPerPage,
-			@RequestParam(value="searchWord", required=false) String searchWord) {		
-		Map map = mypageService.mypageTeamList(currentPage, rowPerPage);
+			@RequestParam(value="rowPerPage", defaultValue="5") int rowPerPage) {			
 		
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
-		logger.debug("mypage() memberNo = {}", memberNo);
+		Map map = mypageService.mypageTeamList(currentPage, rowPerPage, memberNo);
+		logger.debug("mypageTeamList() memberNo = {}", memberNo);
+		
 		List<Team> list = (List<Team>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");
 		int lastPage = (totalCount/rowPerPage)+1;
 		
-		model.addAttribute("list", list);
+		List<Reservation> list2 = mypageService.mypageReservList(memberNo);
+		logger.debug("mypageReservList() memberNo = {}", memberNo);		
+		
+		model.addAttribute("reserv", list2);
+		model.addAttribute("team", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("rowPerPage", rowPerPage);
-		model.addAttribute("currentPage", currentPage);
-		
+		model.addAttribute("currentPage", currentPage);			
 				
 	return "mypage/mypage";
 	}
+	
+	
 }

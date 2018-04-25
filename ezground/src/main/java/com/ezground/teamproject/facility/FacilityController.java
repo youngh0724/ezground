@@ -133,7 +133,7 @@ public class FacilityController {
 		public String facilityInsertUpdate(Facility facility) {
 			logger.debug("FacilityController facilityInsertUpdate facility = {}", facility.getFacilityNo());
 			facilityService.facilityInsertUpdate(facility);
-			return "redirect:/facility/memberFacilityInsertStatusListForm";
+			return "redirect:/facility/facilityInsertStatusListForm";
 		}
 		
 		// 관리자용 시설 등록 신청 리스트 조회

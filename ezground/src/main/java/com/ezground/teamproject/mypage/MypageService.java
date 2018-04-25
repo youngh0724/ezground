@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ezground.teamproject.member.dto.MemberLogin;
+import com.ezground.teamproject.reservation.dto.Reservation;
 import com.ezground.teamproject.team.TeamDao;
 import com.ezground.teamproject.team.dto.Team;
 
@@ -25,14 +27,15 @@ public class MypageService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MypageService.class);
 
-	public Map<String, Object> mypageTeamList(int currentPage, int rowPerPage) {
+	public Map<String, Object> mypageTeamList(int currentPage, int rowPerPage, int memberNo) {
 		
 		int startRow = (currentPage-1)*rowPerPage;
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("memberNo", memberNo);
 		
-		List<Team> list = teamDao.teamSelectListByPage(map);
+		List<Team> list = teamDao.teamSelectMyTeam(map);
 		logger.debug("mypageService() list = {}", list);
 		int totalCount = teamDao.teamSelectTotalCount();
 		logger.debug("teamSelectListByPage() totalCount = {}", totalCount);
@@ -41,7 +44,11 @@ public class MypageService {
 		returnMap.put("list", list);
 		returnMap.put("totalCount", totalCount);
 		
-		return returnMap;
-		
+		return returnMap;		
+	}
+	
+	public List<Reservation> mypageReservList(int memberNo) {		
+		List<Reservation> list2 = mypageDao.mypageReservList(memberNo);
+		return list2;
 	}
 }

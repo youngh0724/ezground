@@ -79,4 +79,25 @@
   		VALUES (#{memberNo}, #{facilityNo}, #{fieldNo}, #{calendarNo}, #{matchNoticeNo}, #{teamNo}, #{fieldName}, #{fieldPrice}, #{facilityName}, #{facilityAddress}, #{calendarStartTime}, #{calendarEndTime}, #{calendarDate}, #{sportEntriesNo}, now(), #{reservationStatus})
   		  	
   	</insert>
+  	
+  	<delete id="reservationDelete"
+  			parameterType="int">
+  		DELETE FROM t_reservation
+  		WHERE reservation_no = #{reservationNo}  			
+  	
+  	</delete>
+  	
+  	<select id="fieldCalendarSelect"
+  			parameterType="com.ezground.teamproject.facility.dto.FacilityCalendar"
+  			resultType="com.ezground.teamproject.facility.dto.FacilityCalendar">
+  		SELECT 
+  			calendar_no AS calendarNo
+  			,calendar_start_time AS calendarStartTime
+  			,calendar_end_time AS calendarEndTime
+  			,calendar_date AS calendarDate
+  			,calendar_status AS calendarStatus
+  		FROM t_facility_calendar
+  		WHERE field_no = #{fieldNo}
+  		ORDER BY calendar_no
+  	</select>
   </mapper>

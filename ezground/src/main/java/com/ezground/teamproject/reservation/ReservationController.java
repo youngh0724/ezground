@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
@@ -60,9 +61,11 @@ public class ReservationController {
 										@RequestParam(value="fieldNo", required=true) int fieldNo) {
 		logger.debug("fieldSelectListDetail() fieldNo = {}", fieldNo);
 		FacilityAndFacilityField facilityAndFacilityField = reservationService.fieldSelectListDetail(fieldNo);		
-			
-		model.addAttribute("field", facilityAndFacilityField);
+		List<FacilityCalendar> facilityCalendar = reservationService.fieldCalendarSelect(fieldNo);
 		
+		
+		model.addAttribute("field", facilityAndFacilityField);
+		model.addAttribute("calendar", facilityCalendar);
 		return "facility/facilityFieldDetail";
 	}	
 	
@@ -96,6 +99,14 @@ public class ReservationController {
 		return "redirect:/facility/facilityFieldDetail";
 	}
 	
+	@RequestMapping(value="reservation/reservationDelete", method = RequestMethod.GET)
+	public String reservationDelete(HttpSession session, @RequestParam(value="reservationNo", required=true) int reservationNo) {
+		logger.debug("reservationDelete() reservationNo = {}", reservationNo);
+	
+		reservationService.reservationDelete(reservationNo);
+		
+		return "redirect:/reservation/reservationList";
+	}
 }
 
 

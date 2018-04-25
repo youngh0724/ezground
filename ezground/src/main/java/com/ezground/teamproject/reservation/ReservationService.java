@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.reservation.dto.Reservation;
 
@@ -79,6 +80,17 @@ public class ReservationService {
 		
 		reservationDao.reservationInsert(reservation);	
 	
+	}
+	public void reservationDelete(int reservationNo) {
+		logger.debug("reservationDelete() reservationNo = {}", reservationNo);
+		
+		reservationDao.reservationDelete(reservationNo);
+	}
+	
+	public List<FacilityCalendar> fieldCalendarSelect(int fieldNo) {
+		logger.debug("fieldCalendarSelect() fieldNo = {}", fieldNo);
+		List<FacilityCalendar> facilityCalendar = reservationDao.fieldCalendarSelect(fieldNo);
+		return facilityCalendar;
 	}
 	
 }
