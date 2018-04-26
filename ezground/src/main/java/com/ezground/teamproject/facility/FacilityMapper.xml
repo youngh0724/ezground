@@ -205,11 +205,7 @@
 				WHERE facility_no = #{facilityNo}
 		</select>
 		
-		<delete id="facilitySubDelete"
-				parameterType="java.util.Map">
-			DELETE FROM t_facility_and_facility_sub
-			WHERE facility_no = #{facilityNo} AND sub_no = #{subNo}		
-		</delete>
+	
 		
 		<!--  부대 시설 등록 처리 -->
 		<insert id="facilityAndFacilitySub"

@@ -84,8 +84,7 @@
 				</value>	
 				<value>classpath:com/ezground/teamproject/mypage/MypageMapper.xml
 				</value>
-				<value>classpath:com/ezground/teamproject/board/BoardMapper.xml
-				</value>		
+					
 			
 			</list>
 		</property>
@@ -94,5 +93,5 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="BoardPage" class="com.ezground.teamproject.board.dto.BoardPage"></bean>
+	
 </beans>

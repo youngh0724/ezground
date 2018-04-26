@@ -284,13 +284,7 @@ public class FacilityController {
 			redirectAttributes.addAttribute("facilityNo", facilityNo);
 					return "redirect:/facility/facilitySubInsertForm";
 		}
-		@RequestMapping
-		public String facilitySubDelete(HttpSession session, @RequestParam(value="facilityNo", required=true) int facilityNo
-														    ,@RequestParam(value="subNo", required=true) int subNo) {
-			logger.debug("facilitySubDelete facilityNo = {}", facilityNo);
-			facilityService.facilitySubDelete(facilityNo, subNo);
-			return "redirect:/facility/facilitySubInsertForm";
-		}
+	
 		// 회원 번호로 시설 이름 AND 시설 번호 가져오기
 		@RequestMapping(value="facility/facilityAndFieldListForm", method = RequestMethod.GET)
 		public String facilityFieldList(HttpSession session, Model model) {
