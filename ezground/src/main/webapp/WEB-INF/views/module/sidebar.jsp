@@ -59,7 +59,7 @@
 										<li>
 											<span class="opener">게시판</span>
 											<ul>
-												<li><a href="#">공지사항</a></li>
+												<li><a href="${pageContext.request.contextPath}/board/boardList?boardCategoryNo=1">공지사항</a></li>
 												<li><a href="#">자유게시판</a></li>
 												<li><a href="#">매치게시판</a></li>																				
 											</ul>
