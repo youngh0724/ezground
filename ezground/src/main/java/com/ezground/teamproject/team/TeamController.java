@@ -126,9 +126,7 @@ public class TeamController {
 		logger.debug("teamDelete() teamNo = {}", teamNo);	
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();
-		teamService.teamMemberDelete(teamNo, memberNo);					
-
-	
+		teamService.teamMemberDelete(teamNo, memberNo);			
 		return "redirect:/team/teamList";
 	}
 	

@@ -53,16 +53,20 @@
 											
 						<c:forEach var="field" items="${fieldlist}">
 							    													
-								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 33%; height:295px; padding:10px; text-align:center;">
-									<img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" style='height: 100%; width: 100%; object-fit: contain; vertical-align: bottom;'>
-									${field.fieldName}
+								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 38%; height:295px; padding:10px; text-align:center;">
+									<img src="${pageContext.request.contextPath}/resources/images/field/${field.fieldNo}.jpg" style='height: 250px; width: 100%; object-fit: contain; vertical-align: bottom;'>
+									<h4>${field.fieldName}</h4>
+									
 								</div>
-								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 55%; height:295px; padding:10px;">
+								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 50%; height:295px; padding:10px;">
 									구장 위치 : ${field.facilityAddress} <br>
 									구장 크기 : ${field.fieldSize} <br>
-									적정 인원 : ${field.fieldPeopleNumber} <br>									
-									<a href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>										
+									적정 인원 : ${field.fieldPeopleNumber} <br>	
+									<a class="btn btn-default" href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>																			
 								</div>	
+								
+									
+								
 													
 						</c:forEach>
 		

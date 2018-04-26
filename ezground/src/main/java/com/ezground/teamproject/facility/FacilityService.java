@@ -229,6 +229,16 @@ public class FacilityService {
 			facilityDao.facilitySubInsert(facilityAndFacilitySub);
 		}		
 	}
+	
+	public int facilitySubDelete(int facilityNo, int subNo) {
+		logger.debug("facilitySubDelete() facilityNo= {}", facilityNo);
+		Map map = new HashMap();
+		map.put("facilityNo", facilityNo);
+		map.put("subNo", subNo);
+		
+		int row = facilityDao.facilitySubDelete(map);
+		return row; 
+	}
 	// 회원 번호로 시설 이름 꺼내오기
 	public List<Facility> facilitySelect(int memberNo){
 		logger.debug("FacilityService facilitySelect memberNo = {}", memberNo);

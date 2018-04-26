@@ -111,6 +111,10 @@ public class FacilityDao {
 	public int facilitySubInsert(FacilityAndFacilitySub facilityAndFacilitySub) {
 		return sqlSessionTemplate.insert(mapperRoot+"facilityAndFacilitySub", facilityAndFacilitySub);
 	}
+	
+	public int facilitySubDelete(Map map) {
+		return sqlSessionTemplate.delete(mapperRoot+"facilitySubDelete", map);
+	}
 	// 부대 시설 번호 가져오기
 	public List<Integer> subNoSelect(int facilityNo) {
 		return sqlSessionTemplate.selectList(mapperRoot+"subNoSelect", facilityNo);
