@@ -25,6 +25,7 @@ import com.ezground.teamproject.facility.dto.FacilityField;
 import com.ezground.teamproject.facility.dto.FacilityImage;
 import com.ezground.teamproject.facility.dto.FacilitySub;
 import com.ezground.teamproject.match.dto.MatchNotice;
+import com.ezground.teamproject.teamMember.dto.TeamMember;
 
 
 @Service
@@ -58,9 +59,9 @@ public class FacilityService {
 	}
 	
 	// 사업자 --> 자신이 시설 등록신청 요청한 정보 보기
-	public List<Facility> memberFacilityInsertStatusList(int memberNo) {
-		logger.debug("FacilityService memberFacilityInsertStatusList memberNo = {}", memberNo);
-		List<Facility> list = facilityDao.memberFacilityInsertStatusList(memberNo);
+	public List<Facility> facilityInsertStatusList(int memberNo) {
+		logger.debug("FacilityService facilityInsertStatusList memberNo = {}", memberNo);
+		List<Facility> list = facilityDao.facilityInsertStatusList(memberNo);
 		return list;
 	}
 	
@@ -252,6 +253,27 @@ public class FacilityService {
 		List<FacilityCalendar> list= facilityDao.fieldCalendarList(fieldNo, date);
 		return list;
 		
+	}
+	
+	public int facilityDelete(int facilityNo, int memberNo) {
+		
+		logger.debug("facilityDelete() facilityNo = {}", facilityNo);	
+		Map map = new HashMap();
+		map.put("facilityNo", facilityNo);
+		map.put("memberNo", memberNo);							
+		Facility facility = facilityDao.facilitySelectOne(facilityNo);
+		
+		if(facility.getMemberNo() == memberNo) {		
+			logger.debug("facilityDelete() facilityNo = {}", facilityNo);		
+			int row = facilityDao.facilityDelete(facilityNo);
+			logger.debug("facilityDelete() row = {}", row);		
+			return row;			
+			}
+			else {
+				
+				logger.debug("시설 등록 정보 삭제 권한이 없습니다.");	
+				return 0;
+			}
 	}
 	
 }

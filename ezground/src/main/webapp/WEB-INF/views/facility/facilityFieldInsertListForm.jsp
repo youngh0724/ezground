@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 		<title>EZ Ground</title>
@@ -25,7 +26,7 @@
 						<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-										<h2>사업자 시설 등록신청 리스트 페이지</h2>
+										<h2>사업자 구장 등록 페이지</h2>
 											<form>		
 											<table class="table table-striped" data-effect="fade">
 												<thead>

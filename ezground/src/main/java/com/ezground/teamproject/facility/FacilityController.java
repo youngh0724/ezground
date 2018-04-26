@@ -81,7 +81,7 @@ public class FacilityController {
 		**/
 		
 		// 사업자 자신이 시설 등록요청한 글 조회
-		@RequestMapping(value="facility/memberFacilityInsertStatusListForm")
+		@RequestMapping(value="facility/facilityInsertStatusListForm")
 		public String memberFacilityInsertStatusSelectList(Model model, HttpSession session) {
 			// 세션에서 뽑아낸 회원 번호 값을 멤버로 형변환 후 데이터 타입 바꿈
 			if(session.getAttribute("MemberLogin") != null) { // 로그인했을때
@@ -96,14 +96,14 @@ public class FacilityController {
 			// 멤버 로그인 변수 안에서 회원 번호를 뽑아내 int 멤버 변수에 담아줌
 			int memberNo = memberLogin.getMemberNo();
 			// 변수 memberNo 에 값이 잘 들어가있는지 확인
-			logger.debug("FacilityController memberFacilityInsertStatusSelectOne memberNo = {}", memberLogin.getMemberNo());
+			logger.debug("FacilityController facilityInsertStatusSelectOne memberNo = {}", memberLogin.getMemberNo());
 			// facilityService.memberFacilityInsertStatusList 호출하여 리턴 받은 값을  List<Facility>타입의 list 변수에 할당
-			List<Facility> list = facilityService.memberFacilityInsertStatusList(memberNo);
+			List<Facility> list = facilityService.facilityInsertStatusList(memberNo);
 			// list안의 정보 확인
-			logger.debug("FacilityController memberFacilityInsertStatusSelectList list = {}", list);
+			logger.debug("FacilityController facilityInsertStatusSelectList list = {}", list);
 			// 변수 list를 키값  List 로 모델에 셋팅해줌
 			model.addAttribute("List", list);
-			return "facility/memberFacilityInsertStatusListForm";
+			return "facility/facilityInsertStatusListForm";
 		}
 		
 		// 사업자 자신이 시설 등록요청한 글 수정화면페이지 요청
@@ -133,7 +133,7 @@ public class FacilityController {
 		public String facilityInsertUpdate(Facility facility) {
 			logger.debug("FacilityController facilityInsertUpdate facility = {}", facility.getFacilityNo());
 			facilityService.facilityInsertUpdate(facility);
-			return "redirect:/facility/memberFacilityInsertStatusListForm";
+			return "redirect:/facility/facilityInsertStatusListForm";
 		}
 		
 		// 관리자용 시설 등록 신청 리스트 조회
@@ -170,7 +170,7 @@ public class FacilityController {
 			String path = session.getServletContext().getRealPath("/resources/images");
 			logger.debug("FacilityController facilityAndFaiclityImageInsert facilityNo = {}", path);
 			facilityService.facilityAndFaiclityImageInsert(facilityAndFaiclityImage, path);
-			return "redirect:/facility/memberFacilityInsertStatusListForm";
+			return "redirect:/facility/facilityInsertStatusListForm";
 		}
 		
 		// 구장 등록이 가능한 시설 리스트  페이지 요청
@@ -370,4 +370,12 @@ public class FacilityController {
 			
 		}
 		
+		@RequestMapping(value="facility/facilityDelete", method = RequestMethod.GET)
+		public String teamDelete(Model model, HttpSession session, @RequestParam(value="facilityNo", required=true) int facilityNo) {
+			logger.debug("facilityDelete() facilityNo = {}", facilityNo);	
+			MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
+			int memberNo = memberLogin.getMemberNo();
+			facilityService.facilityDelete(facilityNo, memberNo);		
+			return "redirect:/facility/facilityInsertStatusListForm";
+		}
 }

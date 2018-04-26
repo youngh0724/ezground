@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 		<title>EZ Ground</title>
@@ -30,13 +31,13 @@
 											<table class="table table-striped" data-effect="fade">
 												<thead>
 													<tr>
-														<th>시설 이름</th>
-														<th>시설 전화번호</th>
-														<th>시설 주소</th>
-														<th>공지 사항</th>
-														<th>상세 정보</th>
-														<th>가격 정보</th>
-														<th>환불 규정</th>
+														<th>시설이름</th>
+														<th>전화번호</th>
+														<th>주소</th>
+														<th>공지사항</th>
+														<th>상세정보</th>
+														<th>가격정보</th>
+														<th>환불규정</th>
 														<th>이용규칙</th>
 														<th>사업자 번호</th>
 														<th>반려 지적사항</th>
@@ -62,7 +63,7 @@
 															<td>${List.facilityStatus}</td>
 															<td><fmt:formatDate value="${List.facilityWriteDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 															<td><a href="${pageContext.request.contextPath}/facility/facilityInsertUpdateForm?facilityNo=${List.facilityNo}">수정</a></td>
-															<td><a href="${pageContext.request.contextPath}/facility/facilityInsertUpdateForm?facilityNo=${List.facilityNo}">삭제</a></td>
+															<td><a href="${pageContext.request.contextPath}/facility/facilityDelete?facilityNo=${List.facilityNo}">삭제</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>

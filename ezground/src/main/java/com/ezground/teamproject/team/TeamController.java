@@ -122,7 +122,7 @@ public class TeamController {
     }
 
 	@RequestMapping(value="/team/teamDelete", method = RequestMethod.GET)
-	public String teamDelete(Model model, HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
+	public String teamDelete(HttpSession session, @RequestParam(value="teamNo", required=true) int teamNo) {
 		logger.debug("teamDelete() teamNo = {}", teamNo);	
 		MemberLogin memberLogin = (MemberLogin)session.getAttribute("MemberLogin");
 		int memberNo = memberLogin.getMemberNo();

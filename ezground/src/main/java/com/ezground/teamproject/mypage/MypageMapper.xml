@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ezground.teamproject.mypage.MypageMapper">
+
+	<select id="mypageReservList"			
+			resultType="com.ezground.teamproject.reservation.dto.Reservation">
+		SELECT 
+			reservation_no AS reservationNo
+			,member_no AS memberNo
+			,field_name AS fieldName
+			,calendar_date AS calendarDate
+			,calendar_start_time AS calendarStartTime
+			,calendar_end_time AS calendarEndTime
+		FROM t_reservation		
+		WHERE member_no = #{memberNo}	
+	
+			
+	</select>
+
+
+</mapper>

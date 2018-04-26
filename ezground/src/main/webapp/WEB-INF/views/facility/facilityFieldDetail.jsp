@@ -41,28 +41,40 @@
 
 						<div class="row" style="margin-bottom: 30;">
 							<div class="col-sm-12 col-lg-12">
-
 								<table border="1">
-
-									<tr>
-										<td><h4>${field.fieldName}</h4> ${field.facilityAddress}
-										</td>
-									</tr>
+								<tr><td><h4>${field.fieldName}</h4> ${field.facilityAddress}</td></tr>
+								</table>
+								<div class="col-sm-6 col-lg-6">
+								<table border="1">								
 									<tr>
 										<td><h4>♦ 공지사항 ♦</h4> ${field.facilityNotice}
 											<h4>♦ 상세정보 ♦</h4> ${field.facilityNotice}
 											<h4>♦ 이용비용 ♦</h4> ${field.facilityPrice}
 											<h4>♦ 환불규정 ♦</h4> ${field.facilityRefund}
 											<h4>♦ 이용규칙 ♦</h4> ${field.facilityRule}</td>
-
 									</tr>
-
 								</table>
-								<a class="btn btn-default"
+								</div>
+								<div class="col-sm-6 col-lg-6">
+								<table border="1">
+									<tr>
+										<th>날짜</th>
+										<th>시간</th>
+										<th>상태</th>
+									</tr>
+									<c:forEach var="calendar" items="${calendar}">
+									<tr>
+										<td>${calendar.calendarDate}</td>
+										<td>${calendar.calendarStartTime}~${calendar.calendarEndTime}										
+										<td><a class="button" href="${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}&calendarNo=${calendar.calendarNo}">${calendar.calendarStatus}</a></td>									
+									</tr>
+									</c:forEach>
+								</table>
+								</div>																	
+							</div>
+							<a class="btn btn-default"
 									href="${pageContext.request.contextPath}/facility/facilityFieldList">리스트로
 									돌아가기</a> 
-									<input type="button" class="btn btn-defalut" value="예약 하기" onclick="btn_reserv();">
-							</div>
 						</div>
 					</div>					
 				</section>
@@ -85,12 +97,11 @@
 <script type="text/javascript">
 	function btn_reserv() {
 		if (confirm("예약 화면으로 이동하시겠습니까?") == true) {
-			location.href = "${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}&calendarNo=2";
+			location.href = "${pageContext.request.contextPath}/reservation/reservationInsert?fieldNo=${field.fieldNo}&calendarNo=${calendar.calendarNo}";
 		} else {
 			return;
 		}
 	}
-
 
 </script>
 </html>

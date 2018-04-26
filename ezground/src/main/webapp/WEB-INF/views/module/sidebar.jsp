@@ -29,7 +29,7 @@
 											<ul>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldList">예약 하기</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertForm">시설 등록</a></li>
-												<li><a href="${pageContext.request.contextPath}/facility/memberFacilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
+												<li><a href="${pageContext.request.contextPath}/facility/facilityInsertStatusListForm">사업자 시설 등록 내역</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityFieldInsertListForm">구장 등록가능 리스트</a></li>
 												<li><a href="${pageContext.request.contextPath}/facility/facilityAndFieldListForm">시설 And 구장 리스트</a></li>
 											</ul>
@@ -64,7 +64,7 @@
 												<li><a href="#">매치게시판</a></li>																				
 											</ul>
 										</li>										
-										<li><a href="#">MYPAGE</a></li>																	
+										<li><a href="${pageContext.request.contextPath}/mypage/mypage">MYPAGE</a></li>																
 									</ul>
 								</nav>
 

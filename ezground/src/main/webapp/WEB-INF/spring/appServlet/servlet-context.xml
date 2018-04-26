@@ -81,7 +81,9 @@
 				<value>classpath:com/ezground/teamproject/teamMember/TeamMemberMapper.xml
 				</value>	
 				<value>classpath:com/ezground/teamproject/reservation/ReservationMapper.xml
-				</value>			
+				</value>	
+				<value>classpath:com/ezground/teamproject/mypage/MypageMapper.xml
+				</value>		
 			
 			</list>
 		</property>

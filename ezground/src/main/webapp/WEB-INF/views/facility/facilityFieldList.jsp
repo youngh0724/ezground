@@ -45,14 +45,7 @@
 									<option value="${pageContext.request.contextPath}/facility/facilityFieldList?rowPerPage=20">20개 보여주기</option>
 								</select><br>
 							</div>
-						</td>
-
-						<td style="margin: auto; text-align: right;">
-							<!--SELECT COUNT OPTION 시작 -->
-							<div>										
-								<a class="btn btn-default" href="${pageContext.request.contextPath}/reservation/reservationManagement">내 예약목록</a>
-							</div>
-						</td>
+						</td>					
 					</tr>
 					<!--SELECT COUNT OPTION 끝 -->
 				</table>				
