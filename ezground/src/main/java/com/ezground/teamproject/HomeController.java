@@ -62,7 +62,15 @@ public class HomeController {
 	public String teamMemberInfo() {
 		logger.info("팀 맴버 정보 화면으로으 요청 처리 메서드 호출 성공");
 		
-		return "teamMemberInfo/teamMemberInfo";
+		return "teamProject/teamMemberInfo";
+	}
+	
+	
+	@RequestMapping(value = "/views/teamProjectIntro", method = RequestMethod.GET)
+	public String teamProjectIntro() {
+		logger.info("팀 맴버 정보 화면으로으 요청 처리 메서드 호출 성공");
+		
+		return "teamProject/teamProjectIntro";
 	}
 	
 	
