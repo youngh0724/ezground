@@ -29,23 +29,24 @@
 				<!-- Banner -->
 				<section id="banner">
 					<div class="content">
-						<h2>새글 작성하기</h2>
+						<h2>작성글 수정하기</h2>
 						<div class="container">						
 							<div class="panel panel-default">
-								<div class="panel-heading">새글 작성하기</div>
+								<div class="panel-heading">수정하기</div>
 								<div class="panel-body">
 									<form action="${pageContext.request.contextPath}/board/boardUpdate" method="post">
 										<table>
 											<tr>
 												<td class="col-sm-2">글 제목</td>
-												<td class="col-sm-10"><input name="boardTitle" type="text">${boardUpdate.board.boardTitle}</td>
+												<td class="col-sm-10"><input name="boardTitle" type="text" value="${boardUpdate.board.boardTitle}"></td>
 											</tr>
 											<tr>
 												<td>본문</td>
-												<td><textarea name="boardContent" rows="15" >${boardDetail.board.boardContent}</textarea></td>
+												<td><textarea name="boardContent" rows="15">${boardUpdate.board.boardContent}</textarea></td>
 											</tr>						
 										</table>
-										<input name="boardCategoryNo" type="hidden" value="${boardCategoryNo }">
+										<input name="boardCategoryNo" type="hidden" value="${boardUpdate.board.boardCategoryNo }">
+										<input name="boardNo" type="hidden" value="${boardUpdate.board.boardNo }">
 										<input type="submit" value="등록"><button id="" >취소</button><a type="button" href="#" >취소</a>								
 									</form>								
 								</div>

@@ -166,7 +166,12 @@ public class MatchRecordController {
 			
 			// 종목번호와 맴버번호로 팀번호를 조회한다.
 			Integer teamNo = matchService.teamNoSelectOne(entryNo, memberLogin.getMemberNo());
-			logger.debug("matchRecordSelect() teamNo = {}", teamNo);	
+			logger.debug("matchRecordSelect() teamNo = {}", teamNo);
+			
+			// 현재 종목에 가입된 팀이 없으면 팀 생성 화면으로 이동한다.
+			if (teamNo == null) {
+				return "team/teamInsert";
+			}
 			
 			Map<String, Object> teamMap = matchRecordService.matchRecordResultList(teamNo);
 			
