@@ -61,8 +61,22 @@
 								<div style="border-radius: 7px; border:solid #dedede; float:left; width: 50%; height:295px; padding:10px;">
 									구장 위치 : ${field.facilityAddress} <br>
 									구장 크기 : ${field.fieldSize} <br>
-									적정 인원 : ${field.fieldPeopleNumber} <br>	
-									<a class="btn btn-default" href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>																			
+									적정 인원 : ${field.fieldPeopleNumber} <br><br>
+									부대 시설<br>
+									<c:forEach var="subs" items="${field.subs}">
+										<div style='width:20%; float:left'>
+											<table>
+											<tr>
+											<td>
+											${subs.subName}
+											</td>
+											</tr>
+											</table>
+										</div>
+									</c:forEach>
+									<div style='width:100%; float:left'>
+									<a class="btn btn-default" href="${pageContext.request.contextPath}/facility/facilityFieldDetail?fieldNo=${field.fieldNo}">상세보기</a>																									
+									</div>
 								</div>	
 								
 									

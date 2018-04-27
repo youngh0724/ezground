@@ -1,5 +1,7 @@
 package com.ezground.teamproject.facility.dto;
 
+import java.util.List;
+
 public class FacilityAndFacilityField {
 	private int fieldNo;
 	private int facilityNo;
@@ -13,6 +15,7 @@ public class FacilityAndFacilityField {
 	private String facilityPrice;
 	private String facilityRefund;
 	private String facilityRule;
+	private List<FacilityAndFacilitySub> subs;
 	public int getFieldNo() {
 		return fieldNo;
 	}
@@ -85,13 +88,19 @@ public class FacilityAndFacilityField {
 	public void setFacilityRule(String facilityRule) {
 		this.facilityRule = facilityRule;
 	}
+	public List<FacilityAndFacilitySub> getSubs() {
+		return subs;
+	}
+	public void setSubs(List<FacilityAndFacilitySub> subs) {
+		this.subs = subs;
+	}
 	@Override
 	public String toString() {
 		return "FacilityAndFacilityField [fieldNo=" + fieldNo + ", facilityNo=" + facilityNo + ", fieldName="
 				+ fieldName + ", fieldPeopleNumber=" + fieldPeopleNumber + ", fieldSize=" + fieldSize + ", fieldPrice="
 				+ fieldPrice + ", facilityAddress=" + facilityAddress + ", facilityNotice=" + facilityNotice
 				+ ", facilityDetail=" + facilityDetail + ", facilityPrice=" + facilityPrice + ", facilityRefund="
-				+ facilityRefund + ", facilityRule=" + facilityRule + "]";
+				+ facilityRefund + ", facilityRule=" + facilityRule + ", subs=" + subs + "]";
 	}
 	
 }

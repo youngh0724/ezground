@@ -2,18 +2,19 @@ package com.ezground.teamproject.facility.dto;
 
 public class FacilityAndFacilitySub {
 	
-	private int facilityAndFacilitySub;
+	private int facilityAndFacilitySubNo;
 	private int facilityNo;
 	private int subNo;
 	private String subName;
 	private int facilitySubStatus;
 	private int subWriteDate;
 	
-	public int getFacilityAndFacilitySub() {
-		return facilityAndFacilitySub;
+	
+	public int getFacilityAndFacilitySubNo() {
+		return facilityAndFacilitySubNo;
 	}
-	public void setFacilityAndFacilitySub(int facilityAndFacilitySub) {
-		this.facilityAndFacilitySub = facilityAndFacilitySub;
+	public void setFacilityAndFacilitySubNo(int facilityAndFacilitySubNo) {
+		this.facilityAndFacilitySubNo = facilityAndFacilitySubNo;
 	}
 	public int getFacilityNo() {
 		return facilityNo;

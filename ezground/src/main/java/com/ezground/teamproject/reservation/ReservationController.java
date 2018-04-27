@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ezground.teamproject.dto.SportEntries;
 import com.ezground.teamproject.facility.dto.FacilityAndFacilityField;
+import com.ezground.teamproject.facility.dto.FacilityAndFacilitySub;
 import com.ezground.teamproject.facility.dto.FacilityCalendar;
 import com.ezground.teamproject.member.dto.MemberLogin;
 import com.ezground.teamproject.reservation.dto.Reservation;
@@ -41,9 +42,12 @@ public class ReservationController {
 		logger.debug("fieldSelectList() searchWord = {}", searchWord);
 		Map map = reservationService.fieldSelectListByPage(currentPage, rowPerPage, searchWord, sportEntriesName);
 		
+		
 		logger.debug("fieldSeletList() map = {}", map);
 		
+		
 		List<FacilityAndFacilityField> list = (List<FacilityAndFacilityField>)map.get("list");
+	
 		int totalCount = (Integer) map.get("totalCount");		
 		
 		int lastPage = (totalCount/rowPerPage)+1;

@@ -28,7 +28,7 @@ public class ReservationDao {
 		logger.debug("fieldSelectListByPage() map.startRow = {}", map.get("startRow"));
 		logger.debug("fieldSelectListByPage() map.rowPerPage = {}", map.get("rowPerPage"));
 		logger.debug("fieldSelectListByPage() map.searchWord = {}", map.get("searchWord"));
-		logger.debug("fieldSelectListByPage() map.sportEntriesName = {}", map.get("sportEntriesName"));
+		logger.debug("fieldSelectListByPage() map.sportEntriesName = {}", map.get("sportEntriesName"));		
 		return sqlSessionTemplate.selectList(mapperRoot+"fieldSelectPage", map);
 	}
 	public int fieldSelectTotalCount() {

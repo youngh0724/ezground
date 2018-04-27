@@ -7,24 +7,46 @@
   
   	<select id="fieldSelectPage"
 			parameterType="java.util.Map"
-			resultType="com.ezground.teamproject.facility.dto.FacilityAndFacilityField">
+			resultMap="FacilityAndFacilityFieldMap">
 		SELECT 
-			a.field_no AS fieldNo
-			,a.field_name AS fieldName
-			,a.field_size AS fieldSize
-			,a.field_people_number AS fieldPeopleNumber
-			,a.field_price AS fieldPrice
-			,b.facility_no AS facilityNo
-			,b.facility_address	AS facilityAddress				
-		FROM t_facility_field a INNER JOIN t_facility b
-		ON a.facility_no = b.facility_no
+			a.field_no 
+			,a.field_name 
+			,a.field_size 
+			,a.field_people_number
+			,a.field_price 
+			,b.facility_no 
+			,b.facility_address
+			,c.facility_and_facility_sub_no 		
+			,c.sub_name 				
+		FROM t_facility b INNER JOIN t_facility_field a	ON a.facility_no = b.facility_no
+						  INNER JOIN t_facility_and_facility_sub c ON b.facility_no = c.facility_no 
 		WHERE sport_entries_name = #{sportEntriesName}
 		<if test="searchWord != null">
 			WHERE field_name LIKE CONCAT('%',#{searchWord},'%')
 		</if>
 		ORDER BY a.field_no
-		LIMIT #{startRow}, #{rowPerPage}	
+		LIMIT #{startRow}, #{rowPerPage}
+	
 	</select>
+	
+	<resultMap type="com.ezground.teamproject.facility.dto.FacilityAndFacilityField"
+				id="FacilityAndFacilityFieldMap">
+		<id column="field_no" property="fieldNo" />
+		<result column="field_name" property="fieldName" />
+		<result column="field_size" property="fieldSize" />
+		<result column="field_people_number" property="fieldPeopleNumber" />
+		<result column="field_price" property="fieldPrice" />
+		<result column="facility_no" property="facilityNo" />
+		<result column="facility_address" property="facilityAddress" />
+		<collection property="subs" ofType="com.ezground.teamproject.facility.dto.FacilityAndFacilitySub">
+			<id column="facility_and_facility_sub_no" property="facilityAndFacilitySubNo" />
+			<result column="sub_name" property="subName" />			
+		</collection>
+				
+	</resultMap>
+	
+
+
 	
 	<select id="fieldSelectCount"
   			resultType="int">
