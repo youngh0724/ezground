@@ -85,10 +85,15 @@
   	</update>
   	
   	<!--  -->
+  	<select id="boardCategoryNameSelect"
+  			resultType="String">
+  		SELECT 
+  			board_category_name
+  		FROM t_board_category
+  		WHERE board_category_no = #{boardCategoryNo}
   	
   	
-  	
-  	
+  	</select> 	
   	
   	<!--  -->
   	<update id="boardUpdate"

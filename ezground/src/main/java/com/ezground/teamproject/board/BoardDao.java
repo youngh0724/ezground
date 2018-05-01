@@ -64,4 +64,10 @@ public class BoardDao {
 		
 		return sqlSessionTemplate.delete(mapperRoot+"boardDelete", boardNo);
 	}
+	
+	public String boardCategoryNameSelect(BoardPage boardPage) {
+		logger.debug("boardCategoryNameSelect() boardPage = {}", boardPage);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"boardCategoryNameSelect", boardPage);
+	}
 }

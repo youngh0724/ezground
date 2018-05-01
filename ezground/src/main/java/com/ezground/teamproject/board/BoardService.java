@@ -31,6 +31,9 @@ public class BoardService {
 		List<BoardSelectResult> list = boardDao.boardListSelectPage(boardPage);
 		logger.debug("boardListSelectPage() list = {}", list);
 		
+		String boardCategoryName = boardDao.boardCategoryNameSelect(boardPage);
+		logger.debug("boardListSelectPage() boardCategoryName = {}", boardCategoryName);
+		
 		int totalCount = boardDao.boardListSelectTotalCount(boardPage);
 		logger.debug("boardListSelectPage() totalCount = {}", totalCount);
 		boardPage.setTotalCount(totalCount);
@@ -45,6 +48,7 @@ public class BoardService {
 		returnMap.put("totalCount", totalCount);
 		returnMap.put("boardCategoryNo", boardPage.getBoardCategoryNo());
 		returnMap.put("boardPage", boardPage);
+		returnMap.put("boardCategoryName", boardCategoryName);
 		
 		return returnMap;
 	}

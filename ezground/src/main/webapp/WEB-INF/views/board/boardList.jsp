@@ -29,7 +29,7 @@
 				<!-- Banner -->
 				<section id="banner">
 					<div class="content">
-						<h2>공지 게시판</h2>
+						<h2>${boardList.boardCategoryName}</h2>
 
 
 						<div class="row">
